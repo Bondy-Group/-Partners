@@ -350,8 +350,17 @@ select.btn { cursor: pointer; }
 <div class="view active" id="view-dash">
   <div class="main">
 
-    <!-- INGEST -->
-    <div class="ingest-box">
+    <!-- INGEST — solo visible para admin -->
+    <div class="ingest-box admin-only-block" id="ingest-section">
+
+    <!-- Mensaje readonly para usuarios públicos -->
+    <div id="readonly-banner" style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r-md);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+      </div>
+      <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Vista pública</span>
+    </div>
       <div class="ingest-header">
         <h3>Ingestar información</h3>
         <span class="badge-ai" style="background:var(--accent-light);color:var(--accent-mid);font-size:10px;">IA</span>
@@ -552,7 +561,7 @@ select.btn { cursor: pointer; }
 
 <script>
 // ── ADMIN ──
-const ADMIN_CREDS = { user: 'pluspartners', pass: 'credicorp2026' };
+const ADMIN_CREDS = { user: 'admin', pass: 'bondypartners' };
 let isAdmin = false;
 
 function openAdminModal() {
@@ -573,6 +582,7 @@ function doLogin() {
     document.getElementById('btn-admin').textContent = 'Salir admin';
     document.getElementById('btn-admin').style.color = '#fff';
     document.getElementById('admin-indicator').style.display = 'inline';
+    document.getElementById('readonly-banner').style.display = 'none';
     closeAdminModal();
   } else {
     document.getElementById('admin-error').style.display = 'block';
@@ -584,6 +594,7 @@ function logoutAdmin() {
   document.getElementById('btn-admin').textContent = 'Admin';
   document.getElementById('btn-admin').style.color = '';
   document.getElementById('admin-indicator').style.display = 'none';
+  document.getElementById('readonly-banner').style.display = 'flex';
 }
 document.getElementById('admin-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
