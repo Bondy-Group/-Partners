@@ -607,12 +607,11 @@ async function loadFromSheets() {
       PROJECTS[k].docs = [];
     });
 
-    // Proyectos — soporta nombre_display, subtitulo, avatar libres desde el Sheet
+    // Proyectos — nombre, subtitulo, avatar editables directo desde el Sheet
     proyData.forEach(p => {
       if (!PROJECTS[p.id]) return;
-      // Nombre visible: si existe nombre_display en el Sheet lo usa, sino el nombre original
-      if (p.nombre_display) PROJECTS[p.id].name = p.nombre_display;
-      else if (p.nombre) PROJECTS[p.id].name = p.nombre;
+      if (p.nombre) PROJECTS[p.id].name = p.nombre;
+      if (p.nombre_display) PROJECTS[p.id].name = p.nombre_display; // override si existe
       if (p.subtitulo) PROJECTS[p.id].sub = p.subtitulo;
       if (p.avatar) PROJECTS[p.id].avatar = p.avatar;
       PROJECTS[p.id].status = p.estado;
@@ -1237,10 +1236,18 @@ function updateDashCard(pid) {
   const p = PROJECTS[pid];
   const sm = {'En curso':'pill-green','En riesgo':'pill-amber','Bloqueado':'pill-red'};
   const dm = {'En curso':'dot-green','En riesgo':'dot-amber','Bloqueado':'dot-red'};
+  // Nombre y subtítulo
+  const nameEl = document.querySelector(`#card-${pid} .pc-name`);
+  if (nameEl) nameEl.textContent = p.name;
+  const subEl = document.querySelector(`#card-${pid} .pc-sub`);
+  if (subEl) subEl.textContent = p.sub;
+  // Pill de estado
   const pill = document.getElementById(`pill-${pid}`);
   if (pill) { pill.className=`pill ${sm[p.status]}`; pill.innerHTML=`<span class="dot ${dm[p.status]}"></span>${p.status}`; }
+  // Fecha última reunión
   const md = document.getElementById(`md-${pid}`);
   if (md) md.textContent = p.lastMeeting;
+  // Tareas
   const tl = document.getElementById(`tasks-${pid}`);
   if (tl) tl.innerHTML = p.tasks.slice(0,3).map(t=>`<li>${t.task}</li>`).join('');
   const rl = document.getElementById(`risks-${pid}`);
