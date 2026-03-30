@@ -607,9 +607,14 @@ async function loadFromSheets() {
       PROJECTS[k].docs = [];
     });
 
-    // Proyectos
+    // Proyectos — soporta nombre_display, subtitulo, avatar libres desde el Sheet
     proyData.forEach(p => {
       if (!PROJECTS[p.id]) return;
+      // Nombre visible: si existe nombre_display en el Sheet lo usa, sino el nombre original
+      if (p.nombre_display) PROJECTS[p.id].name = p.nombre_display;
+      else if (p.nombre) PROJECTS[p.id].name = p.nombre;
+      if (p.subtitulo) PROJECTS[p.id].sub = p.subtitulo;
+      if (p.avatar) PROJECTS[p.id].avatar = p.avatar;
       PROJECTS[p.id].status = p.estado;
       PROJECTS[p.id].lastMeeting = p.ultima_reunion;
       PROJECTS[p.id].gantt = { start: p.gantt_inicio, end: p.gantt_fin, phase: p.gantt_fase };
