@@ -610,13 +610,17 @@ async function loadFromSheets() {
     // Proyectos — nombre, subtitulo, avatar editables directo desde el Sheet
     proyData.forEach(p => {
       if (!PROJECTS[p.id]) return;
-      if (p.nombre) PROJECTS[p.id].name = p.nombre;
-      if (p.nombre_display) PROJECTS[p.id].name = p.nombre_display; // override si existe
-      if (p.subtitulo) PROJECTS[p.id].sub = p.subtitulo;
-      if (p.avatar) PROJECTS[p.id].avatar = p.avatar;
-      PROJECTS[p.id].status = p.estado;
-      PROJECTS[p.id].lastMeeting = p.ultima_reunion;
-      PROJECTS[p.id].gantt = { start: p.gantt_inicio, end: p.gantt_fin, phase: p.gantt_fase };
+      if (p.nombre) PROJECTS[p.id].name = p.nombre.trim();
+      if (p.nombre_display) PROJECTS[p.id].name = p.nombre_display.trim();
+      if (p.subtitulo) PROJECTS[p.id].sub = p.subtitulo.trim();
+      if (p.avatar) PROJECTS[p.id].avatar = p.avatar.trim();
+      PROJECTS[p.id].status = (p.estado||'').trim();
+      PROJECTS[p.id].lastMeeting = (p.ultima_reunion||'').trim();
+      PROJECTS[p.id].gantt = {
+        start: (p.gantt_inicio||'').trim(),
+        end: (p.gantt_fin||'').trim(),
+        phase: (p.gantt_fase||'').trim()
+      };
     });
 
     // Reuniones → timeline con participants, insights, actions
