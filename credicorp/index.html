@@ -628,25 +628,30 @@ async function loadFromSheets() {
         participants: r.participantes ? r.participantes.split('|') : [],
         content: r.resumen,
         insights: r.insights ? r.insights.split('|') : [],
-        actions: r.actions ? r.actions.split('|').map(a => {
-          const [text, owner, due, status] = a.split('::');
-          return { text, owner, due, status };
+        actions: r.actions ? r.actions.split('|').filter(Boolean).map(a => {
+          const parts = a.split('::');
+          return {
+            text: (parts[0]||'').trim(),
+            owner: (parts[1]||'').trim(),
+            due: (parts[2]||'').trim(),
+            status: (parts[3]||'open').trim()
+          };
         }) : []
       });
     });
 
-    // Tareas
+    // Tareas — solo las open van al array principal, todas quedan disponibles con su estado
     tareasData.forEach(t => {
       const p = PROJECTS[t.proyecto_id];
       if (!p) return;
-      p.tasks.push({ task: t.tarea, owner: t.responsable, priority: t.prioridad });
+      p.tasks.push({ task: t.tarea.trim(), owner: t.responsable.trim(), priority: t.prioridad.trim(), status: t.estado.trim() });
     });
 
     // Documentos
     docsData.forEach(d => {
       const p = PROJECTS[d.proyecto_id];
       if (!p) return;
-      p.docs.push({ name: d.nombre, type: d.tipo, meta: d.meta, status: d.estado, statusLabel: d.estado_label, gdrive: d.gdrive_url });
+      p.docs.push({ name: d.nombre.trim(), type: d.tipo.trim(), meta: d.meta.trim(), status: d.estado.trim(), statusLabel: d.estado_label.trim(), gdrive: (d.gdrive_url||'').trim() });
     });
 
     // Reuniones futuras
@@ -1079,15 +1084,22 @@ function renderTab(tab) {
 
   if (tab === 'tasks') {
     const adminEdit = isAdmin ? 'class="editable-cell" onclick="editCell(this)"' : '';
+    const openTasks = p.tasks.filter(t => t.status !== 'done');
+    const doneTasks = p.tasks.filter(t => t.status === 'done');
+    const renderRow = (t, i, isDone) => `
+      <tr style="${isDone ? 'opacity:0.45;' : ''}">
+        <td ${adminEdit} style="${isDone ? 'text-decoration:line-through;' : ''}">${t.task}</td>
+        <td ${adminEdit}>${t.owner}</td>
+        <td><span class="p-pill p-${t.priority==='Alta'?'alta':t.priority==='Media'?'media':'baja'}">${t.priority}</span></td>
+        <td><span class="${isDone ? 'status-done' : 'status-open'}">${isDone ? 'Hecho' : 'Pendiente'}</span></td>
+        ${isAdmin?`<td><button class="btn btn-ghost btn-sm" onclick="removeTask('${currentProject}',${i})">×</button></td>`:''}
+      </tr>`;
     el.innerHTML = `<table class="tasks-table">
-      <thead><tr><th>Tarea</th><th>Responsable</th><th>Prioridad</th>${isAdmin?'<th></th>':''}</tr></thead>
-      <tbody>${p.tasks.map((t,i) => `
-        <tr>
-          <td ${adminEdit}>${t.task}</td>
-          <td ${adminEdit}>${t.owner}</td>
-          <td><span class="p-pill p-${t.priority==='Alta'?'alta':t.priority==='Media'?'media':'baja'}">${t.priority}</span></td>
-          ${isAdmin?`<td><button class="btn btn-ghost btn-sm" onclick="removeTask('${currentProject}',${i})">×</button></td>`:''}
-        </tr>`).join('')}
+      <thead><tr><th>Tarea</th><th>Responsable</th><th>Prioridad</th><th>Estado</th>${isAdmin?'<th></th>':''}</tr></thead>
+      <tbody>
+        ${openTasks.map((t,i) => renderRow(t, i, false)).join('')}
+        ${doneTasks.length ? `<tr><td colspan="${isAdmin?5:4}" style="padding:8px 12px;font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.07em;border-bottom:0.5px solid var(--border);">Completadas</td></tr>` : ''}
+        ${doneTasks.map((t,i) => renderRow(t, openTasks.length + i, true)).join('')}
       </tbody>
     </table>
     ${isAdmin?`<div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-sm" onclick="addTask('${currentProject}')">+ Agregar tarea</button></div>`:''}`;
@@ -1247,9 +1259,9 @@ function updateDashCard(pid) {
   // Fecha última reunión
   const md = document.getElementById(`md-${pid}`);
   if (md) md.textContent = p.lastMeeting;
-  // Tareas
+  // Tareas — solo open en tarjetas del dashboard
   const tl = document.getElementById(`tasks-${pid}`);
-  if (tl) tl.innerHTML = p.tasks.slice(0,3).map(t=>`<li>${t.task}</li>`).join('');
+  if (tl) tl.innerHTML = p.tasks.filter(t => t.status !== 'done').slice(0,3).map(t=>`<li>${t.task}</li>`).join('');
   const rl = document.getElementById(`risks-${pid}`);
   if (rl && p.openqs.length) rl.innerHTML = `<li>${p.openqs[0].q}</li>`;
   updateCounters();
