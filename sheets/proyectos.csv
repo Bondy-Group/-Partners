@@ -1,5 +1,5 @@
-id,nombre,subtitulo,avatar,estado,ultima_reunion,gantt_inicio,gantt_fin,gantt_fase
-alicia,Alicia — Ops/HR Tech,Digitalización y automatización de procesos HR,A,En riesgo,30 mar 2026,2026-01,2026-06,Diagnóstico
-romy,Romy — Movilidad,Programa de movilidad internacional LATAM,R,Bloqueado,3 mar 2026,2025-12,2026-05,Diagnóstico + Entregables
-brasil,HUB Brasil / EVP,Benchmark competitividad São Paulo — talento digital,B,En curso,25 mar 2026,2025-12,2026-07,Benchmark activo
-desempeno,Desempeño,Performance,D,En curso,dic 2025,2025-12,2026-08,Diagnóstico inicial
+id,nombre,nombre_display,subtitulo,avatar,estado,ultima_reunion,gantt_inicio,gantt_fin,gantt_fase
+alicia,Alicia — Ops/HR Tech,Alicia — Ops/HR Tech,Digitalización y automatización de procesos HR,A,En riesgo,30 Mar 2026,2026-01,2026-06,Diagnóstico
+romy,Romy — Movilidad,Romy — Movilidad,Programa de movilidad internacional LATAM,R,Bloqueado,3 Mar 2026,2025-12,2026-05,Diagnóstico + Entregables
+brasil,HUB Brasil / EVP,HUB Brasil / EVP,Benchmark competitividad São Paulo — talento digital,B,En curso,25 Mar 2026,2025-12,2026-07,Benchmark activo
+desempeno,Desempeño,Desempeño,Performance feedback y OKRs,D,En curso,dic 2025,2025-12,2026-08,Diagnóstico inicial
