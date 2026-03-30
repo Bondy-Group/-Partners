@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credicorp — PM Agent</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #f5f4f0; color: #1a1a18; min-height: 100vh; }
+
+/* TOPBAR */
+.topbar {
+  background: #fff;
+  border-bottom: 0.5px solid rgba(0,0,0,0.12);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  position: sticky; top: 0; z-index: 200;
+}
+.topbar-left { display: flex; align-items: center; gap: 10px; }
+.logo { font-size: 14px; font-weight: 500; }
+.logo span { color: #888; font-weight: 400; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #888; }
+.breadcrumb .sep { color: #ccc; }
+.breadcrumb .current { color: #1a1a18; font-weight: 500; }
+.badge-ai { background: #EEEDFE; color: #3C3489; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+.btn-back {
+  display: none; align-items: center; gap: 6px; font-size: 13px; color: #534AB7;
+  border: 0.5px solid #CECBF6; background: #EEEDFE; padding: 5px 12px; border-radius: 8px;
+  cursor: pointer;
+}
+.btn-back:hover { background: #CECBF6; }
+.last-update { font-size: 12px; color: #888; }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* MAIN */
+.main { padding: 1.5rem 2rem 3rem; max-width: 1200px; margin: 0 auto; }
+
+/* SUMMARY */
+.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.metric-card { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.25rem; }
+.metric-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+.metric-value { font-size: 22px; font-weight: 500; }
+.metric-value.green { color: #3B6D11; }
+.metric-value.amber { color: #854F0B; }
+.metric-value.red { color: #A32D2D; }
+
+/* INGEST */
+.ingest-box { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.ingest-box h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+.ingest-area { display: flex; gap: 10px; align-items: flex-start; }
+.ingest-area textarea { flex: 1; height: 76px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 10px; font-size: 13px; font-family: inherit; resize: none; background: #fafaf8; color: #1a1a18; }
+.ingest-area textarea:focus { outline: none; border-color: rgba(0,0,0,0.3); }
+.ingest-controls { display: flex; flex-direction: column; gap: 8px; }
+.btn { padding: 7px 14px; border-radius: 8px; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; font-size: 13px; cursor: pointer; color: #1a1a18; white-space: nowrap; font-family: inherit; }
+.btn:hover { background: #f5f4f0; }
+.btn-primary { background: #26215C; color: #fff; border-color: #26215C; }
+.btn-primary:hover { background: #3C3489; }
+.btn-primary:disabled { background: #B4B2A9; border-color: #B4B2A9; cursor: not-allowed; }
+select.btn { cursor: pointer; }
+.processing-overlay { display: none; align-items: center; gap: 10px; padding: 8px 0 0; font-size: 13px; color: #534AB7; }
+.processing-overlay.visible { display: flex; }
+.spinner { width: 14px; height: 14px; border: 2px solid #CECBF6; border-top-color: #534AB7; border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* PROJECT CARDS */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.section-title { font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+.projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+.project-card {
+  background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1);
+  padding: 1.25rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.project-card:hover { border-color: rgba(83,74,183,0.4); box-shadow: 0 0 0 3px rgba(83,74,183,0.07); }
+.project-card .click-hint { font-size: 11px; color: #AFA9EC; margin-top: 10px; }
+
+.project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.project-name { font-size: 15px; font-weight: 500; }
+.project-sub { font-size: 12px; color: #888; margin-top: 2px; }
+
+.status-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+.status-green { background: #EAF3DE; color: #3B6D11; }
+.status-amber { background: #FAEEDA; color: #854F0B; }
+.status-red { background: #FCEBEB; color: #A32D2D; }
+.dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.dot-green { background: #639922; }
+.dot-amber { background: #BA7517; }
+.dot-red { background: #E24B4A; }
+
+.divider { border: none; border-top: 0.5px solid rgba(0,0,0,0.08); margin: 10px 0; }
+.meta-row { display: flex; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+.meta-item { font-size: 12px; color: #888; }
+.meta-item strong { color: #444; font-weight: 500; }
+.section-label { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.task-list { list-style: none; margin-bottom: 8px; }
+.task-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #444; padding: 2px 0; line-height: 1.4; }
+.task-list li::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #AFA9EC; margin-top: 5px; flex-shrink: 0; }
+.risk-list { list-style: none; }
+.risk-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #A32D2D; padding: 2px 0; line-height: 1.4; }
+.risk-list li::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #E24B4A; margin-top: 5px; flex-shrink: 0; }
+
+/* ===================== DETAIL VIEW ===================== */
+.detail-header {
+  background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px;
+  padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.detail-header-left { display: flex; align-items: center; gap: 14px; }
+.detail-avatar {
+  width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; font-weight: 500; background: #EEEDFE; color: #3C3489;
+  flex-shrink: 0;
+}
+.detail-title { font-size: 18px; font-weight: 500; }
+.detail-sub { font-size: 13px; color: #888; margin-top: 2px; }
+.detail-meta { display: flex; gap: 20px; }
+.detail-meta-item { text-align: right; }
+.detail-meta-label { font-size: 11px; color: #888; }
+.detail-meta-value { font-size: 13px; font-weight: 500; margin-top: 1px; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 1.25rem; border-bottom: 0.5px solid rgba(0,0,0,0.1); padding-bottom: 0; }
+.tab {
+  font-size: 13px; padding: 8px 14px; border-radius: 8px 8px 0 0; cursor: pointer;
+  color: #888; border: 0.5px solid transparent; border-bottom: none; background: transparent;
+  font-family: inherit; transition: color 0.1s;
+}
+.tab:hover { color: #1a1a18; }
+.tab.active { color: #1a1a18; font-weight: 500; background: #fff; border-color: rgba(0,0,0,0.1); border-bottom-color: #fff; margin-bottom: -0.5px; }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 0.5px; background: rgba(0,0,0,0.12); }
+.tl-item { position: relative; margin-bottom: 1.5rem; }
+.tl-dot { position: absolute; left: -22px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: #EEEDFE; border: 2px solid #AFA9EC; }
+.tl-dot.important { background: #AFA9EC; border-color: #534AB7; }
+.tl-date { font-size: 11px; color: #888; margin-bottom: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+.tl-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 1.25rem; }
+.tl-card-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.tl-card-body { font-size: 13px; color: #555; line-height: 1.6; }
+.tl-card-body ul { padding-left: 16px; margin-top: 4px; }
+.tl-card-body li { margin-bottom: 3px; }
+.tl-tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
+.tl-tag.reunion { background: #E6F1FB; color: #185FA5; }
+.tl-tag.benchmark { background: #EAF3DE; color: #3B6D11; }
+.tl-tag.entregable { background: #FAEEDA; color: #854F0B; }
+
+/* TASKS TABLE */
+.tasks-table { width: 100%; border-collapse: collapse; }
+.tasks-table th { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; text-align: left; border-bottom: 0.5px solid rgba(0,0,0,0.1); }
+.tasks-table td { font-size: 13px; padding: 10px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; color: #333; }
+.tasks-table tr:last-child td { border-bottom: none; }
+.tasks-table tr:hover td { background: #fafaf8; }
+.priority-pill { font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.p-alta { background: #FCEBEB; color: #A32D2D; }
+.p-media { background: #FAEEDA; color: #854F0B; }
+.p-baja { background: #EAF3DE; color: #3B6D11; }
+
+/* DOCS */
+.docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.doc-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem; display: flex; gap: 10px; align-items: flex-start; }
+.doc-icon { width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: #f5f4f0; }
+.doc-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
+.doc-meta { font-size: 11px; color: #888; margin-top: 3px; }
+.doc-status { font-size: 11px; margin-top: 5px; }
+.doc-status.done { color: #3B6D11; }
+.doc-status.wip { color: #854F0B; }
+.doc-status.pending { color: #888; }
+
+/* DECISIONS */
+.decisions-list { display: flex; flex-direction: column; gap: 10px; }
+.decision-item { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 1.25rem; }
+.decision-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.decision-title { font-size: 13px; font-weight: 500; }
+.decision-date { font-size: 11px; color: #888; white-space: nowrap; }
+.decision-body { font-size: 13px; color: #555; line-height: 1.5; }
+.decision-owner { font-size: 11px; color: #888; margin-top: 6px; }
+
+/* OPEN QS */
+.oq-list { display: flex; flex-direction: column; gap: 10px; }
+.oq-item { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 1.25rem; border-left: 3px solid #AFA9EC; }
+.oq-question { font-size: 14px; font-weight: 500; margin-bottom: 6px; line-height: 1.4; }
+.oq-context { font-size: 13px; color: #666; line-height: 1.5; }
+.oq-bottom { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.oq-urgency { font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.oq-urg-alta { background: #FCEBEB; color: #A32D2D; }
+.oq-urg-media { background: #FAEEDA; color: #854F0B; }
+.oq-owner { font-size: 11px; color: #888; }
+
+.panel-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 1.25rem 1.5rem; }
+.ai-tag { font-size: 10px; background: #EEEDFE; color: #534AB7; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+@media (max-width: 700px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .main { padding: 1rem; }
+  .detail-meta { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="logo">Credicorp <span>/ PM Agent</span></span>
+    <span class="badge-ai">IA</span>
+    <div class="breadcrumb" id="breadcrumb" style="display:none;">
+      <span class="sep">/</span>
+      <span class="current" id="breadcrumb-name"></span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="btn-back" id="btn-back" onclick="showDashboard()">← Volver al dashboard</button>
+    <span class="last-update" id="last-update">30 mar 2026, 16:11</span>
+  </div>
+</div>
+
+<!-- =================== DASHBOARD VIEW =================== -->
+<div class="view active" id="view-dashboard">
+  <div class="main">
+
+    <div class="ingest-box">
+      <h3>Ingestar información <span class="ai-tag">IA</span></h3>
+      <div class="ingest-area">
+        <textarea id="ingest-input" placeholder="Pegá una transcripción de Fathom, resumen de reunión, o cualquier nota del proyecto..."></textarea>
+        <div class="ingest-controls">
+          <select id="project-select" class="btn">
+            <option value="">— Proyecto —</option>
+            <option value="alicia">Alicia — Ops/HR Tech</option>
+            <option value="romy">Romy — Movilidad</option>
+            <option value="brasil">HUB Brasil / EVP</option>
+            <option value="desempeno">Desempeño</option>
+          </select>
+          <button class="btn btn-primary" id="ingest-btn" onclick="ingestContent()">Analizar ↗</button>
+        </div>
+      </div>
+      <div class="processing-overlay" id="processing">
+        <div class="spinner"></div>
+        <span id="processing-text">Analizando...</span>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="metric-card"><div class="metric-label">Proyectos activos</div><div class="metric-value">4</div></div>
+      <div class="metric-card"><div class="metric-label">En curso</div><div class="metric-value green" id="count-green">2</div></div>
+      <div class="metric-card"><div class="metric-label">En riesgo</div><div class="metric-value amber" id="count-amber">1</div></div>
+      <div class="metric-card"><div class="metric-label">Bloqueados</div><div class="metric-value red" id="count-red">1</div></div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Proyectos — hacé click para ver detalle</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card" onclick="openProject('alicia')" id="card-alicia">
+        <div class="project-header">
+          <div><div class="project-name">Alicia — Ops/HR Tech</div><div class="project-sub">Digitalización y automatización de procesos HR</div></div>
+          <span class="status-pill status-amber" id="pill-alicia"><span class="dot dot-amber"></span>En riesgo</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-item"><strong>Última reunión:</strong> <span id="meta-date-alicia">30 mar 2026</span></span>
+          <span class="meta-item"><strong>Restricción:</strong> PeopleSoft</span>
+        </div>
+        <hr class="divider">
+        <div class="section-label">Próximos pasos</div>
+        <ul class="task-list" id="tasks-alicia">
+          <li>Discovery profundo — reunión urgente antes de vacaciones</li>
+          <li>Investigar PeopleSign como alternativa a DocuSign</li>
+          <li>Mapear puntos de dolor: bonus España, stock options, onboarding</li>
+        </ul>
+        <hr class="divider">
+        <div class="section-label">Riesgos</div>
+        <ul class="risk-list" id="risks-alicia">
+          <li>Ventana corta antes de 15 días de vacaciones de Alicia</li>
+          <li>Toda solución debe ser compatible con PeopleSoft</li>
+        </ul>
+        <div class="click-hint">Ver detalle completo →</div>
+      </div>
+
+      <div class="project-card" onclick="openProject('romy')" id="card-romy">
+        <div class="project-header">
+          <div><div class="project-name">Romy — Movilidad</div><div class="project-sub">Programa de movilidad internacional LATAM</div></div>
+          <span class="status-pill status-red" id="pill-romy"><span class="dot dot-red"></span>Bloqueado</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-item"><strong>Última reunión:</strong> <span id="meta-date-romy">3 mar 2026</span></span>
+          <span class="meta-item"><strong>Entregables:</strong> Manual + análisis</span>
+        </div>
+        <hr class="divider">
+        <div class="section-label">Próximos pasos</div>
+        <ul class="task-list" id="tasks-romy">
+          <li>Solicitar entregable formal para presentar a liderazgo</li>
+          <li>Presionar coordinación con equipo de Talento</li>
+          <li>Definir formato final: deck, memo o informe</li>
+        </ul>
+        <hr class="divider">
+        <div class="section-label">Riesgos</div>
+        <ul class="risk-list" id="risks-romy">
+          <li>Proyecto estancado — sin reuniones con equipo de Talento</li>
+          <li>Trabajo en riesgo de no ser reconocido por liderazgo</li>
+        </ul>
+        <div class="click-hint">Ver detalle completo →</div>
+      </div>
+
+      <div class="project-card" onclick="openProject('brasil')" id="card-brasil">
+        <div class="project-header">
+          <div><div class="project-name">HUB Brasil / EVP</div><div class="project-sub">Benchmark competitividad São Paulo — talento digital</div></div>
+          <span class="status-pill status-green" id="pill-brasil"><span class="dot dot-green"></span>En curso</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-item"><strong>Benchmarks:</strong> <span id="meta-date-brasil">Philips, MeLi, Accenture</span></span>
+          <span class="meta-item"><strong>Foco:</strong> EVP ejecutivo digital SP</span>
+        </div>
+        <hr class="divider">
+        <div class="section-label">Próximos pasos</div>
+        <ul class="task-list" id="tasks-brasil">
+          <li>Cerrar lista final de empresas benchmark para SP</li>
+          <li>Comparar oferta Credicorp vs piso de EVP detectado</li>
+          <li>Construir heatmap de brechas</li>
+        </ul>
+        <hr class="divider">
+        <div class="section-label">Riesgos</div>
+        <ul class="risk-list" id="risks-brasil">
+          <li>Oferta actual de Credicorp para Hub Brasil sin confirmar</li>
+        </ul>
+        <div class="click-hint">Ver detalle completo →</div>
+      </div>
+
+      <div class="project-card" onclick="openProject('desempeno')" id="card-desempeno">
+        <div class="project-header">
+          <div><div class="project-name">Desempeño</div><div class="project-sub">Performance, feedback y OKRs</div></div>
+          <span class="status-pill status-green" id="pill-desempeno"><span class="dot dot-green"></span>En curso</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-item"><strong>Última actividad:</strong> <span id="meta-date-desempeno">dic 2025</span></span>
+          <span class="meta-item"><strong>Fase:</strong> Diagnóstico inicial</span>
+        </div>
+        <hr class="divider">
+        <div class="section-label">Próximos pasos</div>
+        <ul class="task-list" id="tasks-desempeno">
+          <li>Confirmar alcance del diagnóstico con Credicorp</li>
+          <li>Mapear proceso actual de evaluación de desempeño</li>
+          <li>Identificar conexión con compensación y carrera</li>
+        </ul>
+        <hr class="divider">
+        <div class="section-label">Riesgos</div>
+        <ul class="risk-list" id="risks-desempeno">
+          <li>Sin reunión reciente — baja visibilidad del estado real</li>
+        </ul>
+        <div class="click-hint">Ver detalle completo →</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =================== DETAIL VIEW =================== -->
+<div class="view" id="view-detail">
+  <div class="main">
+
+    <div class="detail-header">
+      <div class="detail-header-left">
+        <div class="detail-avatar" id="detail-avatar">A</div>
+        <div>
+          <div class="detail-title" id="detail-title">Proyecto</div>
+          <div class="detail-sub" id="detail-sub">Subtítulo</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="detail-meta">
+          <div class="detail-meta-item">
+            <div class="detail-meta-label">Estado</div>
+            <div id="detail-status-pill" style="margin-top:4px;"></div>
+          </div>
+          <div class="detail-meta-item">
+            <div class="detail-meta-label">Última reunión</div>
+            <div class="detail-meta-value" id="detail-last-meeting">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('timeline')">Reuniones</button>
+      <button class="tab" onclick="switchTab('tasks')">Tareas</button>
+      <button class="tab" onclick="switchTab('docs')">Documentos</button>
+      <button class="tab" onclick="switchTab('decisions')">Decisiones</button>
+      <button class="tab" onclick="switchTab('openqs')">Open questions</button>
+    </div>
+
+    <div class="tab-panel active panel-card" id="tab-timeline"></div>
+    <div class="tab-panel panel-card" id="tab-tasks"></div>
+    <div class="tab-panel" id="tab-docs"></div>
+    <div class="tab-panel panel-card" id="tab-decisions"></div>
+    <div class="tab-panel" id="tab-openqs"></div>
+
+  </div>
+</div>
+
+<script>
+const PROJECTS = {
+  alicia: {
+    name: "Alicia — Ops/HR Tech",
+    sub: "Digitalización y automatización de procesos HR",
+    avatar: "A",
+    status: "En riesgo",
+    lastMeeting: "30 mar 2026",
+    timeline: [
+      {
+        date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", important: true,
+        content: "Se identificó a Alicia como contacto clave con ventana limitada antes de 15 días de vacaciones. Puntos de dolor: firmas físicas, bonus España, stock options sin portal, onboarding/offboarding sin proceso estándar. Restricción crítica: PeopleSoft en implementación.",
+        bullets: ["Investigar PeopleSign como alternativa nativa a DocuSign", "Enfocar próxima reunión en discovery profundo", "Alinear todas las propuestas con arquitectura PeopleSoft"]
+      },
+      {
+        date: "feb 2026", title: "Propuesta de diagnóstico HR & mejora de procesos", type: "entregable",
+        content: "Se elaboró propuesta de servicios para diagnóstico de procesos HR. Alcance estimado: 45.000 colaboradores, multi-país.",
+        bullets: ["Detectar fricciones operativas y tareas manuales", "Mapear iniciativas de HR Tech e IA", "Construir backlog de quick wins y proyectos estratégicos"]
+      }
+    ],
+    tasks: [
+      { task: "Coordinar reunión de discovery con Alicia antes de vacaciones", owner: "Juan / Lucía / Sasan", priority: "Alta" },
+      { task: "Investigar PeopleSign (firma electrónica nativa de PeopleSoft)", owner: "Equipo", priority: "Alta" },
+      { task: "Mapear proceso actual de cálculo de bonus para España", owner: "Lucía", priority: "Media" },
+      { task: "Diseñar propuesta de portal de autoservicio para stock options", owner: "Equipo", priority: "Media" },
+      { task: "Documentar proceso de onboarding/offboarding actual", owner: "Por asignar", priority: "Baja" }
+    ],
+    docs: [
+      { name: "Propuesta de Servicios — Diagnóstico HR", type: "📄", meta: "feb 2026 · PDF", status: "done", statusLabel: "Entregado" },
+      { name: "Análisis de procesos HR actuales", type: "📊", meta: "En construcción", status: "wip", statusLabel: "En progreso" },
+      { name: "Backlog quick wins — Ops", type: "📋", meta: "Pendiente", status: "pending", statusLabel: "Pendiente" }
+    ],
+    decisions: [
+      { title: "Restricción PeopleSoft", date: "30 mar 2026", body: "Todas las soluciones propuestas deben ser compatibles con la arquitectura de PeopleSoft. El enfoque es adaptar, no adoptar herramientas externas incompatibles.", owner: "Definido en reunión interna" },
+      { title: "DocuSign descartado temporalmente", date: "30 mar 2026", body: "DocuSign falló previamente por problemas de seguridad corporativa de Credicorp. Se prioriza PeopleSign como alternativa nativa antes de evaluar otras opciones.", owner: "Equipo consultoría" }
+    ],
+    openqs: [
+      { q: "¿Cuál es el roadmap exacto de implementación de PeopleSoft?", ctx: "Necesitamos entender qué módulos ya están activos y cuáles vienen para no proponer algo que ya esté en el plan.", urgency: "Alta", owner: "Validar con Alicia" },
+      { q: "¿Quiénes son los decisores formales del proyecto de HR Tech?", ctx: "Identificar sponsors ejecutivos más allá de Alicia para asegurar que las propuestas escalen correctamente.", urgency: "Alta", owner: "Sasan / Pablo" },
+      { q: "¿Existe presupuesto asignado para herramientas de automatización?", ctx: "Condiciona el tipo de soluciones que podemos proponer.", urgency: "Media", owner: "Reunión con Alicia" },
+      { q: "¿Cómo es hoy el proceso de transferencia de conocimiento ante salidas?", ctx: "Identificado como punto de falla crítico — falta información detallada de cómo se gestiona hoy.", urgency: "Media", owner: "Por indagar" }
+    ]
+  },
+
+  romy: {
+    name: "Romy — Movilidad",
+    sub: "Programa de movilidad internacional LATAM",
+    avatar: "R",
+    status: "Bloqueado",
+    lastMeeting: "3 mar 2026",
+    timeline: [
+      {
+        date: "3 mar 2026", title: "Benchmark con Philips — María Pía Logiovane", type: "benchmark", important: true,
+        content: "Entrevista de benchmark con Head of HR Latin America de Philips sobre modelo de movilidad internacional.",
+        bullets: ["Movilidad reactiva, no estructurada como herramienta de desarrollo", "Beneficios: antigüedad preservada, visita previa, apoyo vivienda/colegio/banco", "Gross-up y allowances según nivel y familia", "Proveedores: Deloitte (fiscal), Alter (relocation), firmas locales (visas)", "Clawback si el colaborador se va antes de cierto plazo", "Retorno no siempre cubierto — zona gris entre origen y destino"]
+      },
+      {
+        date: "feb 2026", title: "Entrega de manual de movilidad y análisis comparativo", type: "entregable",
+        content: "El equipo entregó el mobility handbook y el análisis comparativo. Proyecto quedó estancado al no coordinarse reuniones con el equipo de Talento.",
+        bullets: ["Manual: Credicorp Mobility Handbook", "Análisis: credicorp_mobility_Strategy_v2", "Formulario de relevamiento completado"]
+      },
+      {
+        date: "10 feb 2026", title: "Kickoff análisis de movilidad", type: "reunion",
+        content: "Análisis inicial del estado de movilidad internacional en Credicorp. Detección de ausencia de modelo estructurado.",
+        bullets: ["Existe práctica operativa pero no modelo integrado con desarrollo", "Intención de pasar de enfoque reactivo a estratégico", "Conectar con workforce planning y crecimiento regional"]
+      }
+    ],
+    tasks: [
+      { task: "Solicitar a Romy un entregable formal para presentar a su liderazgo", owner: "Juan / Lucía / Sasan", priority: "Alta" },
+      { task: "Coordinar reuniones interdepartamentales con equipo de Talento", owner: "Romy (presionar)", priority: "Alta" },
+      { task: "Definir formato del entregable final: deck, memo o informe", owner: "Equipo consultoría", priority: "Media" },
+      { task: "Completar benchmark con 1-2 empresas adicionales del sector financiero", owner: "Lucía", priority: "Media" }
+    ],
+    docs: [
+      { name: "Credicorp — Mobility Handbook", type: "📄", meta: "mar 2026 · Doc", status: "done", statusLabel: "Completado" },
+      { name: "Mobility Strategy v2", type: "📊", meta: "mar 2026 · Doc", status: "done", statusLabel: "Completado" },
+      { name: "Formulario Mobility Playbook", type: "📋", meta: "feb 2026 · Relevamiento", status: "done", statusLabel: "Completado" },
+      { name: "Análisis Kickoff Movilidad", type: "📝", meta: "feb 2026 · Análisis", status: "done", statusLabel: "Completado" },
+      { name: "Entregable ejecutivo final", type: "🎯", meta: "Pendiente de definir", status: "pending", statusLabel: "Pendiente" }
+    ],
+    decisions: [
+      { title: "Benchmark con Philips completado", date: "3 mar 2026", body: "Se optó por Philips como primer referente de benchmark dado su nivel de madurez en movilidad LATAM y la accesibilidad al contacto (María Pía Logiovane).", owner: "Mara / Equipo" },
+      { title: "Enfoque: de reactivo a estratégico", date: "feb 2026", body: "El objetivo declarado es pasar de una movilidad gestionada caso a caso a un modelo estructurado conectado con workforce planning.", owner: "Definido con Romy — Credicorp" }
+    ],
+    openqs: [
+      { q: "¿Por qué Romy no coordinó las reuniones con el equipo de Talento?", ctx: "Impedimento central del proyecto. Necesitamos entender si hay un problema político, de recursos o de priorización interna.", urgency: "Alta", owner: "Próxima reunión con Romy" },
+      { q: "¿Qué formato de entregable necesita Romy para presentar a su liderazgo?", ctx: "Deck ejecutivo, memo o informe — depende de la cultura de presentación de Credicorp.", urgency: "Alta", owner: "Validar con Romy" },
+      { q: "¿Cuántos movimientos internacionales maneja Credicorp por año aproximadamente?", ctx: "Dato clave para dimensionar el modelo y proponer una solución escalable.", urgency: "Media", owner: "Por indagar" },
+      { q: "¿Existe presupuesto para relocation y allowances ya definido?", ctx: "Sin este dato no podemos proponer una política de beneficios comparable con Philips.", urgency: "Media", owner: "Por indagar" }
+    ]
+  },
+
+  brasil: {
+    name: "HUB Brasil / EVP",
+    sub: "Benchmark competitividad São Paulo — talento digital",
+    avatar: "B",
+    status: "En curso",
+    lastMeeting: "25 mar 2026",
+    timeline: [
+      {
+        date: "25 mar 2026", title: "Benchmark con Accenture", type: "benchmark", important: true,
+        content: "Sesión de benchmark sobre propuesta de valor para talento digital en São Paulo con referente de Accenture.",
+        bullets: ["Datos sobre compensación variable y beneficios para perfiles tech", "Flexibilidad: modelo híbrido consolidado en SP", "Employer branding como diferenciador clave en mercado competitivo"]
+      },
+      {
+        date: "17 mar 2026", title: "Benchmark con Mercado Libre", type: "benchmark",
+        content: "Entrevista con referente de Mercado Libre sobre atracción de talento digital en Brasil.",
+        bullets: ["MeLi como referente fuerte en EVP tech en LATAM", "Velocidad de hiring y cultura como factores diferenciales", "Datos de compensación para perfiles senior en SP"]
+      },
+      {
+        date: "feb 2026", title: "Documento piso de EVP en Brasil", type: "entregable",
+        content: "Se construyó documento base con el piso mínimo de EVP que Credicorp necesita ofrecer para ser competitivo en el mercado de São Paulo.",
+        bullets: ["Análisis de marco legal CLT", "Comparación de beneficios estándar del mercado tech en SP", "Identificación de brechas iniciales con oferta Credicorp"]
+      },
+      {
+        date: "3 mar 2026", title: "Benchmark con Philips — componente Brasil", type: "benchmark",
+        content: "Parte del benchmark con Philips también cubrió la perspectiva del Hub Brasil para talento ejecutivo.",
+        bullets: []
+      }
+    ],
+    tasks: [
+      { task: "Cerrar lista final de empresas benchmark para São Paulo", owner: "Mara / Equipo", priority: "Alta" },
+      { task: "Obtener oferta actual exacta de Credicorp para el Hub Brasil", owner: "Romina / Sasan", priority: "Alta" },
+      { task: "Construir tabla comparativa y heatmap de brechas EVP", owner: "Lucía", priority: "Media" },
+      { task: "Analizar prácticas de employer branding de referentes en SP", owner: "Equipo", priority: "Media" },
+      { task: "Consolidar recomendaciones ejecutivas finales", owner: "Mara", priority: "Baja" }
+    ],
+    docs: [
+      { name: "Piso de EVP en Brasil para Credicorp — Tech Hub", type: "📊", meta: "feb 2026 · Doc", status: "done", statusLabel: "Completado" },
+      { name: "Benchmark Mercado Libre", type: "📄", meta: "17 mar 2026 · Doc", status: "done", statusLabel: "Completado" },
+      { name: "Benchmark Accenture", type: "📄", meta: "25 mar 2026 · Doc", status: "done", statusLabel: "Completado" },
+      { name: "Heatmap de brechas EVP", type: "🗺️", meta: "En construcción", status: "wip", statusLabel: "En progreso" },
+      { name: "Informe ejecutivo final Hub Brasil", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente" }
+    ],
+    decisions: [
+      { title: "Foco en talento digital y ejecutivo en São Paulo", date: "dic 2025", body: "Se definió que el benchmark se concentra en perfiles ejecutivos y digitales en São Paulo, no en el mercado brasileño en general.", owner: "Alineado con Credicorp" },
+      { title: "Tres empresas benchmark confirmadas", date: "mar 2026", body: "Philips, Mercado Libre y Accenture como referentes validados. Se evalúa incorporar al menos 1-2 empresas más del sector financiero.", owner: "Equipo consultoría" }
+    ],
+    openqs: [
+      { q: "¿Cuál es la oferta actual exacta que Credicorp tiene para el Hub Brasil?", ctx: "Sin este dato no podemos calcular la brecha real ni hacer recomendaciones concretas de compensación.", urgency: "Alta", owner: "Validar con Romina" },
+      { q: "¿Cuáles son los perfiles prioritarios que Credicorp necesita atraer en SP?", ctx: "Los niveles de compensación y los beneficios que importan varían mucho según el perfil (tech lead vs. C-suite).", urgency: "Alta", owner: "Por definir con Credicorp" },
+      { q: "¿Hay una empresa del sector fintech/financiero en la lista de benchmarks?", ctx: "Accenture y MeLi son tech-forward pero no financieras. Un banco digital o fintech brasileño sería más comparable.", urgency: "Media", owner: "Equipo" },
+      { q: "¿Cuál es el formato esperado del entregable final para Pablo?", ctx: "Deck ejecutivo, informe, tablero interactivo — la decisión afecta el nivel de profundidad del análisis.", urgency: "Media", owner: "Sasan / Pablo" }
+    ]
+  },
+
+  desempeno: {
+    name: "Desempeño",
+    sub: "Performance, feedback y OKRs",
+    avatar: "D",
+    status: "En curso",
+    lastMeeting: "dic 2025",
+    timeline: [
+      {
+        date: "dic 2025", title: "Inicio del diagnóstico de desempeño", type: "reunion", important: true,
+        content: "Apertura del proyecto de diagnóstico de performance, feedback y OKRs dentro del frente B de transformación HR.",
+        bullets: ["Identificación inicial de temas: evaluación de desempeño, feedback, upskilling", "Conexión con compensación, carrera y sucesión", "Sin reuniones específicas con Credicorp todavía"]
+      }
+    ],
+    tasks: [
+      { task: "Confirmar alcance exacto del diagnóstico con Credicorp", owner: "Sasan / Mara", priority: "Alta" },
+      { task: "Mapear proceso actual de evaluación de desempeño", owner: "Por asignar", priority: "Media" },
+      { task: "Identificar conexión entre performance, compensación y carrera", owner: "Por asignar", priority: "Media" },
+      { task: "Evaluar herramientas actuales de performance management", owner: "Por asignar", priority: "Baja" }
+    ],
+    docs: [
+      { name: "Diagnóstico inicial — Desempeño", type: "📝", meta: "dic 2025 · Doc", status: "wip", statusLabel: "En progreso" }
+    ],
+    decisions: [
+      { title: "Incluido en Frente B de transformación HR", date: "dic 2025", body: "El proyecto de desempeño forma parte del diagnóstico amplio de procesos HR. Depende de la priorización interna de Credicorp para avanzar.", owner: "Definido en propuesta de servicios" }
+    ],
+    openqs: [
+      { q: "¿Qué herramienta usa Credicorp hoy para gestionar el desempeño?", ctx: "Determina qué tan complejo es el diagnóstico y qué soluciones son compatibles con el stack existente.", urgency: "Alta", owner: "Por indagar" },
+      { q: "¿Existe un ciclo de evaluación formal o es ad hoc?", ctx: "Si no hay ciclo formal, la brecha es mayor y el roadmap de mejora requiere más tiempo.", urgency: "Alta", owner: "Por indagar" },
+      { q: "¿Cómo se conecta hoy performance con compensación variable?", ctx: "Punto de dolor frecuente en organizaciones de este tamaño — clave para priorizar intervenciones.", urgency: "Media", owner: "Por indagar" }
+    ]
+  }
+};
+
+let currentProject = null;
+let currentTab = 'timeline';
+
+function openProject(id) {
+  currentProject = id;
+  const p = PROJECTS[id];
+
+  document.getElementById('view-dashboard').classList.remove('active');
+  document.getElementById('view-detail').classList.add('active');
+  document.getElementById('btn-back').style.display = 'flex';
+  document.getElementById('breadcrumb').style.display = 'flex';
+  document.getElementById('breadcrumb-name').textContent = p.name;
+
+  document.getElementById('detail-avatar').textContent = p.avatar;
+  document.getElementById('detail-title').textContent = p.name;
+  document.getElementById('detail-sub').textContent = p.sub;
+  document.getElementById('detail-last-meeting').textContent = p.lastMeeting;
+
+  const statusMap = {
+    'En curso': 'status-green', 'En riesgo': 'status-amber', 'Bloqueado': 'status-red'
+  };
+  const dotMap = { 'En curso': 'dot-green', 'En riesgo': 'dot-amber', 'Bloqueado': 'dot-red' };
+  const pill = document.getElementById('detail-status-pill');
+  pill.innerHTML = `<span class="status-pill ${statusMap[p.status]}"><span class="dot ${dotMap[p.status]}"></span>${p.status}</span>`;
+
+  switchTab('timeline');
+  window.scrollTo(0, 0);
+}
+
+function showDashboard() {
+  document.getElementById('view-detail').classList.remove('active');
+  document.getElementById('view-dashboard').classList.add('active');
+  document.getElementById('btn-back').style.display = 'none';
+  document.getElementById('breadcrumb').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    const tabs = ['timeline','tasks','docs','decisions','openqs'];
+    t.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('tab-' + tab);
+  panel.classList.add('active');
+  renderTab(tab);
+}
+
+function renderTab(tab) {
+  const p = PROJECTS[currentProject];
+  const panel = document.getElementById('tab-' + tab);
+
+  if (tab === 'timeline') {
+    if (!p.timeline.length) { panel.innerHTML = '<p style="color:#888;font-size:13px;">Sin reuniones registradas.</p>'; return; }
+    const tagLabel = { reunion: 'Reunión', benchmark: 'Benchmark', entregable: 'Entregable' };
+    panel.innerHTML = `<div class="timeline">` + p.timeline.map(item => `
+      <div class="tl-item">
+        <div class="tl-dot${item.important ? ' important' : ''}"></div>
+        <div class="tl-date">${item.date}</div>
+        <div class="tl-card">
+          <span class="tl-tag ${item.type}">${tagLabel[item.type] || item.type}</span>
+          <div class="tl-card-title">${item.title}</div>
+          <div class="tl-card-body">
+            <p>${item.content}</p>
+            ${item.bullets && item.bullets.length ? `<ul>${item.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('') + `</div>`;
+  }
+
+  if (tab === 'tasks') {
+    panel.innerHTML = `<table class="tasks-table">
+      <thead><tr><th>Tarea</th><th>Responsable</th><th>Prioridad</th></tr></thead>
+      <tbody>${p.tasks.map(t => `
+        <tr>
+          <td>${t.task}</td>
+          <td style="color:#888;">${t.owner}</td>
+          <td><span class="priority-pill p-${t.priority === 'Alta' ? 'alta' : t.priority === 'Media' ? 'media' : 'baja'}">${t.priority}</span></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+  }
+
+  if (tab === 'docs') {
+    panel.innerHTML = `<div class="docs-grid">${p.docs.map(d => `
+      <div class="doc-card">
+        <div class="doc-icon">${d.type}</div>
+        <div>
+          <div class="doc-name">${d.name}</div>
+          <div class="doc-meta">${d.meta}</div>
+          <div class="doc-status ${d.status}">${d.statusLabel}</div>
+        </div>
+      </div>`).join('')}</div>`;
+  }
+
+  if (tab === 'decisions') {
+    if (!p.decisions.length) { panel.innerHTML = '<p style="color:#888;font-size:13px;">Sin decisiones registradas.</p>'; return; }
+    panel.innerHTML = `<div class="decisions-list">${p.decisions.map(d => `
+      <div class="decision-item">
+        <div class="decision-top">
+          <div class="decision-title">${d.title}</div>
+          <div class="decision-date">${d.date}</div>
+        </div>
+        <div class="decision-body">${d.body}</div>
+        <div class="decision-owner">Fuente: ${d.owner}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  if (tab === 'openqs') {
+    panel.innerHTML = `<div class="oq-list">${p.openqs.map(q => `
+      <div class="oq-item">
+        <div class="oq-question">${q.q}</div>
+        <div class="oq-context">${q.ctx}</div>
+        <div class="oq-bottom">
+          <span class="oq-urgency oq-urg-${q.urgency === 'Alta' ? 'alta' : 'media'}">Urgencia ${q.urgency}</span>
+          <span class="oq-owner">→ ${q.owner}</span>
+        </div>
+      </div>`).join('')}</div>`;
+  }
+}
+
+// INGEST
+async function ingestContent() {
+  const text = document.getElementById('ingest-input').value.trim();
+  const project = document.getElementById('project-select').value;
+  if (!text) { alert('Pegá texto antes de analizar.'); return; }
+  if (!project) { alert('Seleccioná el proyecto correspondiente.'); return; }
+
+  const btn = document.getElementById('ingest-btn');
+  const proc = document.getElementById('processing');
+  const procText = document.getElementById('processing-text');
+  btn.disabled = true;
+  proc.classList.add('visible');
+
+  const steps = ['Analizando transcripción...','Identificando puntos de dolor...','Extrayendo próximos pasos...','Detectando riesgos...','Actualizando dashboard...'];
+  let step = 0;
+  const interval = setInterval(() => { step = (step+1)%steps.length; procText.textContent = steps[step]; }, 1400);
+
+  try {
+    const pName = PROJECTS[project].name;
+    const prompt = `Sos analista de proyectos de consultoría HR. Analizá el siguiente texto sobre el proyecto "${pName}" para Credicorp.
+
+Devolvé ÚNICAMENTE un objeto JSON válido con esta estructura:
+{
+  "status": "En curso" | "En riesgo" | "Bloqueado",
+  "lastMeeting": "fecha o descripción breve",
+  "newTimelineItem": {
+    "date": "fecha del evento",
+    "title": "título breve de la reunión/evento",
+    "type": "reunion" | "benchmark" | "entregable",
+    "important": true | false,
+    "content": "resumen del contenido en 1-2 oraciones",
+    "bullets": ["punto clave 1", "punto clave 2", "punto clave 3"]
+  },
+  "tasks": ["tarea accionable 1", "tarea accionable 2", "tarea accionable 3"],
+  "risks": ["riesgo 1", "riesgo 2"],
+  "openQuestion": "una pregunta abierta relevante detectada en el texto"
+}
+
+Texto: ${text}`;
+
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
+    });
+
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '';
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('No JSON');
+    const parsed = JSON.parse(match[0]);
+
+    const p = PROJECTS[project];
+    p.status = parsed.status || p.status;
+    p.lastMeeting = parsed.lastMeeting || p.lastMeeting;
+
+    if (parsed.newTimelineItem) {
+      p.timeline.unshift({ ...parsed.newTimelineItem, important: true });
+    }
+
+    if (parsed.tasks) {
+      const newTasks = parsed.tasks.map(t => ({ task: t, owner: 'Por asignar', priority: 'Media' }));
+      p.tasks = [...newTasks, ...p.tasks].slice(0, 8);
+    }
+
+    if (parsed.openQuestion) {
+      p.openqs.unshift({ q: parsed.openQuestion, ctx: 'Detectado en última ingesta.', urgency: 'Media', owner: 'Por asignar' });
+    }
+
+    updateDashboardCard(project);
+    document.getElementById('ingest-input').value = '';
+    document.getElementById('last-update').textContent = new Date().toLocaleString('es-AR', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  } catch(e) {
+    alert('Error al analizar. Intentá de nuevo.');
+    console.error(e);
+  } finally {
+    clearInterval(interval);
+    proc.classList.remove('visible');
+    btn.disabled = false;
+  }
+}
+
+function updateDashboardCard(project) {
+  const p = PROJECTS[project];
+  const statusMap = { 'En curso': 'status-green', 'En riesgo': 'status-amber', 'Bloqueado': 'status-red' };
+  const dotMap = { 'En curso': 'dot-green', 'En riesgo': 'dot-amber', 'Bloqueado': 'dot-red' };
+  const pill = document.getElementById(`pill-${project}`);
+  if (pill) {
+    pill.className = `status-pill ${statusMap[p.status]}`;
+    pill.innerHTML = `<span class="dot ${dotMap[p.status]}"></span>${p.status}`;
+  }
+  const dateEl = document.getElementById(`meta-date-${project}`);
+  if (dateEl) dateEl.textContent = p.lastMeeting;
+
+  const tasksList = document.getElementById(`tasks-${project}`);
+  if (tasksList) tasksList.innerHTML = p.tasks.slice(0,3).map(t => `<li>${t.task}</li>`).join('');
+
+  updateCounters();
+}
+
+function updateCounters() {
+  const pills = document.querySelectorAll('[id^="pill-"]');
+  let g=0, a=0, r=0;
+  pills.forEach(p => {
+    if (p.classList.contains('status-green')) g++;
+    else if (p.classList.contains('status-amber')) a++;
+    else if (p.classList.contains('status-red')) r++;
+  });
+  document.getElementById('count-green').textContent = g;
+  document.getElementById('count-amber').textContent = a;
+  document.getElementById('count-red').textContent = r;
+}
+</script>
+</body>
+</html>
