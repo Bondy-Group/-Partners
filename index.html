@@ -560,6 +560,121 @@ select.btn { cursor: pointer; }
 </div>
 
 <script>
+// ══════════════════════════════════════════════
+// ── CONFIGURACIÓN GOOGLE SHEETS ──
+// Reemplazá estos valores una vez que tengas
+// el Sheet ID y la API Key de Google
+// ══════════════════════════════════════════════
+const SHEET_ID = '';   // ← pegá aquí el ID del Google Sheet
+const API_KEY  = '';   // ← pegá aquí la API Key de Google
+
+const SHEETS_BASE = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values`;
+let sheetsEnabled = !!(SHEET_ID && API_KEY);
+
+// ── Carga datos del Sheet maestro ──
+async function loadFromSheets() {
+  if (!sheetsEnabled) return false;
+
+  const showLoading = () => {
+    document.getElementById('readonly-banner').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="spin" style="border-color:var(--border-md);border-top-color:var(--accent-mid);"></div>
+        <span style="font-size:13px;color:var(--text-2);">Cargando datos desde Google Sheets...</span>
+      </div>`;
+  };
+
+  try {
+    showLoading();
+    const tabs = ['proyectos','reuniones','tareas','documentos','reuniones_futuras'];
+    const results = await Promise.all(tabs.map(t =>
+      fetch(`${SHEETS_BASE}/${t}?key=${API_KEY}`).then(r => r.json())
+    ));
+
+    const [proyData, reunData, tareasData, docsData, futData] = results.map(r => {
+      const rows = r.values || [];
+      const headers = rows[0] || [];
+      return rows.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = row[i] || '');
+        return obj;
+      });
+    });
+
+    // Resetear PROJECTS
+    Object.keys(PROJECTS).forEach(k => {
+      PROJECTS[k].timeline = [];
+      PROJECTS[k].tasks = [];
+      PROJECTS[k].docs = [];
+    });
+
+    // Proyectos
+    proyData.forEach(p => {
+      if (!PROJECTS[p.id]) return;
+      PROJECTS[p.id].status = p.estado;
+      PROJECTS[p.id].lastMeeting = p.ultima_reunion;
+      PROJECTS[p.id].gantt = { start: p.gantt_inicio, end: p.gantt_fin, phase: p.gantt_fase };
+    });
+
+    // Reuniones → timeline con participants, insights, actions
+    reunData.forEach(r => {
+      const p = PROJECTS[r.proyecto_id];
+      if (!p) return;
+      p.timeline.push({
+        date: r.fecha, title: r.titulo, type: r.tipo, imp: r.importante === 'SI',
+        participants: r.participantes ? r.participantes.split('|') : [],
+        content: r.resumen,
+        insights: r.insights ? r.insights.split('|') : [],
+        actions: r.actions ? r.actions.split('|').map(a => {
+          const [text, owner, due, status] = a.split('::');
+          return { text, owner, due, status };
+        }) : []
+      });
+    });
+
+    // Tareas
+    tareasData.forEach(t => {
+      const p = PROJECTS[t.proyecto_id];
+      if (!p) return;
+      p.tasks.push({ task: t.tarea, owner: t.responsable, priority: t.prioridad });
+    });
+
+    // Documentos
+    docsData.forEach(d => {
+      const p = PROJECTS[d.proyecto_id];
+      if (!p) return;
+      p.docs.push({ name: d.nombre, type: d.tipo, meta: d.meta, status: d.estado, statusLabel: d.estado_label, gdrive: d.gdrive_url });
+    });
+
+    // Reuniones futuras
+    UPCOMING.length = 0;
+    futData.forEach(f => UPCOMING.push({ date: f.fecha, title: f.titulo, project: f.proyecto_id, type: 'future' }));
+
+    // Re-renderizar
+    renderGantt();
+    renderCalendar();
+    updateCounters();
+    ['alicia','romy','brasil','desempeno'].forEach(id => updateDashCard(id));
+
+    document.getElementById('readonly-banner').innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+      </div>
+      <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Live · Google Sheets</span>`;
+
+    return true;
+  } catch(e) {
+    console.error('Error cargando Sheets:', e);
+    document.getElementById('readonly-banner').innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+      </div>
+      <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Vista pública</span>`;
+    return false;
+  }
+}
+
 // ── ADMIN ──
 const ADMIN_CREDS = { user: 'admin', pass: 'bondypartners' };
 let isAdmin = false;
@@ -1142,6 +1257,7 @@ function updateCounters() {
 // ── INIT ──
 renderGantt();
 renderCalendar();
+loadFromSheets(); // carga datos del Sheet maestro si está configurado
 </script>
 </body>
 </html>
