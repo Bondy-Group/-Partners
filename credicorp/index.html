@@ -587,7 +587,7 @@ async function loadFromSheets() {
     showLoading();
     const tabs = ['sheets_proyectos','sheets_reuniones','sheets_tareas','sheets_documentos','sheets_reuniones_futuras'];
     const results = await Promise.all(tabs.map(t =>
-      fetch(`${SHEETS_BASE}/${t}?key=${API_KEY}`).then(r => r.json())
+      fetch(`${SHEETS_BASE}/${t}?key=${API_KEY}&valueRenderOption=FORMATTED_VALUE`).then(r => r.json())
     ));
 
     const [proyData, reunData, tareasData, docsData, futData] = results.map(r => {
