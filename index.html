@@ -371,7 +371,7 @@ select.btn { cursor: pointer; }
     <div id="readonly-banner" style="background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r-md);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
       <div style="display:flex;align-items:center;gap:10px;">
         <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
-        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · <strong>+Partners para Credicorp</strong></span>
       </div>
       <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Vista pública</span>
     </div>
@@ -398,6 +398,18 @@ select.btn { cursor: pointer; }
       </div>
     </div>
 
+    <!-- PABLO HEADER -->
+    <div class="pablo-header" id="pablo-header-visible">
+      <div class="pablo-header-left">
+        <h1>Credicorp — Proyecto de Consultoría</h1>
+        <p>Panel de seguimiento · Preparado por +Partners · Actualizado hoy</p>
+      </div>
+      <div class="pablo-header-right">
+        <div class="pablo-logo">+Partners</div>
+        <div class="pablo-date" id="pablo-today-date"></div>
+      </div>
+    </div>
+
     <!-- METRICS -->
     <div class="summary-grid">
       <div class="metric-card"><div class="metric-label">Proyectos</div><div class="metric-value">4</div></div>
@@ -406,6 +418,7 @@ select.btn { cursor: pointer; }
       <div class="metric-card"><div class="metric-label">Bloqueados</div><div class="metric-value red" id="c-red">1</div></div>
     </div>
 
+    <div class="dash-two-col"><div class="dash-left-col">
     <!-- GANTT -->
     <div class="gantt-wrapper">
       <div class="section-hdr">
@@ -534,6 +547,114 @@ select.btn { cursor: pointer; }
         <div class="click-hint">Ver detalle completo →</div>
       </div>
     </div>
+    </div><!-- end dash-left-col -->
+
+    <!-- COLUMNA DERECHA: Scope + Equipo + Contactos -->
+    <div class="dash-right-panel">
+
+      <!-- ALCANCE DEL PROYECTO -->
+      <div class="scope-card">
+        <div class="scope-title">Alcance del proyecto</div>
+
+        <div class="scope-item">
+          <div class="scope-item-dot" style="background:#639922;"></div>
+          <div class="scope-item-content">
+            <div class="scope-item-name">Benchmark Hub Brasil / EVP</div>
+            <div class="scope-item-sub">Competitividad de la propuesta de valor para talento ejecutivo y digital en São Paulo. Benchmarks vs. tech, finanzas y consultoría.</div>
+            <span class="scope-stage">🟡 Benchmark activo</span>
+          </div>
+        </div>
+
+        <div class="scope-item">
+          <div class="scope-item-dot" style="background:#2a2450;"></div>
+          <div class="scope-item-content">
+            <div class="scope-item-name">Diagnóstico HR & Mejora de Procesos</div>
+            <div class="scope-item-sub">Diagnóstico integral de HR: talento, employee experience, performance, procesos, HR Tech e IA. Entregable: backlog Kanban + roadmap.</div>
+            <span class="scope-stage">🟡 En diagnóstico</span>
+          </div>
+        </div>
+
+        <div class="scope-item">
+          <div class="scope-item-dot" style="background:#a855f7;"></div>
+          <div class="scope-item-content">
+            <div class="scope-item-name">Movilidad Internacional</div>
+            <div class="scope-item-sub">Diseño del modelo de movilidad estratégica LATAM. Benchmarks con Philips, MeLi, Accenture, Boehringer.</div>
+            <span class="scope-stage">🔴 Entregable pendiente</span>
+          </div>
+        </div>
+
+        <div class="scope-item">
+          <div class="scope-item-dot" style="background:#f59e0b;"></div>
+          <div class="scope-item-content">
+            <div class="scope-item-name">HR Tech & Copilot Studio</div>
+            <div class="scope-item-sub">Implementación de soluciones IA para HR: Copilot Studio, automatización de procesos, onboarding digital.</div>
+            <span class="scope-stage">🔴 Bloqueado — IT no responde</span>
+          </div>
+        </div>
+
+        <div class="scope-item">
+          <div class="scope-item-dot" style="background:#06b6d4;"></div>
+          <div class="scope-item-content">
+            <div class="scope-item-name">Performance & Desempeño</div>
+            <div class="scope-item-sub">Modelo de evaluación, conexión con compensación, upskilling y reskilling para transformación digital.</div>
+            <span class="scope-stage">🟢 Diagnóstico inicial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EQUIPO CONSULTOR -->
+      <div class="team-card">
+        <div class="scope-title">Equipo +Partners</div>
+        <div class="team-member">
+          <div class="team-avatar">MS</div>
+          <div><div class="team-name">Mara Schmitman</div><div class="team-role">Coordinación · HR Strategy</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar">LP</div>
+          <div><div class="team-name">Lucía Palomeque</div><div class="team-role">Benchmark · EVP · Movilidad</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar">JF</div>
+          <div><div class="team-name">Juan Fornaguera</div><div class="team-role">Socio · HR Tech · Copilot</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar">SM</div>
+          <div><div class="team-name">Sasan Maniei</div><div class="team-role">Socio · Innovación · IA</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar">JM</div>
+          <div><div class="team-name">Jorge Moreno</div><div class="team-role">Socio · Estrategia · GRC</div></div>
+        </div>
+      </div>
+
+      <!-- CONTACTOS CREDICORP -->
+      <div class="team-card">
+        <div class="scope-title">Contactos Credicorp</div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#e0f2fe;color:#0369a1;">PS</div>
+          <div><div class="team-name">Pablo Silva</div><div class="team-role">Sponsor · Director HR</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#e0f2fe;color:#0369a1;">RM</div>
+          <div><div class="team-name">Romina Mitidieri</div><div class="team-role">HR · Movilidad</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#fef3c7;color:#92400e;">LG</div>
+          <div><div class="team-name">Lucila Guelfo</div><div class="team-role">Hub Brasil · Change Mgmt ✨ Nueva</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#e0f2fe;color:#0369a1;">GR</div>
+          <div><div class="team-name">Gisselle Ripamonti</div><div class="team-role">HR Tech · Copilot Studio</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#fee2e2;color:#991b1b;">IT</div>
+          <div><div class="team-name">Ysela Santana / Antonio G.</div><div class="team-role">IT — sin respuesta desde 5 mar 🔴</div></div>
+        </div>
+      </div>
+
+    </div><!-- end dash-right-panel -->
+    </div><!-- end dash-two-col -->
+
   </div>
 </div>
 
@@ -688,7 +809,7 @@ async function loadFromSheets() {
     document.getElementById('readonly-banner').innerHTML = `
       <div style="display:flex;align-items:center;gap:10px;">
         <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
-        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · <strong>+Partners para Credicorp</strong></span>
       </div>
       <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Live · Google Sheets</span>`;
 
@@ -698,7 +819,7 @@ async function loadFromSheets() {
     document.getElementById('readonly-banner').innerHTML = `
       <div style="display:flex;align-items:center;gap:10px;">
         <div style="width:8px;height:8px;border-radius:50%;background:#639922;flex-shrink:0;"></div>
-        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · +Partners</span>
+        <span style="font-size:13px;color:var(--text-2);">Dashboard de seguimiento — Proyecto Credicorp · <strong>+Partners para Credicorp</strong></span>
       </div>
       <span style="font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;">Vista pública</span>`;
     return false;
@@ -768,6 +889,12 @@ const PROJECTS = {
         insights: ["Alicia maneja firmas físicas y macros de Excel para procesos clave — alto potencial de automatización", "PeopleSoft tiene módulo nativo de firma electrónica (PeopleSign) que no se está usando", "El cálculo de bonus para España es manual y propenso a errores — riesgo operativo real", "Sin portal de autoservicio para stock options — ejecutivos dependen de HR para cualquier consulta", "Transferencia de conocimiento es un punto de falla crítico si una persona clave se va"],
         actions: [{ text: "Coordinar reunión discovery con Alicia antes de vacaciones", owner: "Juan / Lucía / Sasan", due: "Semana del 6 abr", status: "open" }, { text: "Investigar PeopleSign como alternativa nativa a DocuSign", owner: "Equipo", due: "Antes de reunión Alicia", status: "open" }, { text: "Preparar guía de preguntas de discovery para Alicia", owner: "Mara", due: "Antes de reunión Alicia", status: "open" }]
       },
+      { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
+        participants: ["Sasan Maniei", "Gisselle Ripamonti (Credicorp)", "Juan Fornaguera"],
+        content: "Sasan escribió a Gisselle pidiendo ayuda para desbloquear IT (Ysela Santana / Antonio García). El proyecto GCG GPT lleva 4 mails sin respuesta desde el 5 de marzo.",
+        insights: ["IT no responde desde el 5 de marzo — bloqueo crítico de 25+ días", "Sasan escaló directamente a Gisselle para presionar a IT", "Sin participación de IT, Copilot Studio no puede avanzar", "Pablo Silva fue incluido en copia el 26 de marzo para visibilizar el bloqueo"],
+        actions: [{ text: "Esperar respuesta de Gisselle — si no hay respuesta en 48hs, escalar directamente a Pablo", owner: "Sasan / Juan", due: "2 abr 2026", status: "open" }]
+      },
       { date: "feb 2026", title: "Propuesta de diagnóstico HR", type: "entregable", imp: false,
         participants: ["Mara Schmitman", "Sasan Maniei"],
         content: "Propuesta de servicios para diagnóstico de procesos HR. Alcance: ~45.000 colaboradores, multi-país.",
@@ -782,6 +909,12 @@ const PROJECTS = {
     ],
     timeline: [
       { date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", imp: true, content: "Identificación de Alicia como contacto clave. Ventana limitada antes de 15 días de vacaciones. Restricción crítica: PeopleSoft en implementación.", bullets: ["Investigar PeopleSign", "Discovery profundo", "Todas las propuestas deben ser compatibles con PeopleSoft"] },
+      { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
+        participants: ["Sasan Maniei", "Gisselle Ripamonti (Credicorp)", "Juan Fornaguera"],
+        content: "Sasan escribió a Gisselle pidiendo ayuda para desbloquear IT (Ysela Santana / Antonio García). El proyecto GCG GPT lleva 4 mails sin respuesta desde el 5 de marzo.",
+        insights: ["IT no responde desde el 5 de marzo — bloqueo crítico de 25+ días", "Sasan escaló directamente a Gisselle para presionar a IT", "Sin participación de IT, Copilot Studio no puede avanzar", "Pablo Silva fue incluido en copia el 26 de marzo para visibilizar el bloqueo"],
+        actions: [{ text: "Esperar respuesta de Gisselle — si no hay respuesta en 48hs, escalar directamente a Pablo", owner: "Sasan / Juan", due: "2 abr 2026", status: "open" }]
+      },
       { date: "feb 2026", title: "Propuesta de diagnóstico HR", type: "entregable", imp: false, content: "Propuesta de servicios para diagnóstico de procesos HR. Alcance: ~45.000 colaboradores, multi-país.", bullets: ["Detectar fricciones operativas", "Mapear HR Tech e IA", "Construir backlog de quick wins"] }
     ],
     tasks: [
@@ -803,7 +936,7 @@ const PROJECTS = {
   },
   romy: {
     name: "Romy — Movilidad", sub: "Programa de movilidad internacional LATAM",
-    avatar: "R", status: "Bloqueado", lastMeeting: "3 mar 2026",
+    avatar: "R", status: "Bloqueado", lastMeeting: "31 mar 2026",
     gantt: { start: '2025-12', end: '2026-05', phase: 'Diagnóstico + Entregables' },
     docs: [
       { name: "Mobility Handbook", type: "📄", meta: "mar 2026", status: "done", statusLabel: "Completado", gdrive: "" },
@@ -812,6 +945,12 @@ const PROJECTS = {
       { name: "Entregable ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
+      { date: "30 mar 2026", title: "Benchmark con Boehringer Ingelheim", type: "benchmark", imp: true,
+        participants: ["Juan Fornaguera", "Natalia Bauchman (Boehringer Ingelheim)", "Pablo Silva", "Romina Mitidieri"],
+        content: "Reunión de benchmark de movilidad con Boehringer Ingelheim. Organizado por Juan. Pablo Silva y Romina en copia.",
+        insights: ["Boehringer Ingelheim confirmado como benchmark de movilidad", "Participación directa de Pablo Silva y Romina refuerza visibilidad del proyecto"],
+        actions: [{ text: "Documentar aprendizajes de Boehringer en comparativa de movilidad", owner: "Lucía", due: "abr 2026", status: "open" }]
+      },
       { date: "3 mar 2026", title: "Benchmark con Philips — María Pía Logiovane", type: "benchmark", imp: true,
         participants: ["Mara Schmitman", "Lucía", "María Pía Logiovane (Philips — Head of HR LATAM)"],
         content: "Entrevista de benchmark con Head of HR Latin America de Philips sobre modelo de movilidad internacional.",
@@ -832,6 +971,7 @@ const PROJECTS = {
       }
     ],
     tasks: [
+      { task: "Sesión Mobility 360 — hoy 31 mar (link activo de Romina)", owner: "Juan / Lucía / Mara", priority: "Alta", status: "pending" },
       { task: "Solicitar entregable formal a Romy para presentar a liderazgo", owner: "Juan / Lucía / Sasan", priority: "Alta" },
       { task: "Coordinar reuniones interdepartamentales con equipo Talento", owner: "Romy (presionar)", priority: "Alta" },
       { task: "Definir formato entregable final: deck, memo o informe", owner: "Equipo consultoría", priority: "Media" }
@@ -847,7 +987,7 @@ const PROJECTS = {
   },
   brasil: {
     name: "HUB Brasil / EVP", sub: "Benchmark competitividad São Paulo — talento digital",
-    avatar: "B", status: "En curso", lastMeeting: "25 mar 2026",
+    avatar: "B", status: "En curso", lastMeeting: "30 mar 2026",
     gantt: { start: '2025-12', end: '2026-07', phase: 'Benchmark activo' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "" },
@@ -857,6 +997,12 @@ const PROJECTS = {
       { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
+      { date: "30 mar 2026", title: "Convocatoria Hub Brasil — Change Management", type: "reunion", imp: true,
+        participants: ["Lucila Guelfo (Credicorp)", "Juan Fornaguera", "Mara Schmitman", "Lucía Palomeque", "Jorge Moreno"],
+        content: "Lucila Guelfo convocó reunión de Teams sobre Hub Brasil con foco en Change Management. Primera señal activa de Lucila en semanas.",
+        insights: ["Nueva contacto activo del lado de Credicorp: Lucila Guelfo", "El enfoque de Change Management sugiere que el Hub Brasil avanza a implementación", "Oportunidad de reactivar trabajo estancado y ampliar alcance del proyecto"],
+        actions: [{ text: "Preparar agenda y brief para reunión Hub Brasil - Change Management con Lucila", owner: "Juan / Mara", due: "Esta semana", status: "open" }]
+      },
       { date: "25 mar 2026", title: "Benchmark con Accenture", type: "benchmark", imp: true,
         participants: ["Lucía", "Referente Accenture SP"],
         content: "Sesión de benchmark sobre propuesta de valor para talento digital en São Paulo.",
@@ -1405,7 +1551,16 @@ function updateCounters() {
 // ── INIT ──
 renderGantt();
 renderCalendar();
-loadFromSheets(); // carga datos del Sheet maestro si está configurado
+loadFromSheets();
+// Fecha de hoy en header Pablo
+(function() {
+  const el = document.getElementById('pablo-today-date');
+  if (el) {
+    const d = new Date();
+    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+    el.textContent = d.toLocaleDateString('es-AR', opts);
+  }
+})(); // carga datos del Sheet maestro si está configurado
 </script>
 </body>
 </html>
