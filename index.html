@@ -260,6 +260,17 @@ select.btn { cursor: pointer; }
 
 /* ── DOCS ── */
 .docs-section { margin-bottom: 1rem; }
+.transcript-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-md); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 12px; transition: border-color 0.15s; }
+.transcript-card:hover { border-color: var(--accent-mid); }
+.transcript-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.transcript-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.transcript-meta { font-size: 11px; color: var(--text-3); }
+.transcript-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.transcript-tag { font-size: 10px; background: var(--surface2); border: 0.5px solid var(--border); border-radius: 20px; padding: 2px 8px; color: var(--text-2); }
+.transcript-list { display: flex; flex-direction: column; gap: 8px; }
+.transcript-gdrive-note { background: var(--blue-bg); color: var(--blue); font-size: 12px; padding: 10px 14px; border-radius: var(--r-sm); margin-bottom: 1rem; line-height: 1.6; }
+.transcript-gdrive-note a { color: var(--blue); font-weight: 600; }
+.transcript-empty { text-align: center; padding: 2rem; color: var(--text-3); font-size: 13px; }
 .docs-upload-area { border: 1.5px dashed var(--border-md); border-radius: var(--r-md); padding: 1.5rem; text-align: center; cursor: pointer; transition: border-color 0.15s, background 0.15s; margin-bottom: 1rem; position: relative; }
 .docs-upload-area:hover, .docs-upload-area.drag-over { border-color: var(--accent-mid); background: var(--accent-light); }
 .docs-upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -546,6 +557,7 @@ select.btn { cursor: pointer; }
     <div class="tabs">
       <button class="tab active" onclick="switchTab('timeline')">Reuniones</button>
       <button class="tab" onclick="switchTab('tasks')">Tareas</button>
+      <button class="tab" onclick="switchTab('transcripts')">Transcripts</button>
       <button class="tab" onclick="switchTab('docs')">Documentos</button>
       <button class="tab" onclick="switchTab('decisions')">Decisiones</button>
       <button class="tab" onclick="switchTab('openqs')">Open Questions</button>
@@ -553,6 +565,7 @@ select.btn { cursor: pointer; }
 
     <div class="panel active panel-card" id="tab-timeline"></div>
     <div class="panel panel-card" id="tab-tasks"></div>
+    <div class="panel" id="tab-transcripts"></div>
     <div class="panel" id="tab-docs"></div>
     <div class="panel panel-card" id="tab-decisions"></div>
     <div class="panel" id="tab-openqs"></div>
@@ -605,6 +618,7 @@ async function loadFromSheets() {
       PROJECTS[k].timeline = [];
       PROJECTS[k].tasks = [];
       PROJECTS[k].docs = [];
+      PROJECTS[k].transcripts = [];
     });
 
     // Proyectos — nombre, subtitulo, avatar editables directo desde el Sheet
@@ -727,6 +741,16 @@ function logoutAdmin() {
 document.getElementById('admin-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
 // ── DATA ──
+
+// ── DRIVE FOLDERS POR PROYECTO ──
+const DRIVE_FOLDERS = {
+  alicia:    { id: '1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ', label: 'Ops - Alicia' },
+  romy:      { id: '1uODF08E7NinT5A-W0WyIt_BhMuEGVAIT', label: 'Mobility' },
+  brasil:    { id: '1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8', label: 'HUB Brasil' },
+  desempeno: { id: '1C1_nXuq1WsZqlybwq2I-vZwtNJV8AF86', label: 'Desempeño' }
+};
+const DRIVE_BASE = 'https://drive.google.com/drive/folders/';
+
 const PROJECTS = {
   alicia: {
     name: "Alicia — Ops/HR Tech", sub: "Digitalización y automatización de procesos HR",
@@ -1018,7 +1042,7 @@ function showDash() {
 
 function switchTab(tab) {
   currentTab = tab;
-  const tabNames = ['timeline','tasks','docs','decisions','openqs'];
+  const tabNames = ['timeline','tasks','transcripts','docs','decisions','openqs'];
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', tabNames[i] === tab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
@@ -1109,12 +1133,51 @@ function renderTab(tab) {
     ${isAdmin?`<div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-sm" onclick="addTask('${currentProject}')">+ Agregar tarea</button></div>`:''}`;
   }
 
+  if (tab === 'transcripts') {
+    const folderMeta = DRIVE_FOLDERS[currentProject] || {};
+    const gdriveFolder = folderMeta.id ? (DRIVE_BASE + folderMeta.id) : 'https://drive.google.com/drive/folders/1j06bp9-cdnEL-KL1TX_9W71yS2cKO50F';
+    const folderLabel = folderMeta.label || 'Credicorp';
+    const transcripts = (p.transcripts || []);
+    el.innerHTML = `
+      <div class="transcript-gdrive-note">
+        🎙️ <strong>Cómo agregar transcripts:</strong> Subí el archivo (PDF, DOCX o TXT) a la carpeta de Drive de este proyecto.<br>
+        Luego copiá el link y pegalo en el <strong>Sheet maestro</strong> → pestaña <em>sheets_transcripts</em>.<br>
+        <a href="${gdriveFolder}" target="_blank">→ Carpeta Drive: ${folderLabel}</a>
+        &nbsp;·&nbsp;
+        <a href="https://docs.google.com/spreadsheets/d/1vtB5WLMJLjMOIXaeze_OMZbXjva1rfhDHyZhvFPxxYo/edit#gid=transcripts" target="_blank">→ Sheet maestro</a>
+      </div>
+      <div class="transcript-list">
+        ${transcripts.length === 0
+          ? '<div class="transcript-empty">📭 Todavía no hay transcripts cargados para este proyecto.<br><span style="font-size:11px;">Subí uno a Drive y registralo en el Sheet maestro.</span></div>'
+          : transcripts.map(t => `
+            <div class="transcript-card">
+              <div class="transcript-icon">🎙️</div>
+              <div style="flex:1;">
+                <div class="transcript-name">${t.nombre}</div>
+                <div class="transcript-meta">${t.fecha} · ${t.participantes || ''}</div>
+                <div class="transcript-tags">
+                  ${(t.temas||'').split(',').filter(Boolean).map(tag => `<span class="transcript-tag">${tag.trim()}</span>`).join('')}
+                </div>
+              </div>
+              <div style="flex-shrink:0;">
+                ${t.gdrive_url ? `<a href="${t.gdrive_url}" target="_blank" class="btn btn-ghost btn-sm">↗ Drive</a>` : ''}
+              </div>
+            </div>`).join('')
+        }
+      </div>`;
+  }
+
   if (tab === 'docs') {
-    const gdriveFolder = `https://drive.google.com/drive/folders/`;
+    const folderMeta = DRIVE_FOLDERS[currentProject] || {};
+    const gdriveFolder = folderMeta.id ? (DRIVE_BASE + folderMeta.id) : 'https://drive.google.com/drive/folders/1j06bp9-cdnEL-KL1TX_9W71yS2cKO50F';
+    const folderLabel = folderMeta.label || 'Credicorp';
     el.innerHTML = `
       <div class="docs-gdrive-note">
-        📁 Los documentos se guardan en <strong>Google Drive</strong> — carpeta compartida +Partners / Credicorp.<br>
-        Para subir o descargar archivos usá el Drive directamente: <a href="${gdriveFolder}" target="_blank">Abrir carpeta en Drive →</a>
+        📁 <strong>Carpeta de Drive:</strong> Credicorp / ${folderLabel}<br>
+        Subí transcripts, propuestas y entregables directamente en Drive — aparecen automáticamente acá.<br>
+        <a href="${gdriveFolder}" target="_blank" style="font-weight:600;">→ Abrir carpeta en Drive</a>
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        <a href="https://drive.google.com/drive/folders/1j06bp9-cdnEL-KL1TX_9W71yS2cKO50F" target="_blank">Ver todas las carpetas</a>
       </div>
       <div class="docs-upload-area" id="drop-${currentProject}">
         <input type="file" multiple onchange="handleDocsUpload(event,'${currentProject}')">
