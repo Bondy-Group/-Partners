@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instructivo — Panel Credicorp · +Partners</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F7F4;
+  --surface:#FFFFFF;
+  --surface2:#F1EFE8;
+  --border:#E2DFD6;
+  --border-md:#C8C5BC;
+  --text:#1A1917;
+  --text-2:#5A5855;
+  --text-3:#9A9893;
+  --accent:#2A2450;
+  --accent-mid:#534AB7;
+  --accent-light:#EEEDFE;
+  --green-bg:#EAF3DE;
+  --green:#3B6D11;
+  --amber-bg:#FAEEDA;
+  --amber:#854F0B;
+  --red-bg:#FCEBEB;
+  --red:#A32D2D;
+  --blue-bg:#E6F1FB;
+  --blue:#185FA5;
+  --r-sm:6px;
+  --r-md:10px;
+  --r-lg:14px;
+}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.topbar{background:var(--accent);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.topbar-logo{font-size:16px;font-weight:600;color:#a3e635;letter-spacing:-0.5px}
+.topbar-sep{width:1px;height:18px;background:rgba(255,255,255,0.2)}
+.topbar-title{font-size:13px;color:rgba(255,255,255,0.7)}
+.topbar-link{font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;transition:all 0.15s}
+.topbar-link:hover{color:white;border-color:rgba(255,255,255,0.5)}
+.container{max-width:900px;margin:0 auto;padding:2.5rem 2rem}
+.hero{margin-bottom:2.5rem}
+.hero h1{font-size:28px;font-weight:600;letter-spacing:-0.6px;margin-bottom:8px;color:var(--text)}
+.hero p{font-size:15px;color:var(--text-2);line-height:1.6;max-width:600px}
+.tabs-nav{display:flex;gap:4px;margin-bottom:2rem;flex-wrap:wrap;border-bottom:0.5px solid var(--border);padding-bottom:0}
+.tab-btn{font-size:13px;padding:8px 16px;border-radius:var(--r-sm) var(--r-sm) 0 0;border:0.5px solid transparent;border-bottom:none;background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;font-family:inherit;margin-bottom:-0.5px}
+.tab-btn:hover:not(.active){background:var(--surface2);color:var(--text)}
+.tab-btn.active{background:var(--surface);color:var(--text);font-weight:500;border-color:var(--border);border-bottom-color:var(--surface)}
+.section{display:none}
+.section.active{display:flex;flex-direction:column;gap:1.25rem}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:1.5rem 1.75rem}
+.card-title{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.card-title-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.step{display:flex;gap:16px;padding:12px 0;border-bottom:0.5px solid var(--border)}
+.step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--surface2);border:0.5px solid var(--border);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;color:var(--text-2)}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.step-desc{font-size:13px;color:var(--text-2);line-height:1.55}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500}
+.pill-dot{width:5px;height:5px;border-radius:50%}
+.pill-green{background:var(--green-bg);color:var(--green)}
+.pill-amber{background:var(--amber-bg);color:var(--amber)}
+.pill-red{background:var(--red-bg);color:var(--red)}
+.pill-blue{background:var(--blue-bg);color:var(--blue)}
+.pill-gray{background:var(--surface2);color:var(--text-2)}
+.code-block{background:var(--surface2);border:0.5px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);margin-top:10px;line-height:1.7;overflow-x:auto;white-space:pre}
+.warn-box{background:var(--amber-bg);border:0.5px solid #FAC775;border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--amber);margin-top:10px;line-height:1.55}
+.info-box{background:var(--blue-bg);border:0.5px solid #B5D4F4;border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--blue);margin-top:10px;line-height:1.55}
+.success-box{background:var(--green-bg);border:0.5px solid #C0DD97;border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--green);margin-top:10px;line-height:1.55}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{text-align:left;font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.07em;padding:0 12px 10px 0;border-bottom:0.5px solid var(--border)}
+.table td{padding:10px 12px 10px 0;border-bottom:0.5px solid var(--border);color:var(--text-2);vertical-align:top;line-height:1.45}
+.table tr:last-child td{border-bottom:none}
+.table td:first-child{color:var(--text);font-weight:500;font-family:'DM Mono',monospace;font-size:12px;width:170px}
+.link-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.link-row:last-child{border-bottom:none}
+.link-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--surface2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.link-label{font-size:13px;font-weight:500;color:var(--text);line-height:1}
+.link-sub{font-size:11px;color:var(--text-3);margin-top:2px}
+.link-url{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px;text-decoration:none;flex-shrink:0}
+.link-url:hover{text-decoration:underline}
+.role-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.role-row:last-child{border-bottom:none;padding-bottom:0}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--accent-light);color:var(--accent-mid);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.role-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.role-can{font-size:12px;color:var(--text-2);line-height:1.5}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.semaforo-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.semaforo-row:last-child{border-bottom:none}
+.semaforo-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.semaforo-label{font-size:13px;font-weight:500;min-width:80px}
+.semaforo-desc{font-size:12px;color:var(--text-2)}
+.number-badge{width:22px;height:22px;border-radius:50%;background:var(--accent-light);color:var(--accent-mid);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.footer{border-top:0.5px solid var(--border);margin-top:3rem;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-3)}
+@media(max-width:700px){
+  .two-col{grid-template-columns:1fr}
+  .container{padding:1.5rem 1rem}
+  .topbar{padding:0 1rem}
+  .link-url{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-logo">+Partners</span>
+    <div class="topbar-sep"></div>
+    <span class="topbar-title">Instructivo — Panel Credicorp</span>
+  </div>
+  <a href="https://bondy-group.github.io/-Partners/" target="_blank" class="topbar-link">Ir al dashboard →</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Cómo usar el panel de seguimiento</h1>
+    <p>Guía para el equipo interno de +Partners. Cómo leer el dashboard, actualizar datos, subir transcripts y mantener el proyecto al día.</p>
+  </div>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="show('links',this)">Links clave</button>
+    <button class="tab-btn" onclick="show('lectura',this)">Leer el panel</button>
+    <button class="tab-btn" onclick="show('actualizar',this)">Actualizar datos</button>
+    <button class="tab-btn" onclick="show('transcripts',this)">Transcripts</button>
+    <button class="tab-btn" onclick="show('roles',this)">Roles del equipo</button>
+    <button class="tab-btn" onclick="show('reglas',this)">Reglas y troubleshooting</button>
+  </div>
+
+  <!-- ── LINKS CLAVE ── -->
+  <div id="links" class="section active">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--accent-mid)"></span>Accesos principales</div>
+      <div class="link-row">
+        <div class="link-icon">🖥</div>
+        <div>
+          <div class="link-label">Dashboard público (para Pablo y el equipo)</div>
+          <div class="link-sub">Vista pública — sin login — compartir con Pablo</div>
+        </div>
+        <a href="https://bondy-group.github.io/-Partners/" target="_blank" class="link-url">bondy-group.github.io/-Partners/</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon">📊</div>
+        <div>
+          <div class="link-label">Sheet maestro — fuente de verdad</div>
+          <div class="link-sub">Acá el equipo edita estados, tareas, transcripts y docs</div>
+        </div>
+        <a href="https://docs.google.com/spreadsheets/d/1vtB5WLMJLjMOIXaeze_OMZbXjva1rfhDHyZhvFPxxYo/edit" target="_blank" class="link-url">spreadsheets/d/1vtB5WLM…</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon">📁</div>
+        <div>
+          <div class="link-label">Drive Credicorp — carpeta raíz</div>
+          <div class="link-sub">Contiene las 4 subcarpetas de proyecto</div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1j06bp9-cdnEL-KL1TX_9W71yS2cKO50F" target="_blank" class="link-url">drive.google.com/…/1j06bp9</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon">📖</div>
+        <div>
+          <div class="link-label">Este instructivo</div>
+          <div class="link-sub">Para compartir con el equipo cuando haya dudas</div>
+        </div>
+        <a href="https://bondy-group.github.io/-Partners/instructivo/" target="_blank" class="link-url">bondy-group.github.io/-Partners/instructivo/</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--blue)"></span>Carpetas de Drive por proyecto</div>
+      <div class="link-row">
+        <div class="link-icon" style="background:var(--amber-bg);border-color:#FAC775;font-size:14px;font-weight:600;color:var(--amber)">A</div>
+        <div>
+          <div class="link-label">Alicia — Ops / HR Tech</div>
+          <div class="link-sub">Propuestas, entregables, notas de reunión</div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ" target="_blank" class="link-url">folders/1v0BbFVQJwmow90…</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon" style="background:var(--red-bg);border-color:#F7C1C1;font-size:14px;font-weight:600;color:var(--red)">R</div>
+        <div>
+          <div class="link-label">Romy — Movilidad</div>
+          <div class="link-sub">Handbook, benchmarks, playbook</div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1uODF08E7NinT5A-W0WyIt_BhMuEGVAIT" target="_blank" class="link-url">folders/1uODF08E7NinT5A…</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon" style="background:var(--green-bg);border-color:#C0DD97;font-size:14px;font-weight:600;color:var(--green)">B</div>
+        <div>
+          <div class="link-label">HUB Brasil / EVP</div>
+          <div class="link-sub">Benchmarks SP, heatmaps, EVP</div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8" target="_blank" class="link-url">folders/1r7OVohP1Dddnf…</a>
+      </div>
+      <div class="link-row">
+        <div class="link-icon" style="background:var(--blue-bg);border-color:#B5D4F4;font-size:14px;font-weight:600;color:var(--blue)">D</div>
+        <div>
+          <div class="link-label">Desempeño</div>
+          <div class="link-sub">Diagnóstico, frameworks de performance</div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1C1_nXuq1WsZqlybwq2I-vZwtNJV8AF86" target="_blank" class="link-url">folders/1C1_nXuq1WsZqly…</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEER EL PANEL ── -->
+  <div id="lectura" class="section">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--green)"></span>Estructura del dashboard</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Header ejecutivo</div>
+          <div class="step-desc">Muestra "Credicorp — Proyecto de Consultoría · +Partners" con la fecha de hoy. Pensado para que Pablo entienda el contexto en dos segundos.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Contadores de estado</div>
+          <div class="step-desc">Cuatro métricas: total de proyectos, en curso, en riesgo y bloqueados. Se actualizan automáticamente desde el Sheet maestro al recargar.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Gantt y calendario</div>
+          <div class="step-desc">El Gantt muestra la duración de cada proyecto. El calendario marca las reuniones pasadas y próximas. Ambos son de solo lectura.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Tarjetas de proyecto</div>
+          <div class="step-desc">Una tarjeta por proyecto con semáforo de estado, última reunión, próximos pasos y riesgos. Hacer click en cualquiera abre el detalle con 5 pestañas: Reuniones, Tareas, Transcripts (admin), Documentos, Decisiones.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Panel derecho — Alcance, Equipo y Contactos</div>
+          <div class="step-desc">Columna fija con los 5 frentes del proyecto, el equipo +Partners con roles, y los contactos de Credicorp. Pensado para que Pablo vea quién es quién y qué cubre cada frente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--amber)"></span>Qué significa cada semáforo</div>
+      <div class="semaforo-row">
+        <div class="semaforo-dot" style="background:#639922"></div>
+        <div class="semaforo-label" style="color:var(--green)">En curso</div>
+        <div class="semaforo-desc">El proyecto avanza normalmente. No hay impedimentos bloqueantes.</div>
+      </div>
+      <div class="semaforo-row">
+        <div class="semaforo-dot" style="background:#EF9F27"></div>
+        <div class="semaforo-label" style="color:var(--amber)">En riesgo</div>
+        <div class="semaforo-desc">Hay algo que puede trabar el avance si no se atiende pronto. El equipo lo está monitoreando.</div>
+      </div>
+      <div class="semaforo-row">
+        <div class="semaforo-dot" style="background:#E24B4A"></div>
+        <div class="semaforo-label" style="color:var(--red)">Bloqueado</div>
+        <div class="semaforo-desc">El proyecto no puede avanzar sin resolver un impedimento externo. Requiere acción urgente.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--accent-mid)"></span>Modo admin del dashboard</div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <div class="step-title">Hacer click en el candado 🔒 (esquina superior derecha)</div>
+          <div class="step-desc">Ingresá la contraseña del equipo. En modo admin se habilitan: la pestaña Transcripts (confidencial), botones para agregar tareas y decisiones, y edición inline de celdas.</div>
+        </div>
+      </div>
+      <div class="warn-box">Pablo Silva y el equipo de Credicorp usan el link público sin contraseña. La pestaña Transcripts es solo visible para el equipo interno con login. No compartir la contraseña fuera del equipo +Partners.</div>
+    </div>
+  </div>
+
+  <!-- ── ACTUALIZAR DATOS ── -->
+  <div id="actualizar" class="section">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--accent-mid)"></span>Actualizar el estado de un proyecto</div>
+      <div class="step">
+        <div class="number-badge">1</div>
+        <div class="step-body">
+          <div class="step-title">Abrir el Sheet maestro</div>
+          <div class="step-desc">Acceder desde el link en la sección "Links clave". Cualquier miembro del equipo con acceso puede editar.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">2</div>
+        <div class="step-body">
+          <div class="step-title">Ir a la pestaña <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">sheets_proyectos</code></div>
+          <div class="step-desc">Cada fila es un proyecto. Buscar la fila del proyecto que querés actualizar por la columna proyecto_id.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">3</div>
+        <div class="step-body">
+          <div class="step-title">Editar los campos necesarios</div>
+          <div class="step-desc">Los campos que se actualizan con más frecuencia son:</div>
+          <div class="code-block">estado          → En curso / En riesgo / Bloqueado
+ultima_reunion  → 7 abr 2026
+notas           → Reunión discovery completada con Alicia
+proximos_pasos  → Enviar propuesta de PeopleSign esta semana</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">4</div>
+        <div class="step-body">
+          <div class="step-title">Recargar el dashboard</div>
+          <div class="step-desc">Los cambios se reflejan al recargar la página (F5 o Ctrl+R). No hay sincronización automática.</div>
+        </div>
+      </div>
+      <div class="warn-box">Escribir el estado exactamente como aparece arriba — con mayúscula y tildes. Si se escribe diferente, el semáforo no cambia de color.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--blue)"></span>Todas las pestañas del Sheet</div>
+      <table class="table">
+        <tr><th>Pestaña</th><th>Qué contiene y cuándo editarla</th></tr>
+        <tr><td>sheets_proyectos</td><td>Estado general de cada proyecto. Editar después de cada reunión o cuando cambia el semáforo.</td></tr>
+        <tr><td>sheets_tareas</td><td>Tareas por proyecto con responsable, prioridad y estado. Agregar cuando se define un action item en reunión.</td></tr>
+        <tr><td>sheets_transcripts</td><td>Registro de transcripts con link a Drive. Ver pestaña "Transcripts" para el proceso completo.</td></tr>
+        <tr><td>sheets_reuniones</td><td>Historial de reuniones pasadas con resumen y fecha.</td></tr>
+        <tr><td>sheets_documentos</td><td>Documentos y entregables con link a Drive. Agregar cuando se sube algo nuevo a Drive.</td></tr>
+        <tr><td>sheets_decisiones</td><td>Log de decisiones tomadas con fecha y fuente.</td></tr>
+      </table>
+      <div class="info-box">Los nombres de las pestañas son exactos y no deben cambiarse. El dashboard los busca por nombre.</div>
+    </div>
+  </div>
+
+  <!-- ── TRANSCRIPTS ── -->
+  <div id="transcripts" class="section">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--green)"></span>Cómo registrar un transcript de Fathom</div>
+      <div class="step">
+        <div class="number-badge">1</div>
+        <div class="step-body">
+          <div class="step-title">Exportar el transcript desde Fathom</div>
+          <div class="step-desc">En la reunión de Fathom, ir a "Export" → PDF, DOCX o TXT. También puede servir el email de recap que Fathom manda automáticamente.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">2</div>
+        <div class="step-body">
+          <div class="step-title">Subir a la carpeta de Drive del proyecto</div>
+          <div class="step-desc">Usar la carpeta correcta según el proyecto al que pertenece la reunión. No mezclar carpetas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">3</div>
+        <div class="step-body">
+          <div class="step-title">Copiar el link del archivo en Drive</div>
+          <div class="step-desc">Click derecho sobre el archivo → "Obtener link" → asegurarse de que diga "Cualquiera con el link puede ver" → Copiar link.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">4</div>
+        <div class="step-body">
+          <div class="step-title">Agregar fila en la pestaña <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">sheets_transcripts</code></div>
+          <div class="step-desc">Si la pestaña no existe aún, crearla con exactamente estas columnas en la fila 1:</div>
+          <div class="code-block">proyecto_id | nombre | fecha | participantes | temas | gdrive_url</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="number-badge">5</div>
+        <div class="step-body">
+          <div class="step-title">Completar los campos</div>
+          <div class="step-desc">Referencia para llenar cada columna:</div>
+          <table class="table" style="margin-top:10px">
+            <tr><th>Campo</th><th>Ejemplo</th></tr>
+            <tr><td>proyecto_id</td><td>alicia <em style="color:var(--text-3)">(o romy / brasil / desempeno)</em></td></tr>
+            <tr><td>nombre</td><td>Reunión discovery Alicia — 7 abr 2026</td></tr>
+            <tr><td>fecha</td><td>7 abr 2026</td></tr>
+            <tr><td>participantes</td><td>Juan, Lucía, Sasan, Alicia (Credicorp)</td></tr>
+            <tr><td>temas</td><td>PeopleSoft, onboarding, firmas, bonus España</td></tr>
+            <tr><td>gdrive_url</td><td>https://drive.google.com/file/d/…</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--accent-mid)"></span>Resultado en el dashboard</div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-body">
+          <div class="step-title">Dónde aparece el transcript</div>
+          <div class="step-desc">Al recargar el dashboard y abrir el proyecto, la pestaña "🎙️ Transcripts" muestra cada transcript con nombre, fecha, participantes, chips de temas y botón de link a Drive.</div>
+        </div>
+      </div>
+      <div class="warn-box">La pestaña Transcripts es solo visible para el equipo con login admin. Pablo no la ve cuando accede al link público.</div>
+    </div>
+  </div>
+
+  <!-- ── ROLES ── -->
+  <div id="roles" class="section">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--accent-mid)"></span>Permisos por persona</div>
+      <div class="role-row">
+        <div class="avatar" style="background:#2a2450;color:white">MS</div>
+        <div>
+          <div class="role-name">Mara Schmitman</div>
+          <div class="role-can">Edita Sheet maestro · Sube al repo de GitHub · Contraseña de admin del dashboard · Configura briefing diario en Cowork · Único acceso al código</div>
+        </div>
+      </div>
+      <div class="role-row">
+        <div class="avatar">LP</div>
+        <div>
+          <div class="role-name">Lucía Palomeque</div>
+          <div class="role-can">Edita Sheet maestro · Sube transcripts y docs a Drive · Actualiza tareas y documentos · Login admin del dashboard</div>
+        </div>
+      </div>
+      <div class="role-row">
+        <div class="avatar">JF</div>
+        <div>
+          <div class="role-name">Juan Fornaguera</div>
+          <div class="role-can">Edita Sheet maestro · Sube transcripts y docs a Drive · Actualiza tareas y documentos · Login admin del dashboard</div>
+        </div>
+      </div>
+      <div class="role-row">
+        <div class="avatar">SM</div>
+        <div>
+          <div class="role-name">Sasan Maniei</div>
+          <div class="role-can">Edita Sheet maestro · Sube transcripts a Drive · Login admin del dashboard</div>
+        </div>
+      </div>
+      <div class="role-row">
+        <div class="avatar">JM</div>
+        <div>
+          <div class="role-name">Jorge Moreno</div>
+          <div class="role-can">Edita Sheet maestro · Sube transcripts a Drive · Login admin del dashboard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title"><span class="card-title-dot" style="background:var(--blue)"></span>Qué puede Pablo</div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <div class="step-title">Ver el dashboard completo</div>
+            <div class="step-desc">Header ejecutivo, semáforos, tarjetas, Gantt, calendario, panel derecho con alcance y equipo.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">✗</div>
+          <div class="step-body">
+            <div class="step-title">No ve Transcripts</div>
+            <div class="step-desc">La pestaña de transcripts está oculta para visitantes sin login admin.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">✗</div>
+          <div class="step-body">
+            <div class="step-title">No puede editar</div>
+            <div class="step-desc">El dashboard es solo lectura para Pablo. Los cambios los hace el equipo en el Sheet.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-dot" style="background:var(--green)"></span>Briefing automático</div>
+        <div class="step">
+          <div class="step-num">⏰</div>
+          <div class="step-body">
+            <div class="step-title">Lunes a viernes, 7:30 AM</div>
+            <div class="step-desc">El briefing llega automáticamente al email del equipo con novedades de las últimas 24 horas, estado de proyectos y action items del día.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">→</div>
+          <div class="step-body">
+            <div class="step-title">Destinatarios</div>
+            <div class="step-desc">mara · lucia · juan · sasan · jorge @maspartners.com.ar</div>
+          </div>
+        </div>
+        <div class="success-box">El briefing lee los emails del proyecto, los transcripts de Fathom y actualiza el Sheet automáticamente.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REGLAS ── -->
+  <div id="reglas" class="section">
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--amber)"></span>Las 6 reglas del equipo</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Drive = repositorio de archivos</div>
+          <div class="step-desc">Todo archivo (transcript, propuesta, entregable, benchmark) va en la carpeta de Drive del proyecto. Nunca mezclar carpetas entre proyectos.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Sheet = fuente de verdad</div>
+          <div class="step-desc">Todo lo que querés que aparezca en el dashboard va al Sheet maestro. Si algo no está en el Sheet, no aparece en el dashboard.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Dashboard = solo lectura</div>
+          <div class="step-desc">El dashboard muestra información, no es donde se edita. Los cambios siempre van al Sheet primero, luego se refresca la página.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Recargar para ver cambios</div>
+          <div class="step-desc">Después de editar el Sheet, recargar el dashboard con F5 o Ctrl+Shift+R (limpia caché). Los datos se actualizan al instante.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">No tocar el código en GitHub</div>
+          <div class="step-desc">Solo Mara tiene acceso al repositorio. Si algo visual no funciona o hay que cambiar un texto que no viene del Sheet, avisarle a Mara.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">IDs de proyecto exactos</div>
+          <div class="step-desc">En el Sheet siempre usar los IDs exactos en minúsculas sin tildes: <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">alicia</code> <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">romy</code> <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">brasil</code> <code style="font-family:'DM Mono';font-size:12px;background:var(--surface2);padding:1px 5px;border-radius:4px">desempeno</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="card-title-dot" style="background:var(--red)"></span>Troubleshooting</div>
+      <table class="table">
+        <tr><th>Problema</th><th>Qué hacer</th></tr>
+        <tr><td>Dashboard no carga</td><td>Verificar conexión a internet. Esperar 1-3 minutos (GitHub Pages puede tardar en reflejar cambios recientes). Recargar con Ctrl+Shift+R.</td></tr>
+        <tr><td>Datos desactualizados</td><td>Recargar con Ctrl+Shift+R para limpiar caché del navegador. El Sheet puede tardar hasta 1 minuto en propagarse.</td></tr>
+        <tr><td>Estado no cambia de color</td><td>Verificar ortografía exacta en el Sheet: "En curso", "En riesgo" o "Bloqueado" — con mayúscula y tildes exactas.</td></tr>
+        <tr><td>Transcript no aparece</td><td>Verificar que la pestaña se llame exactamente <code style="font-family:'DM Mono';font-size:11px">sheets_transcripts</code> y que las 6 columnas tengan los nombres correctos.</td></tr>
+        <tr><td>Proyecto_id no reconocido</td><td>Usar solo los valores exactos: alicia / romy / brasil / desempeno (sin tildes, en minúsculas).</td></tr>
+        <tr><td>Algo se rompió visualmente</td><td>Avisarle a Mara. Ella tiene acceso al repositorio de GitHub para corregirlo.</td></tr>
+        <tr><td>No recibí el briefing diario</td><td>Verificar carpeta de spam. Si persiste, avisarle a Mara para revisar la configuración de Cowork.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>+Partners · Proyecto Credicorp · Actualizado 31 mar 2026</span>
+    <a href="https://bondy-group.github.io/-Partners/" target="_blank" style="color:var(--blue);text-decoration:none">Ir al dashboard →</a>
+  </div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
