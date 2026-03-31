@@ -200,6 +200,9 @@ select.btn { cursor: pointer; }
 .tab:hover { color: var(--text); }
 .tab.active { color: var(--text); font-weight: 500; background: var(--surface); border-color: var(--border-md); margin-bottom: -0.5px; }
 .panel { display: none; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+.col-section-title { font-size: 11px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
 .panel.active { display: block; }
 .panel-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-md); padding: 1.25rem 1.5rem; }
 
@@ -554,13 +557,13 @@ select.btn { cursor: pointer; }
       </div>
     </div>
 
-    <div class="tabs">
+    <div class="tabs" id="project-tabs">
       <button class="tab active" onclick="switchTab('timeline')">Reuniones</button>
       <button class="tab" onclick="switchTab('tasks')">Tareas</button>
-      <button class="tab" onclick="switchTab('transcripts')">Transcripts</button>
+      <button class="tab admin-only" onclick="switchTab('transcripts')" id="tab-btn-transcripts" style="display:none;">🎙️ Transcripts</button>
       <button class="tab" onclick="switchTab('docs')">Documentos</button>
       <button class="tab" onclick="switchTab('decisions')">Decisiones</button>
-      <button class="tab" onclick="switchTab('openqs')">Open Questions</button>
+
     </div>
 
     <div class="panel active panel-card" id="tab-timeline"></div>
@@ -720,6 +723,7 @@ function doLogin() {
   const p = document.getElementById('admin-pass').value;
   if (u === ADMIN_CREDS.user && p === ADMIN_CREDS.pass) {
     isAdmin = true;
+    updateAdminTabs();
     document.body.classList.add('admin-mode');
     document.getElementById('btn-admin').textContent = 'Salir admin';
     document.getElementById('btn-admin').style.color = '#fff';
@@ -732,6 +736,7 @@ function doLogin() {
 }
 function logoutAdmin() {
   isAdmin = false;
+  updateAdminTabs();
   document.body.classList.remove('admin-mode');
   document.getElementById('btn-admin').textContent = 'Admin';
   document.getElementById('btn-admin').style.color = '';
@@ -1041,12 +1046,19 @@ function showDash() {
 }
 
 function switchTab(tab) {
+  // Si no es admin y trata de abrir transcripts, redirigir a timeline
+  if (tab === 'transcripts' && !isAdmin) tab = 'timeline';
   currentTab = tab;
-  const tabNames = ['timeline','tasks','transcripts','docs','decisions','openqs'];
+  const tabNames = ['timeline','tasks','transcripts','docs','decisions'];
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', tabNames[i] === tab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   renderTab(tab);
+}
+
+function updateAdminTabs() {
+  const btn = document.getElementById('tab-btn-transcripts');
+  if (btn) btn.style.display = isAdmin ? '' : 'none';
 }
 
 // ── RENDER TABS ──
@@ -1107,7 +1119,37 @@ function renderTab(tab) {
       </div>`;
     }).join('');
 
-    el.innerHTML = `<div class="timeline">${tlHtml}</div>`;
+    const oqHtml = (p.openqs||[]).slice(0,3).map(q => `
+      <div style="padding:8px 0;border-bottom:0.5px solid var(--border);">
+        <div style="font-size:13px;color:var(--text);margin-bottom:3px;">${q.q}</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="oq-urg oq-urg-${q.urgency==='Alta'?'alta':'media'}" style="font-size:10px;">Urgencia ${q.urgency}</span>
+          <span style="font-size:11px;color:var(--text-3);">→ ${q.owner}</span>
+        </div>
+      </div>`).join('');
+
+    const pendingTasks = (p.tasks||[]).filter(t=>t.status!=='done').slice(0,5).map(t=>`
+      <div style="padding:7px 0;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:13px;color:var(--text);">${t.task}</div>
+        <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:8px;">${t.owner}</div>
+      </div>`).join('');
+
+    el.innerHTML = `<div class="two-col">
+      <div>
+        <div class="col-section-title">Historial de reuniones</div>
+        <div class="timeline">${tlHtml}</div>
+      </div>
+      <div>
+        ${pendingTasks ? `<div class="panel-card" style="margin-bottom:1rem;">
+          <div class="col-section-title">Tareas pendientes</div>
+          ${pendingTasks}
+        </div>` : ''}
+        ${oqHtml ? `<div class="panel-card">
+          <div class="col-section-title">Open questions prioritarias</div>
+          ${oqHtml}
+        </div>` : ''}
+      </div>
+    </div>`;
   }
 
   if (tab === 'tasks') {
@@ -1185,8 +1227,15 @@ function renderTab(tab) {
         <div class="docs-upload-text">Arrastrá archivos o hacé click para subir</div>
         <div class="docs-upload-sub">Se registran en este panel — el archivo se guarda en Drive</div>
       </div>
-      <div class="docs-grid" id="docs-grid-${currentProject}">
-        ${p.docs.map((d,i) => renderDocCard(d,i,currentProject)).join('')}
+      <div class="two-col" id="docs-grid-${currentProject}">
+        <div>
+          <div class="col-section-title">Propuestas & Referencia</div>
+          ${p.docs.filter(d=>d.status==='done'||d.status==='wip').map((d,i)=>renderDocCard(d,p.docs.indexOf(d),currentProject)).join('')||'<div style="font-size:13px;color:var(--text-3);padding:8px 0;">Sin documentos aún</div>'}
+        </div>
+        <div>
+          <div class="col-section-title">Entregables pendientes</div>
+          ${p.docs.filter(d=>d.status==='pending').map((d,i)=>renderDocCard(d,p.docs.indexOf(d),currentProject)).join('')||'<div style="font-size:13px;color:var(--text-3);padding:8px 0;">Sin pendientes</div>'}
+        </div>
       </div>`;
 
     const dropZone = document.getElementById(`drop-${currentProject}`);
@@ -1196,17 +1245,13 @@ function renderTab(tab) {
   }
 
   if (tab === 'decisions') {
-    el.innerHTML = `<div class="decisions-list">${p.decisions.map(d => `
+    const decisionsHtml = p.decisions.map(d => `
       <div class="decision-item">
         <div class="decision-top"><div class="decision-title">${d.title}</div><div class="decision-date">${d.date}</div></div>
         <div class="decision-body">${d.body}</div>
         <div class="decision-owner">Fuente: ${d.owner}</div>
-      </div>`).join('')}</div>
-    ${isAdmin?`<div style="margin-top:12px;"><button class="btn btn-sm" onclick="addDecision('${currentProject}')">+ Agregar decisión</button></div>`:''}`;
-  }
-
-  if (tab === 'openqs') {
-    el.innerHTML = `<div class="oq-list">${p.openqs.map(q => `
+      </div>`).join('') || '<div style="font-size:13px;color:var(--text-3);padding:4px 0;">Sin decisiones registradas</div>';
+    const openqsHtml = (p.openqs||[]).map(q => `
       <div class="oq-item">
         <div class="oq-q">${q.q}</div>
         <div class="oq-ctx">${q.ctx}</div>
@@ -1214,7 +1259,19 @@ function renderTab(tab) {
           <span class="oq-urg oq-urg-${q.urgency==='Alta'?'alta':'media'}">Urgencia ${q.urgency}</span>
           <span class="oq-owner">→ ${q.owner}</span>
         </div>
-      </div>`).join('')}</div>`;
+      </div>`).join('') || '<div style="font-size:13px;color:var(--text-3);padding:4px 0;">Sin preguntas abiertas</div>';
+    el.classList.add('panel-card');
+    el.innerHTML = `<div class="two-col">
+      <div>
+        <div class="col-section-title">Decisiones tomadas</div>
+        <div class="decisions-list">${decisionsHtml}</div>
+        ${isAdmin ? `<div style="margin-top:12px;"><button class="btn btn-sm" onclick="addDecision('${currentProject}')">+ Agregar decisión</button></div>` : ''}
+      </div>
+      <div>
+        <div class="col-section-title">Open questions</div>
+        <div class="oq-list">${openqsHtml}</div>
+      </div>
+    </div>`;
   }
 }
 
