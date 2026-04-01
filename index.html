@@ -1518,29 +1518,57 @@ async function ingestContent() {
   if (!url) { alert('Pegá el link del documento de Drive.'); return; }
   if (!pid) { alert('Seleccioná el proyecto.'); return; }
 
-  // Convertir link de Google Docs a export de texto plano
-  let fetchUrl = url;
-  const docMatch = url.match(/\/document\/d\/([a-zA-Z0-9_-]+)/);
-  if (docMatch) {
-    fetchUrl = `https://docs.google.com/document/d/${docMatch[1]}/export?format=txt`;
-  }
-
   const btn = document.getElementById('ingest-btn');
   const spinner = document.getElementById('spinner');
   btn.disabled = true; spinner.classList.add('on');
   let si = 0;
   const iv = setInterval(() => { si=(si+1)%spinSteps.length; document.getElementById('spin-text').textContent = spinSteps[si]; }, 1400);
   try {
-    // Intentar fetchear el contenido del doc directamente
+    // Extraer doc ID y leer via Google Docs API
     let docText = '';
-    try {
-      const docRes = await fetch(fetchUrl);
-      if (docRes.ok) docText = await docRes.text();
-    } catch(fe) { console.warn('fetch directo falló:', fe); }
+    const docMatch = url.match(/\/document\/d\/([a-zA-Z0-9_-]+)/);
+    const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    const idMatch = docMatch || driveMatch;
+    if (idMatch) {
+      const docId = idMatch[1];
+      try {
+        // Primero intentar Google Docs API (devuelve texto estructurado)
+        const docsRes = await fetch(`https://docs.googleapis.com/v1/documents/${docId}?key=AIzaSyCPVg39Eb_3grqp9425HFBqeWN2Us8jEaw`);
+        if (docsRes.ok) {
+          const docsData = await docsRes.json();
+          // Extraer texto de los elementos del documento
+          const extractText = (elements) => {
+            if (!elements) return '';
+            return elements.map(el => {
+              if (el.paragraph) {
+                return (el.paragraph.elements||[]).map(pe => pe.textRun?.content || '').join('');
+              }
+              if (el.table) {
+                return (el.table.tableRows||[]).map(row =>
+                  (row.tableCells||[]).map(cell => extractText(cell.content)).join(' | ')
+                ).join('\n');
+              }
+              return '';
+            }).join('');
+          };
+          docText = extractText(docsData.body?.content || []);
+        }
+      } catch(fe) { console.warn('Google Docs API falló:', fe); }
 
-    const prompt = docText
-      ? `Sos analista de proyectos de consultoría HR. Analizá este transcript/documento sobre el proyecto "${pLabels[pid]}" para Credicorp.\n\nContenido:\n${docText.slice(0, 15000)}\n\nDevolvé ÚNICAMENTE JSON válido sin texto extra:\n{"status":"En curso","lastMeeting":"fecha breve","newTimelineItem":{"date":"fecha","title":"título breve","type":"reunion","imp":true,"content":"resumen 1-2 oraciones","bullets":["punto 1","punto 2"]},"tasks":["tarea 1","tarea 2"],"risks":["riesgo 1"],"openQuestion":"pregunta abierta detectada"}`
-      : `Sos analista de proyectos de consultoría HR. El documento en ${fetchUrl} contiene información sobre el proyecto "${pLabels[pid]}" de Credicorp. Devolvé ÚNICAMENTE JSON válido sin texto extra:\n{"status":"En curso","lastMeeting":"fecha breve","newTimelineItem":{"date":"fecha","title":"título breve","type":"reunion","imp":true,"content":"resumen 1-2 oraciones","bullets":["punto 1","punto 2"]},"tasks":["tarea 1","tarea 2"],"risks":["riesgo 1"],"openQuestion":"pregunta abierta detectada"}`;
+      // Fallback: export txt via Drive API
+      if (!docText) {
+        try {
+          const expRes = await fetch(`https://www.googleapis.com/drive/v3/files/${docId}/export?mimeType=text/plain&key=AIzaSyCPVg39Eb_3grqp9425HFBqeWN2Us8jEaw`);
+          if (expRes.ok) docText = await expRes.text();
+        } catch(fe2) { console.warn('Drive export API falló:', fe2); }
+      }
+    }
+
+    if (!docText) {
+      throw new Error('No se pudo leer el documento. Verificá que el documento sea público ("Cualquiera con el link puede ver") e intentá de nuevo.');
+    }
+
+    const prompt = `Sos analista de proyectos de consultoría HR. Analizá este transcript/documento sobre el proyecto "${pLabels[pid]}" para Credicorp.\n\nContenido:\n${docText.slice(0, 15000)}\n\nDevolvé ÚNICAMENTE JSON válido, sin texto extra ni backticks:\n{"status":"En curso","lastMeeting":"fecha breve","newTimelineItem":{"date":"fecha","title":"título breve","type":"reunion","imp":true,"content":"resumen 1-2 oraciones","bullets":["punto 1","punto 2"]},"tasks":["tarea 1","tarea 2"],"risks":["riesgo 1"],"openQuestion":"pregunta abierta detectada"}`;
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
