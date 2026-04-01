@@ -1523,7 +1523,7 @@ async function ingestContent() {
   const iv = setInterval(() => { si=(si+1)%spinSteps.length; document.getElementById('spin-text').textContent = spinSteps[si]; }, 1400);
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-calls':'true'},
       body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, messages:[{ role:'user', content:`Sos analista de proyectos de consultoría HR. Analizá este texto sobre el proyecto "${pLabels[pid]}" para Credicorp.
 Devolvé ÚNICAMENTE JSON válido:
 {"status":"En curso"|"En riesgo"|"Bloqueado","lastMeeting":"fecha breve","newTimelineItem":{"date":"fecha","title":"título breve","type":"reunion"|"benchmark"|"entregable","imp":true,"content":"resumen 1-2 oraciones","bullets":["punto 1","punto 2"]},"tasks":["tarea 1","tarea 2"],"risks":["riesgo 1"],"openQuestion":"pregunta abierta detectada"}
