@@ -671,7 +671,15 @@ select.btn { cursor: pointer; }
         </div>
         <div class="team-member">
           <div class="team-avatar" style="background:#e0f2fe;color:#0369a1;">GR</div>
-          <div><div class="team-name">Gisselle Ripamonti</div><div class="team-role">HR Tech · Copilot Studio</div></div>
+          <div><div class="team-name">Gisselle Ripamonti</div><div class="team-role">HR Tech · GiseGPT · Copilot Studio</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#f0fdf4;color:#166534;">CL</div>
+          <div><div class="team-name">Cindy & Liz</div><div class="team-role">Bienestar · Hub Brasil</div></div>
+        </div>
+        <div class="team-member">
+          <div class="team-avatar" style="background:#fee2e2;color:#991b1b;">JG</div>
+          <div><div class="team-name">José Gomer</div><div class="team-role">Jefe de Tecnología · Copilot Studio</div></div>
         </div>
         <div class="team-member">
           <div class="team-avatar" style="background:#fee2e2;color:#991b1b;">IT</div>
@@ -916,17 +924,20 @@ const PROJECTS = {
         insights: ["Alicia maneja firmas físicas y macros de Excel para procesos clave — alto potencial de automatización", "PeopleSoft tiene módulo nativo de firma electrónica (PeopleSign) que no se está usando", "El cálculo de bonus para España es manual y propenso a errores — riesgo operativo real", "Sin portal de autoservicio para stock options — ejecutivos dependen de HR para cualquier consulta", "Transferencia de conocimiento es un punto de falla crítico si una persona clave se va"],
         actions: [{ text: "Coordinar reunión discovery con Alicia antes de vacaciones", owner: "Juan / Lucía / Sasan", due: "Semana del 6 abr", status: "open" }, { text: "Investigar PeopleSign como alternativa nativa a DocuSign", owner: "Equipo", due: "Antes de reunión Alicia", status: "open" }, { text: "Preparar guía de preguntas de discovery para Alicia", owner: "Mara", due: "Antes de reunión Alicia", status: "open" }]
       },
-      { date: "9 mar 2026", title: "Reunión de seguimiento con Pablo Silva", type: "reunion", imp: true,
-        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno", "Lucía Palomeque"],
-        content: "Revisión de todos los proyectos con Pablo. Confirmación de arranque con Alicia en abril post-vacaciones (15 abr). Pablo confirmó tres frentes: UX del empleado, eficiencia procesos HR + dashboard, e incentivos largo plazo. Oracle/PeopleSoft confirmado como core HR — kick-off el 18 marzo.",
-        insights: ["Alicia tiene 3 frentes: UX empleado, eficiencia de procesos + dashboard de control, e incentivos LP", "PeopleSoft/Oracle confirmado — kick-off 18 marzo. Todas las soluciones deben ser compatibles", "Pablo autorizó hacer 1-2 reuniones preparatorias con Alicia antes del 15 de abril", "Alicia estaba a tope en marzo por el proceso de pago de acciones (Long Term Incentive)"],
-        actions: [{ text: "Coordinar 1-2 reuniones prep con Alicia antes del 15 de abril", owner: "Sasan / Juan", due: "abr 2026", status: "open" }]
-      },
-      { date: "9 mar 2026", title: "Reunión de seguimiento con Pablo Silva — todos los proyectos", type: "reunion", imp: true,
-        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno", "Mara Schmitman"],
-        content: "Reunión de seguimiento con Pablo sobre todos los proyectos. Pablo alineó expectativas, dio dirección estratégica y pidió acompañamiento más activo a Lu Guelfo en Hub Brasil.",
-        insights: ["Pablo quiere que Desempeño pase de 'proceso' a 'gestión continua'", "Oracle/PeopleSoft kickoff el 18 de marzo — módulo DSP incluido", "Alicia arranca en abril; pre-kickoff el 19 de marzo", "Pablo identifica a Alicia como el proyecto con mayor backlog y continuidad", "+Partners invitados a viajes: Miami 22 mar, Chile 3-8 may, Madrid 7-12 jun, Brasil 16-20 ago"],
-        actions: [{ text: "Preparar backlog de Alicia antes del pre-kickoff del 19 mar", owner: "Jorge / Sasan", due: "19 mar 2026", status: "done" }]
+      { date: "9 mar 2026", title: "Reunión con Pablo — Alicia: frentes, LTI y arranque en abril", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno"],
+        content: "Pablo explicó la situación de Alicia: sobrecargada en febrero/marzo por el proceso de pago del Long Term Incentive (acciones multi-país, multi-modalidad — muy complejo). Confirmó que el arranque real será en abril. Propuso hacer 1-2 reuniones prep con Alicia en marzo para bajarle el estrés y preparar el terreno.",
+        insights: [
+          "Alicia sobrecargada por LTI (Long Term Incentive): pago de acciones en feb/mar para empleados de múltiples países y modalidades (acciones, cash, fantasmas, etc.)",
+          "Pablo confirmó 3 frentes para el proyecto con Alicia: (1) eficiencia de procesos HR + dashboard de control, (2) UX del empleado, (3) incentivos largo plazo",
+          "Oracle/PeopleSoft: kickoff formal el 18 de marzo. Todas las soluciones propuestas deben ser compatibles",
+          "Pablo autorizó hacer 1-2 reuniones preparatorias con Alicia en marzo para preparar el terreno antes del arranque real en abril",
+          "Pablo: 'hay un montón para hacer con Alicia, más que con otros clientes'"
+        ],
+        actions: [
+          { text: "Coordinar 1-2 reuniones prep con Alicia en marzo — bajarle el estrés y alinear frentes", owner: "Sasan / Juan", due: "mar 2026", status: "open" },
+          { text: "Preparar agenda de arranque para abril con los 3 frentes definidos por Pablo", owner: "Juan / Lucía", due: "abr 2026", status: "open" }
+        ]
       },
       { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
         participants: ["Sasan Maniei", "Gisselle Ripamonti (Credicorp)", "Juan Fornaguera"],
@@ -948,17 +959,20 @@ const PROJECTS = {
     ],
     timeline: [
       { date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", imp: true, content: "Identificación de Alicia como contacto clave. Ventana limitada antes de 15 días de vacaciones. Restricción crítica: PeopleSoft en implementación.", bullets: ["Investigar PeopleSign", "Discovery profundo", "Todas las propuestas deben ser compatibles con PeopleSoft"] },
-      { date: "9 mar 2026", title: "Reunión de seguimiento con Pablo Silva", type: "reunion", imp: true,
-        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno", "Lucía Palomeque"],
-        content: "Revisión de todos los proyectos con Pablo. Confirmación de arranque con Alicia en abril post-vacaciones (15 abr). Pablo confirmó tres frentes: UX del empleado, eficiencia procesos HR + dashboard, e incentivos largo plazo. Oracle/PeopleSoft confirmado como core HR — kick-off el 18 marzo.",
-        insights: ["Alicia tiene 3 frentes: UX empleado, eficiencia de procesos + dashboard de control, e incentivos LP", "PeopleSoft/Oracle confirmado — kick-off 18 marzo. Todas las soluciones deben ser compatibles", "Pablo autorizó hacer 1-2 reuniones preparatorias con Alicia antes del 15 de abril", "Alicia estaba a tope en marzo por el proceso de pago de acciones (Long Term Incentive)"],
-        actions: [{ text: "Coordinar 1-2 reuniones prep con Alicia antes del 15 de abril", owner: "Sasan / Juan", due: "abr 2026", status: "open" }]
-      },
-      { date: "9 mar 2026", title: "Reunión de seguimiento con Pablo Silva — todos los proyectos", type: "reunion", imp: true,
-        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno", "Mara Schmitman"],
-        content: "Reunión de seguimiento con Pablo sobre todos los proyectos. Pablo alineó expectativas, dio dirección estratégica y pidió acompañamiento más activo a Lu Guelfo en Hub Brasil.",
-        insights: ["Pablo quiere que Desempeño pase de 'proceso' a 'gestión continua'", "Oracle/PeopleSoft kickoff el 18 de marzo — módulo DSP incluido", "Alicia arranca en abril; pre-kickoff el 19 de marzo", "Pablo identifica a Alicia como el proyecto con mayor backlog y continuidad", "+Partners invitados a viajes: Miami 22 mar, Chile 3-8 may, Madrid 7-12 jun, Brasil 16-20 ago"],
-        actions: [{ text: "Preparar backlog de Alicia antes del pre-kickoff del 19 mar", owner: "Jorge / Sasan", due: "19 mar 2026", status: "done" }]
+      { date: "9 mar 2026", title: "Reunión con Pablo — Alicia: frentes, LTI y arranque en abril", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno"],
+        content: "Pablo explicó la situación de Alicia: sobrecargada en febrero/marzo por el proceso de pago del Long Term Incentive (acciones multi-país, multi-modalidad — muy complejo). Confirmó que el arranque real será en abril. Propuso hacer 1-2 reuniones prep con Alicia en marzo para bajarle el estrés y preparar el terreno.",
+        insights: [
+          "Alicia sobrecargada por LTI (Long Term Incentive): pago de acciones en feb/mar para empleados de múltiples países y modalidades (acciones, cash, fantasmas, etc.)",
+          "Pablo confirmó 3 frentes para el proyecto con Alicia: (1) eficiencia de procesos HR + dashboard de control, (2) UX del empleado, (3) incentivos largo plazo",
+          "Oracle/PeopleSoft: kickoff formal el 18 de marzo. Todas las soluciones propuestas deben ser compatibles",
+          "Pablo autorizó hacer 1-2 reuniones preparatorias con Alicia en marzo para preparar el terreno antes del arranque real en abril",
+          "Pablo: 'hay un montón para hacer con Alicia, más que con otros clientes'"
+        ],
+        actions: [
+          { text: "Coordinar 1-2 reuniones prep con Alicia en marzo — bajarle el estrés y alinear frentes", owner: "Sasan / Juan", due: "mar 2026", status: "open" },
+          { text: "Preparar agenda de arranque para abril con los 3 frentes definidos por Pablo", owner: "Juan / Lucía", due: "abr 2026", status: "open" }
+        ]
       },
       { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
         participants: ["Sasan Maniei", "Gisselle Ripamonti (Credicorp)", "Juan Fornaguera"],
@@ -969,24 +983,20 @@ const PROJECTS = {
       { date: "feb 2026", title: "Propuesta de diagnóstico HR", type: "entregable", imp: false, content: "Propuesta de servicios para diagnóstico de procesos HR. Alcance: ~45.000 colaboradores, multi-país.", bullets: ["Detectar fricciones operativas", "Mapear HR Tech e IA", "Construir backlog de quick wins"] }
     ],
     tasks: [
-      { task: "Reunión discovery con Alicia — arranca el 15 de abril (pre-kickoff realizado el 19 mar)", owner: "Juan / Lucía / Sasan", priority: "Alta", status: "open" },
-      { task: "Desbloquear IT (Ysela/Isela y José Gomer) para Copilot Studio — DevSecOps necesario", owner: "Juan / Sasan / Pablo (escalación)", priority: "Alta", status: "open" },
-      { task: "Investigar PeopleSign (módulo nativo firma electrónica en PeopleSoft/Oracle)", owner: "Equipo", priority: "Alta", status: "open" },
-      { task: "Mapear proceso cálculo bonus para España — multi-región, acciones + cash", owner: "Lucía", priority: "Media", status: "open" },
-      { task: "Proponer portal autoservicio stock options para C-level", owner: "Equipo", priority: "Media", status: "open" },
-      { task: "Preparar backlog completo de Alicia para kick-off abril (UX, eficiencia HR, dashboard)", owner: "Jorge / Sasan", priority: "Media", status: "open" }
+      { task: "Coordinar reunión discovery con Alicia antes de vacaciones", owner: "Juan / Lucía / Sasan", priority: "Alta" },
+      { task: "Investigar PeopleSign (firma electrónica nativa PeopleSoft)", owner: "Equipo", priority: "Alta" },
+      { task: "Mapear proceso de cálculo bonus para España", owner: "Lucía", priority: "Media" },
+      { task: "Diseñar propuesta portal autoservicio stock options", owner: "Equipo", priority: "Media" },
+      { task: "Documentar proceso onboarding/offboarding actual", owner: "Por asignar", priority: "Baja" }
     ],
     decisions: [
-      { title: "Restricción PeopleSoft/Oracle", date: "9 mar 2026", body: "Todas las soluciones deben ser compatibles con el stack de Oracle/PeopleSoft. Kickoff Oracle fue el 18 de marzo. El módulo de desempeño (DSP) ya está incluido.", owner: "Pablo Silva — reunión 9 mar" },
-      { title: "DocuSign descartado", date: "mar 2026", body: "DocuSign falló por problemas de seguridad corporativa. Explorar PeopleSign (módulo nativo de firma de Oracle).", owner: "Equipo consultoría" },
-      { title: "Alicia arranca en abril", date: "16 mar 2026", body: "Pre-kickoff el 19 de marzo para no perder tiempo. Trabajo real arranca el 15 de abril cuando Alicia vuelve de vacaciones.", owner: "Pablo Silva — reunión 16 mar" },
-      { title: "Copilot: camino Copilot Studio (no 365)", date: "mar 2026", body: "Microsoft 365 Copilot se va a descontinuar en Credicorp. El camino correcto y definitivo es Copilot Studio. Se necesita perfil DevSecOps interno para implementar.", owner: "IT Credicorp + Sasan" }
+      { title: "Restricción PeopleSoft", date: "30 mar 2026", body: "Todas las soluciones deben ser compatibles con PeopleSoft. El enfoque es adaptar, no adoptar.", owner: "Reunión interna" },
+      { title: "DocuSign descartado temporalmente", date: "30 mar 2026", body: "DocuSign falló por problemas de seguridad corporativa. Se prioriza PeopleSign.", owner: "Equipo consultoría" }
     ],
     openqs: [
-      { q: "¿Quién asigna el perfil DevSecOps interno para Copilot Studio?", ctx: "Sin este perfil interno el proyecto no puede avanzar. IT necesita poner a alguien con credenciales y acceso a seguridad.", urgency: "Alta", owner: "Pablo Silva (escalación)" },
-      { q: "¿Cuáles son los módulos de Oracle/PeopleSoft ya activos vs. pendientes?", ctx: "El kickoff Oracle fue el 18 mar. Necesitamos saber qué módulos (DSP, firmas, etc.) ya están en scope para no duplicar.", urgency: "Alta", owner: "Alicia — reunión abril" },
-      { q: "¿Cuál es el backlog completo de Alicia para el sprint de abril?", ctx: "Pablo mencionó: UX, eficiencia procesos HR + dashboard, incentivo LP. Necesitamos priorizar con ella.", urgency: "Alta", owner: "Pre-kickoff con Alicia" },
-      { q: "¿GiseGPT (Coach de Desempeño para TOPs) está aprobado para escalar?", ctx: "El agente está construido y validado por Gisselle. El path de Copilot Studio es el correcto pero bloqueado. ¿Se puede activar mientras tanto en un entorno acotado?", urgency: "Media", owner: "Gisselle / IT" }
+      { q: "¿Cuál es el roadmap exacto de implementación de PeopleSoft?", ctx: "Necesitamos saber qué módulos están activos para no proponer algo ya en el plan.", urgency: "Alta", owner: "Validar con Alicia" },
+      { q: "¿Quiénes son los decisores formales del proyecto HR Tech?", ctx: "Identificar sponsors ejecutivos más allá de Alicia.", urgency: "Alta", owner: "Sasan / Pablo" },
+      { q: "¿Existe presupuesto asignado para herramientas de automatización?", ctx: "Condiciona el tipo de soluciones a proponer.", urgency: "Media", owner: "Reunión con Alicia" }
     ]
   },
   romy: {
@@ -1002,11 +1012,25 @@ const PROJECTS = {
       { name: "Playbook final + Agente IA", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
-      { date: "9 mar 2026", title: "Reunión con Pablo — Movilidad, benchmarks y playbook", type: "reunion", imp: true,
+      { date: "9 mar 2026", title: "Reunión con Pablo — Movilidad: KPIs, benchmarks y estrategia con Desarrollo", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Jorge Moreno", "Juan Fornaguera", "Sasan Maniei"],
-        content: "Pablo confirmó que Credicorp tiene solo 7 movimientos internacionales sobre 45.000 colaboradores — oportunidad de negocio enorme. Proceso con Mercer activo para definir 3 nuevas políticas. Pablo advirtió que el equipo de Desarrollo es 'especial' — hay que llegar con material sólido antes de convocarlo.",
-        insights: ["Solo 7 mobilities/año sobre 45.000 empleados — KPI muy bajo, oportunidad de mejora enorme", "Mercer trabajando en 3 nuevas políticas de movilidad — Credicorp iniciando corporativización en 2024", "El área de Movilidad se creó en octubre 2024 (antes estaba en Compensación)", "Pablo recomendó NO convocar a Gestión y Desarrollo aún — primero tener playbook sólido", "Objetivo Q2: definir filosofía, objetivos y 3-4 modalidades de contratación", "Planificar viajes +Partners: Chile 3-8 mayo, Madrid 7-12 junio, Brasil 16-20 agosto"],
-        actions: [{ text: "Mapear workstreams Mobility / owners / fechas — compartir con Pablo", owner: "Jorge", due: "abr 2026", status: "open" }, { text: "Definir filosofía, objetivo y modalidades de contratación con Romy este Q", owner: "Jorge / Lucía", due: "abr 2026", status: "open" }]
+        content: "Jorge presentó el estado del proyecto de Movilidad. Solo 7 mobilities/año sobre 45.000 empleados. Benchmarks completados: Nua y Philips. En gestión: MeLi, Itaú, BBVA, Santander, Rappi, Grupo Banco Colombia, Falabella. Pablo advirtió que el equipo de Desarrollo es 'especial' — no convocarlos hasta tener el playbook sólido. Mercer ya trabajó una base.",
+        insights: [
+          "Solo 7 mobilities/año en 45.000 empleados — KPI bajísimo, oportunidad enorme de crear programa estructurado",
+          "Benchmarks completados: Nua y Philips. En gestión: MeLi, Itaú, BBVA, Santander, Rappi, Grupo Banco Colombia, Falabella",
+          "Mercer ya trabajó una base sobre políticas de movilidad — hay que articular con ese trabajo",
+          "El equipo de Desarrollo es 'una rama totalmente distinta' — Pablo dijo no convocarlos en 'el minuto cero', pero tampoco en 'el minuto menos 5' — hay que ir estratégicamente",
+          "Pablo: invitar a Desarrollo a las reuniones de benchmark para que participen y luego no se sientan excluidos (aprendizaje de Bienestar en Brasil)",
+          "Objetivo del Q: definir filosofía, objetivos y 3-4 modalidades de contratación",
+          "Entregable final: Playbook + 2 agentes IA (uno para empleados, otro interno con todos los benchmarks y docs)",
+          "Viajes +Partners donde Pablo puede sumarse: Chile 3-8 mayo, Madrid 7-12 jun, Brasil 16-20 ago"
+        ],
+        actions: [
+          { text: "Mapear workstreams Mobility / owners / fechas con Romy — compartir con Pablo", owner: "Jorge", due: "abr 2026", status: "open" },
+          { text: "Definir filosofía, objetivo y 3-4 modalidades de contratación con Romy este Q", owner: "Jorge / Lucía", due: "abr 2026", status: "open" },
+          { text: "Evaluar cuándo y cómo convocar al equipo de Desarrollo — consensuar con Pablo", owner: "Jorge / Romy", due: "abr 2026", status: "open" },
+          { text: "Enviar a Pablo calendario de viajes +Partners (Miami, Chile, Madrid, Brasil)", owner: "Juan", due: "mar 2026", status: "open" }
+        ]
       },
       { date: "30 mar 2026", title: "Benchmark con Boehringer Ingelheim", type: "benchmark", imp: true,
         participants: ["Juan Fornaguera", "Natalia Bauchman (Boehringer Ingelheim)", "Pablo Silva", "Romina Mitidieri"],
@@ -1026,12 +1050,6 @@ const PROJECTS = {
         insights: ["Manual y análisis entregados y validados por Romy", "El bloqueo es de coordinación interna de Credicorp, no de calidad del trabajo entregado", "Romy no escaló el tema con el equipo de Talento — causa a investigar"],
         actions: [{ text: "Solicitar entregable formal a Romy para presentar a su liderazgo", owner: "Juan / Lucía / Sasan", due: "Próxima reunión", status: "open" }, { text: "Presionar coordinación con equipo de Talento", owner: "Romy", due: "Pendiente", status: "open" }]
       },
-      { date: "19 mar 2026", title: "5ta sesión Mobility 360 con Romy — Update equipo", type: "reunion", imp: true,
-        participants: ["Lucía Palomeque", "Romina Mitidieri (Credicorp)", "Juan Fornaguera", "Jorge Moreno", "Sasan Maniei"],
-        content: "Presentación del update a Romina. Revisión de playbook. Se confirmaron benchmarks de Nuance y MeLi para esa semana. Romy recibió positivamente el material.",
-        insights: ["Romy reenganchada con el proyecto tras período de baja participación", "Benchmarks activos: Nuance y MeLi confirmados esa semana", "Playbook en construcción — faltan definiciones internas de Credicorp para completarlo"],
-        actions: [{ text: "Seguir generando benchmarks hasta 6 en total", owner: "Mara / Sasan / Juan", due: "abr 2026", status: "open" }]
-      },
       { date: "10 feb 2026", title: "Kickoff análisis de movilidad", type: "reunion", imp: false,
         participants: ["Mara Schmitman", "Romy (Credicorp)", "Sasan Maniei"],
         content: "Análisis inicial del estado de movilidad. Detección de ausencia de modelo estructurado.",
@@ -1046,10 +1064,8 @@ const PROJECTS = {
       { task: "Definir formato entregable final: deck, memo o informe", owner: "Equipo consultoría", priority: "Media" }
     ],
     decisions: [
-      { title: "Área de Movilidad creada en oct 2024", date: "feb 2026", body: "El área fue creada en octubre 2024 (antes dependía de Compensación). Hoy tiene 7 movimientos/año para 45K empleados — KPI a mejorar significativamente.", owner: "Kickoff Movilidad — feb 2026" },
-      { title: "Mercer trabajando en 3 nuevas políticas", date: "feb 2026", body: "Credicorp contrató a Mercer para definir 3 nuevas políticas de movilidad. El playbook de +Partners se construye sobre este trabajo.", owner: "Definido con Romy" },
-      { title: "Equipo Desarrollo: contactar estratégicamente", date: "9 mar 2026", body: "Pablo indicó que el equipo de Gestión de Desarrollo de Personas es sensible. No se puede contactar sin un playbook sólido. Hay que ir con propuesta armada, no a descubrir.", owner: "Pablo Silva — reunión 9 mar" },
-      { title: "Salida en vivo: de abril → indefinido", date: "mar 2026", body: "La fecha original era abril, luego mayo, ahora está indefinida por la complejidad de los workstreams internos (legal, tech, compensaciones, laboral).", owner: "Equipo interno" }
+      { title: "Benchmark con Philips completado", date: "3 mar 2026", body: "Philips elegido como primer referente por madurez en movilidad LATAM y accesibilidad del contacto.", owner: "Mara / Equipo" },
+      { title: "Enfoque: de reactivo a estratégico", date: "feb 2026", body: "Objetivo: pasar de movilidad caso a caso a modelo estructurado con workforce planning.", owner: "Definido con Romy" }
     ],
     openqs: [
       { q: "¿Por qué Romy no coordinó las reuniones con Talento?", ctx: "Pablo dice que Gestión y Desarrollo son 'especiales' — hay que llegar con playbook sólido antes de convocarlos.", urgency: "Alta", owner: "Pablo / Romy" },
@@ -1070,17 +1086,25 @@ const PROJECTS = {
       { name: "Reuniones con proveedores (carpeta)", type: "📁", meta: "mar 2026", status: "done", statusLabel: "Activo", gdrive: "https://drive.google.com/drive/folders/1jA9kCuDwNtt-oPk3htUPJhRCNzaq6Dmg" },
       { name: "Reuniones bench (carpeta)", type: "📁", meta: "mar 2026", status: "done", statusLabel: "Activo", gdrive: "https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E" },
       { name: "Heatmap brechas EVP", type: "🗺️", meta: "En construcción", status: "wip", statusLabel: "En progreso", gdrive: "" },
-      { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" },
-      { name: "Manual de Contratación Local Brasil v2 (ES/PT)", type: "📗", meta: "ene 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit" },
-      { name: "Reuniones con proveedores (Total Pass, Welcome, C6 Bank, Stone, Eden Red)", type: "📁", meta: "ene-mar 2026", status: "done", statusLabel: "Completado", gdrive: "https://drive.google.com/drive/folders/1jA9kCuDwNtt-oPk3htUPJhRCNzaq6Dmg" },
-      { name: "Documentos Lu Guelfo", type: "📁", meta: "mar 2026", status: "done", statusLabel: "Completado", gdrive: "https://drive.google.com/drive/folders/1afnUPjeaBr33GXGM23ypRHwJLDfg70xE" }
+      { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
-      { date: "9 mar 2026", title: "Reunión con Pablo — Hub Brasil, estado y frentes", type: "reunion", imp: true,
+      { date: "9 mar 2026", title: "Reunión de seguimiento con Pablo Silva — Hub Brasil", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno"],
-        content: "Pablo explicó que Hub Brasil tiene 6+ frentes corriendo en paralelo (legal, tech, comp, RRHH, etc.) y que Lu necesita acompañamiento en gestión del proyecto, no solo benchmark. La fecha de go-live se movió de abril. Pablo pidió mapear workstreams, owners y fechas.",
-        insights: ["Hub Brasil tiene 6+ frentes: legal (armado de empresa), tech (subsidiaria en sistemas), comp (propuesta), RRHH, relaciones laborales", "La fecha de go-live se corrió de abril — nueva fecha por definir con Lu en mayo/junio", "Equipo de beneficios de Credicorp se sintió excluido del proyecto — aprendizaje para incluirlos desde el inicio", "Pablo pidió explícitamente coaching a Lu para que maneje los múltiples stakeholders del proyecto", "Propuesta GCG GPT: base de conocimiento con agente para Hub Brasil con todas las transcripts y docs"],
-        actions: [{ text: "Mapear workstreams / owners / fechas con Lu — compartir con Pablo", owner: "Juan", due: "abr 2026", status: "open" }, { text: "Incluir equipo de beneficios Credicorp (Cindy y Liz) desde ahora", owner: "Equipo", due: "abr 2026", status: "open" }]
+        content: "Revisión completa del proyecto Hub Brasil con Pablo. Informe preliminar de 15 páginas ya entregado a Lu con reuniones de proveedores (Total Pass, Welcome, Eden Red, Stone, C6 Bank) y benchmarks. La fecha de go-live se corrió de abril a mayo/junio. Lu vuelve a Lima el 12/13 de marzo.",
+        insights: [
+          "Informe preliminar de 15 páginas entregado: incluye reuniones con proveedores por categoría (beneficios corporativos, bienestar) y benchmark de empresas",
+          "Equipo de Bienestar (Cindy y Liz) se sintió excluido — aprendizaje: incluirlos desde el inicio en próximos proyectos",
+          "Pablo: 'no necesariamente es culpa de Lu o de nosotros — hay 6+ frentes que no avanzan a la velocidad esperada: legal, tech (subsidiaria en sistemas), comp, RRHH, relaciones laborales'",
+          "Lu necesita acompañamiento en gestión de proyecto (workstreams / owners / fechas), no solo benchmark",
+          "Pablo pidió ayudar a Lu a mapear todos los frentes y 'hacer de cancha' para que la comunicación fluya entre áreas",
+          "Propuesta: construir base de conocimiento M365 con agente IA para el Hub Brasil con todas las transcripts y docs de reuniones con proveedores"
+        ],
+        actions: [
+          { text: "Mapear workstreams / owners / fechas con Lu; definir nueva fecha go-live con Pablo", owner: "Juan", due: "abr 2026", status: "open" },
+          { text: "Incluir a Cindy y Liz (equipo Bienestar) en siguientes reuniones desde el inicio", owner: "Juan", due: "abr 2026", status: "open" },
+          { text: "Construir base de datos M365 + agente IA Hub Brasil con todos los docs y transcripts", owner: "Juan / Sasan", due: "abr 2026", status: "open" }
+        ]
       },
       { date: "30 mar 2026", title: "Convocatoria Hub Brasil — Change Management", type: "reunion", imp: true,
         participants: ["Lucila Guelfo (Credicorp)", "Juan Fornaguera", "Mara Schmitman", "Lucía Palomeque", "Jorge Moreno"],
@@ -1108,24 +1132,20 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Reunión Hub Brasil - Change Management con Lucila Guelfo (convocada 30 mar)", owner: "Juan / Mara / Lucía / Jorge", priority: "Alta", status: "open" },
-      { task: "Acompañar a Lu en estructura de proyecto: workstreams, owners y fechas", owner: "Juan (owner principal)", priority: "Alta", status: "open" },
-      { task: "Construir knowledge base M365 + agente IA para Hub Brasil", owner: "Juan / Sasan", priority: "Alta", status: "open" },
-      { task: "Completar heatmap de brechas EVP con datos de Accenture, MeLi, Boehringer", owner: "Lucía", priority: "Alta", status: "open" },
-      { task: "Obtener oferta actual exacta de Credicorp para Hub Brasil", owner: "Lu Guelfo / Romina", priority: "Alta", status: "open" },
-      { task: "Involucrar equipo de Bienestar (Cindy y Liz) desde el inicio del próximo sprint", owner: "Lu Guelfo", priority: "Media", status: "open" }
+      { task: "Cerrar lista final empresas benchmark para SP", owner: "Mara / Equipo", priority: "Alta" },
+      { task: "Obtener oferta actual exacta de Credicorp para Hub Brasil", owner: "Romina / Sasan", priority: "Alta" },
+      { task: "Construir tabla comparativa y heatmap de brechas EVP", owner: "Lucía", priority: "Media" },
+      { task: "Analizar employer branding de referentes en SP", owner: "Equipo", priority: "Media" }
     ],
     decisions: [
       { title: "Foco en talento digital y ejecutivo en São Paulo", date: "dic 2025", body: "El benchmark se concentra en perfiles ejecutivos y digitales en SP, no en Brasil en general.", owner: "Alineado con Credicorp" },
-      { title: "Equipo de Bienestar debe involucrarse desde el inicio", date: "9 mar 2026", body: "Cindy y Liz (Bienestar) se sintieron excluidas del informe preliminar. Lección: involucrar a las áreas desde el día 1, no al final. Pablo habló con ellas y quedaron tranquilas.", owner: "Pablo Silva — reunión 9 mar" },
-      { title: "Salida en vivo postergada: feb → mar → may → indefinida", date: "mar 2026", body: "Múltiples workstreams internos bloqueando: empresa legal en Brasil, subsidiaria en tech, propuesta de compensaciones. Lu necesita acompañamiento en estructura de proyecto.", owner: "Pablo + Juan" },
-      { title: "Agente IA para Hub Brasil: construir knowledge base M365", date: "9 mar 2026", body: "Subir toda la documentación (proveedores, benchmarks, reuniones) a M365 y crear un agente que responda preguntas del proyecto. Acción inmediata.", owner: "Juan + Sasan" }
+      { title: "Incluir equipo de Bienestar (Cindy y Liz) desde el inicio", date: "9 mar 2026", body: "Aprendizaje de la reunión con Pablo: Cindy y Liz querían participar desde antes. Para próximos proyectos y reuniones, incluirlas desde el inicio para evitar fricciones.", owner: "Reunión con Pablo 9 mar" },
+      { title: "Lu necesita coaching de gestión de proyecto", date: "9 mar 2026", body: "Pablo pidió explícitamente que +Partners ayude a Lu a mapear workstreams, owners y fechas — no solo hacer benchmark sino acompañarla en la cancha.", owner: "Pablo Silva" }
     ],
     openqs: [
-      { q: "¿Cuál es el estado real de los 6 workstreams del Hub Brasil?", ctx: "Pablo mencionó: legal (empresa en Brasil), tech (subsidiaria en sistemas), compensaciones, laboral, comunicaciones y otros. Lu necesita mapear fechas y responsables.", urgency: "Alta", owner: "Lu Guelfo + Juan" },
-      { q: "¿Cuál es la oferta actual exacta de Credicorp para Hub Brasil?", ctx: "Sin este dato no se puede calcular la brecha real contra el mercado SP.", urgency: "Alta", owner: "Lu Guelfo / Romina" },
-      { q: "¿Qué necesita Lu Guelfo del equipo en el sprint de Change Management?", ctx: "Lucila convocó reunión el 30 mar. Es la primer señal activa en semanas. Entender exactamente qué necesita.", urgency: "Alta", owner: "Juan / Mara — reunión pendiente" },
-      { q: "¿Los proveedores entrevistados (Total Pass, Welcome, C6 Bank, Stone, Eden Red) siguen vigentes?", ctx: "El informe preliminar cubre estas reuniones. Validar si hay cambios en la propuesta antes de cerrar el informe final.", urgency: "Media", owner: "Lucía + Lu Guelfo" }
+      { q: "¿Cuál es la nueva fecha de go-live del Hub Brasil?", ctx: "La fecha de abril no aplica. Pablo no sabe si es mayo o junio. Hay que mapear workstreams/fechas con Lu.", urgency: "Alta", owner: "Juan — definir con Lu" },
+      { q: "¿Cuáles son los 6-7 frentes del Hub Brasil y quién es el owner de cada uno?", ctx: "Pablo pidió explícitamente mapear: legal, tech (subsidiaria en sistemas), comp, RRHH, relaciones laborales, etc.", urgency: "Alta", owner: "Juan — hacer con Lu" },
+      { q: "¿Revisó Pablo el informe preliminar de 15 páginas?", ctx: "Pablo reconoció que no lo leyó. Hay que enviárselo con resumen ejecutivo.", urgency: "Media", owner: "Juan" }
     ]
   },
   desempeno: {
@@ -1139,11 +1159,24 @@ const PROJECTS = {
       { name: "Agente Copilot Studio (en implementación)", type: "⚙️", meta: "Bloqueado por IT", status: "pending", statusLabel: "Bloqueado", gdrive: "" }
     ],
     timeline: [
-      { date: "9 mar 2026", title: "Reunión con Pablo — estado GiseGPT", type: "reunion", imp: true,
+      { date: "9 mar 2026", title: "Reunión con Pablo — GiseGPT en vivo, Copilot Studio y proveedor long-term", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Sasan Maniei", "Juan Fornaguera", "Jorge Moreno"],
-        content: "GiseGPT funciona en entorno M365 de Gisse pero no está corporativizado para los 300 TOPs. El proceso para habilitarlo corporativamente requiere aprobación de IT (Copilot Studio vs 365). Pablo alineado con el camino técnico propuesto. Prioridad: cerrar el sprint actual y definir proveedor long-term.",
-        insights: ["GiseGPT construido y funcionando — ayuda a TOPs a armar objetivos KPI/KR para Planilla de Desempeño", "Copilot 365 se descontinúa en Credicorp — hay que migrar a Copilot Studio", "Proceso de corporativización bloqueado por IT — necesita DevSecOps interno de Credicorp", "Proveedor recomendado: Human (levantó USD 66M Serie A — ronda más grande de LATAM)", "Pablo mencionó Oracle/PeopleSoft como core HR — módulo de desempeño incluido"],
-        actions: [{ text: "Escalar a Pablo para destrabar IT para Copilot Studio", owner: "Juan / Sasan", due: "abr 2026", status: "open" }, { text: "Evaluar Human como proveedor long-term de performance management", owner: "Sasan", due: "abr 2026", status: "open" }]
+        content: "GiseGPT funcionando en entorno M365 de Gisse. El agente ayuda a los TOPs (300 C-level) a armar sus objetivos KPI/KR para la Planilla de Desempeño. Pablo y Gisse confirmaron que el agente está validado. Copilot 365 se discontinúa — hay que migrar a Copilot Studio vía DevSecOps interno. Pablo confirmó kickoff de Oracle/PeopleSoft el 18 de marzo.",
+        insights: [
+          "GiseGPT probado y validado con Pablo y Gisse — agente funciona en M365, contesta preguntas sobre objetivos, dependencias, tiempos a los TOPs",
+          "Gisse recontra compró el agente — problema es corporativizarlo para los 300 TOPs (no solo su entorno personal)",
+          "Copilot 365 se discontinúa en Credicorp → hay que ir a Copilot Studio (camino correcto aunque más largo)",
+          "Proceso requiere DevSecOps interno de Credicorp — necesita alguien con credenciales internas; no lo puede hacer +Partners desde afuera",
+          "El responsable de tecnología es José Gomer (no Ysela/Antonio). Pablo quedó en hablar con él el viernes (no ocurrió)",
+          "Proveedor long-term recomendado: Human — levantó USD 66M Serie A, la ronda más grande de LATAM en HR Tech",
+          "Oracle/PeopleSoft: kickoff el 18 de marzo. El módulo de desempeño está incluido — convive con GiseGPT",
+          "Objetivo: tener el agente corporativo listo para julio (próximo ciclo de objetivos de los TOPs)"
+        ],
+        actions: [
+          { text: "Retomar conversación con José Gomer (jefe de tecnología) para destrabar DevSecOps", owner: "Juan / Sasan", due: "abr 2026", status: "open" },
+          { text: "Evaluar Human como proveedor long-term de performance management", owner: "Sasan", due: "abr 2026", status: "open" },
+          { text: "Agendar reuniones de HR Tech con Pablo (conocer mercado, no necesariamente implementar)", owner: "Juan", due: "abr 2026", status: "open" }
+        ]
       },
       { date: "dic 2025", title: "Inicio del diagnóstico de desempeño", type: "reunion", imp: true,
         participants: ["Mara Schmitman", "Sasan Maniei"],
@@ -1153,21 +1186,19 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Dar seguimiento al equipo de tecnología hasta que GiseGPT esté implementado en Copilot Studio", owner: "Sasan / Juan", priority: "Alta", status: "open" },
-      { task: "Agendar reuniones HR Tech con Human y otros proveedores de performance (feedback coaching IA)", owner: "Sasan", priority: "Alta", status: "open" },
-      { task: "Definir con Gisselle el plan del sprint 2 de Desempeño (post-GiseGPT)", owner: "Sasan + Gisselle", priority: "Media", status: "open" },
-      { task: "Explorar integración de herramientas de coaching IA con PeopleSoft/Oracle DSP", owner: "Equipo", priority: "Media", status: "open" }
+      { task: "Confirmar alcance exacto del diagnóstico con Credicorp", owner: "Sasan / Mara", priority: "Alta" },
+      { task: "Mapear proceso actual de evaluación de desempeño", owner: "Por asignar", priority: "Media" },
+      { task: "Identificar conexión performance-compensación-carrera", owner: "Por asignar", priority: "Media" }
     ],
     decisions: [
-      { title: "GiseGPT construido y validado", date: "mar 2026", body: "Coach de Objetivos y Medición de Desempeño para TOPs Credicorp. Modelo QUÉ (70% KPIs/KRs) + CÓMO (30% Lead360). Validado por Gisselle. Falta implementar en Copilot Studio.", owner: "Sasan + Gisselle" },
-      { title: "PeopleSoft/Oracle incluye módulo DSP", date: "18 mar 2026", body: "El módulo de gestión de desempeño (DSP) ya está en el scope del kickoff Oracle del 18 de marzo. Cualquier herramienta de performance debe ser compatible.", owner: "Credicorp IT — kickoff 18 mar" },
-      { title: "Sprint 1 cerrado — siguiente: del proceso a la gestión", date: "mar 2026", body: "Pablo quiere que el desempeño deje de ser un evento anual de proceso y sea gestión continua. Próximo sprint: seguimiento, coaching IA, feedback 360.", owner: "Pablo Silva — reunión 9 mar" },
-      { title: "Human recomendado como proveedor de performance IA", date: "9 mar 2026", body: "Human levantó USD 66M en Serie A (ronda más grande LATAM). Tiene el mejor performance en el mercado para gestión de desempeño con IA. +Partners ya tuvo reuniones con ellos.", owner: "Sasan — reunión 9 mar" }
+      { title: "GiseGPT: ir por Copilot Studio, no por 365", date: "9 mar 2026", body: "Copilot 365 se discontinúa en Credicorp. El camino correcto es Copilot Studio con aprobación de Security/DevSecOps interno. Más largo pero es el path correcto.", owner: "IT Credicorp — reunión con Ysela" },
+      { title: "Cerrar sprint actual y abrir uno nuevo de herramienta", date: "9 mar 2026", body: "Pablo pidió cerrar el sprint de benchmark/research y abrir uno nuevo enfocado en corporativizar el agente. Fecha objetivo: ciclo de objetivos de julio.", owner: "Pablo Silva — 9 mar" },
+      { title: "Human como proveedor long-term candidato", date: "9 mar 2026", body: "Human recomendado por Gisse + equipo. Levantó USD 66M Serie A (ronda más grande de LATAM en HR Tech). Agendar reunión con Pablo para conocerlos.", owner: "Sasan / Gisse" }
     ],
     openqs: [
-      { q: "¿Quién asigna el DevSecOps interno para implementar GiseGPT en Copilot Studio?", ctx: "El agente está listo y validado. El único bloqueante es IT. Pablo necesita dar una mano.", urgency: "Alta", owner: "Pablo Silva (escalación IT)" },
-      { q: "¿Cómo se integran herramientas de coaching IA con el módulo DSP de Oracle/PeopleSoft?", ctx: "Oracle/PeopleSoft tiene módulo de desempeño en implementación. Necesitamos validar compatibilidad con Human y otras herramientas.", urgency: "Alta", owner: "Sasan + IT Credicorp" },
-      { q: "¿Cuál es el alcance exacto del sprint 2 con Gisselle?", ctx: "Pablo quiere: del proceso a la gestión continua. Definir qué significa eso en términos de herramientas y entregables.", urgency: "Media", owner: "Sasan + Gisselle" }
+      { q: "¿José Gomer puede asignar un DevSecOps interno para corporativizar GiseGPT en Copilot Studio?", ctx: "Sin alguien interno con credenciales, el agente no puede ir a producción para los 300 TOPs.", urgency: "Alta", owner: "Juan / Sasan — escalar a Pablo si no responde" },
+      { q: "¿Cuál es la fecha objetivo para el siguiente ciclo de objetivos de los TOPs?", ctx: "Pablo y Gisse mencionaron julio como fecha ideal para tener el agente corporativo listo.", urgency: "Alta", owner: "Gisselle" },
+      { q: "¿El módulo de desempeño de PeopleSoft/Oracle convive con GiseGPT o lo reemplaza?", ctx: "Pablo mencionó que PeopleSoft tiene módulo de gestión de desempeño incluido.", urgency: "Media", owner: "Sasan / Gisselle" }
     ]
   }
 };
