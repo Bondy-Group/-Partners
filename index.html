@@ -927,6 +927,23 @@ const PROJECTS = {
         insights: ["Alicia maneja firmas físicas y macros de Excel para procesos clave — alto potencial de automatización", "PeopleSoft tiene módulo nativo de firma electrónica (PeopleSign) que no se está usando", "El cálculo de bonus para España es manual y propenso a errores — riesgo operativo real", "Sin portal de autoservicio para stock options — ejecutivos dependen de HR para cualquier consulta", "Transferencia de conocimiento es un punto de falla crítico si una persona clave se va"],
         actions: [{ text: "Coordinar reunión discovery con Alicia antes de vacaciones", owner: "Juan / Lucía / Sasan", due: "Semana del 6 abr", status: "open" }, { text: "Investigar PeopleSign como alternativa nativa a DocuSign", owner: "Equipo", due: "Antes de reunión Alicia", status: "open" }, { text: "Preparar guía de preguntas de discovery para Alicia", owner: "Mara", due: "Antes de reunión Alicia", status: "open" }]
       },
+      { date: "9 abr 2026", title: "Reunión con Pablo — prioridades Alicia: ILP + onboarding", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Mara Schmitman", "Juan Fornaguera", "Sasan Maniei"],
+        content: "Pablo definió prioridades para el proyecto con Alicia, que regresa el lunes 13 de abril. P1: agente ILP/LTI para los 300 TOPs — target Q1 2027, requiere autorizaciones de seguridad. P2: onboarding — mayor oportunidad de impacto. Bono España descartado (solo 3 tops).",
+        insights: [
+          "Alicia regresa el lunes 13 de abril — arranque inmediato",
+          "P1 — ILP/LTI: 30% de consultas son informativas (cuántas acciones, cuándo se pagan). Agente resuelve esto. Target Q1 2027",
+          "Ya hay base: agente para pago de febrero 2026 con contratista — punto de partida para el nuevo agente ILP",
+          "Opción intermedia: agente recibe pregunta → manda a Alicia → Alicia valida y responde (fase testing)",
+          "Cada empresa tiene tenant distinto en Copilot — requiere autorizaciones de seguridad por info sensible de acciones de TOPs",
+          "P2 — Onboarding: Pablo dijo que es donde más oportunidades hay — revisión con Alicia post 13 abr",
+          "Descartado: bono España (solo 3 de 300 tops), bajo impacto"
+        ],
+        actions: [
+          { text: "Abrir workstreams ILP con Alicia — scope agente, autorizaciones, target Q1 2027", owner: "Mara / Juan / Alicia", due: "abr 2026", status: "open" },
+          { text: "Revisión onboarding con Alicia post 13 abr — scope y quick wins", owner: "Mara / Alicia", due: "abr 2026", status: "open" }
+        ]
+      },
       { date: "9 mar 2026", title: "Reunión con Pablo — Alicia: frentes, LTI y arranque en abril", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno"],
         content: "Pablo explicó la situación de Alicia: sobrecargada en febrero/marzo por el proceso de pago del Long Term Incentive (acciones multi-país, multi-modalidad — muy complejo). Confirmó que el arranque real será en abril. Propuso hacer 1-2 reuniones prep con Alicia en marzo para bajarle el estrés y preparar el terreno.",
@@ -978,6 +995,23 @@ const PROJECTS = {
     ],
     timeline: [
       { date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", imp: true, content: "Identificación de Alicia como contacto clave. Ventana limitada antes de 15 días de vacaciones. Restricción crítica: PeopleSoft en implementación.", bullets: ["Investigar PeopleSign", "Discovery profundo", "Todas las propuestas deben ser compatibles con PeopleSoft"] },
+      { date: "9 abr 2026", title: "Reunión con Pablo — prioridades Alicia: ILP + onboarding", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Mara Schmitman", "Juan Fornaguera", "Sasan Maniei"],
+        content: "Pablo definió prioridades para el proyecto con Alicia, que regresa el lunes 13 de abril. P1: agente ILP/LTI para los 300 TOPs — target Q1 2027, requiere autorizaciones de seguridad. P2: onboarding — mayor oportunidad de impacto. Bono España descartado (solo 3 tops).",
+        insights: [
+          "Alicia regresa el lunes 13 de abril — arranque inmediato",
+          "P1 — ILP/LTI: 30% de consultas son informativas (cuántas acciones, cuándo se pagan). Agente resuelve esto. Target Q1 2027",
+          "Ya hay base: agente para pago de febrero 2026 con contratista — punto de partida para el nuevo agente ILP",
+          "Opción intermedia: agente recibe pregunta → manda a Alicia → Alicia valida y responde (fase testing)",
+          "Cada empresa tiene tenant distinto en Copilot — requiere autorizaciones de seguridad por info sensible de acciones de TOPs",
+          "P2 — Onboarding: Pablo dijo que es donde más oportunidades hay — revisión con Alicia post 13 abr",
+          "Descartado: bono España (solo 3 de 300 tops), bajo impacto"
+        ],
+        actions: [
+          { text: "Abrir workstreams ILP con Alicia — scope agente, autorizaciones, target Q1 2027", owner: "Mara / Juan / Alicia", due: "abr 2026", status: "open" },
+          { text: "Revisión onboarding con Alicia post 13 abr — scope y quick wins", owner: "Mara / Alicia", due: "abr 2026", status: "open" }
+        ]
+      },
       { date: "9 mar 2026", title: "Reunión con Pablo — Alicia: frentes, LTI y arranque en abril", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno"],
         content: "Pablo explicó la situación de Alicia: sobrecargada en febrero/marzo por el proceso de pago del Long Term Incentive (acciones multi-país, multi-modalidad — muy complejo). Confirmó que el arranque real será en abril. Propuso hacer 1-2 reuniones prep con Alicia en marzo para bajarle el estrés y preparar el terreno.",
