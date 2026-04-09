@@ -918,7 +918,7 @@ const DRIVE_BASE = 'https://drive.google.com/drive/folders/';
 const PROJECTS = {
   alicia: {
     name: "Alicia — Ops/HR Tech", sub: "Digitalización y automatización de procesos HR",
-    avatar: "A", status: "En riesgo", lastMeeting: "19 mar 2026",
+    avatar: "A", status: "En riesgo", lastMeeting: "9 abr 2026",
     gantt: { start: '2026-01', end: '2026-06', phase: 'Diagnóstico' },
     timeline: [
       { date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", imp: true,
@@ -940,6 +940,22 @@ const PROJECTS = {
         actions: [
           { text: "Coordinar 1-2 reuniones prep con Alicia en marzo — bajarle el estrés y alinear frentes", owner: "Sasan / Juan", due: "mar 2026", status: "open" },
           { text: "Preparar agenda de arranque para abril con los 3 frentes definidos por Pablo", owner: "Juan / Lucía", due: "abr 2026", status: "open" }
+        ]
+      },
+      { date: "9 abr 2026", title: "Reunión con Pablo — Pablo escribirá a IT + cambio a Copilot 365", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Sasan Maniei", "Juan Fornaguera", "Mara Schmitman"],
+        content: "Pablo confirma que escribirá personalmente a Estela y Antonio (IT). Actualización técnica: Copilot Studio se discontinúa — hay que ir directo a Copilot 365. IT necesita un documento técnico que solo ellos pueden completar (seguridad, DevOps, tenant). Con 2 reuniones de trabajo se puede cerrar.",
+        insights: [
+          "Pablo se comprometió a escribir a Estela y Antonio (IT) esta semana — Juan le reenvía el último mail como contexto",
+          "Cambio de plan: Copilot Studio se discontinúa en Credicorp → ir directo a Copilot 365",
+          "El documento técnico requerido por IT tiene definiciones que solo IT puede dar (seguridad interna, plataforma DevOps, tenant) — no es trabajo de +Partners",
+          "Con 2 reuniones de trabajo con IT se puede completar el documento y avanzar",
+          "Destrabar esto desbloquea también el agente de Romy para todos + iniciativas futuras con Alicia",
+          "Idea adicional: agente para change mgmt de Hub Brasil + análisis semántico de preguntas para medir clima en tiempo real"
+        ],
+        actions: [
+          { text: "Juan reenvía a Pablo el último mail enviado a IT como contexto", owner: "Juan", due: "hoy 9 abr", status: "open" },
+          { text: "Agendar 2 reuniones de trabajo con IT una vez que Pablo haga el unlock", owner: "Sasan / Juan", due: "abr 2026", status: "open" }
         ]
       },
       { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
@@ -977,6 +993,22 @@ const PROJECTS = {
           { text: "Preparar agenda de arranque para abril con los 3 frentes definidos por Pablo", owner: "Juan / Lucía", due: "abr 2026", status: "open" }
         ]
       },
+      { date: "9 abr 2026", title: "Reunión con Pablo — Pablo escribirá a IT + cambio a Copilot 365", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Sasan Maniei", "Juan Fornaguera", "Mara Schmitman"],
+        content: "Pablo confirma que escribirá personalmente a Estela y Antonio (IT). Actualización técnica: Copilot Studio se discontinúa — hay que ir directo a Copilot 365. IT necesita un documento técnico que solo ellos pueden completar (seguridad, DevOps, tenant). Con 2 reuniones de trabajo se puede cerrar.",
+        insights: [
+          "Pablo se comprometió a escribir a Estela y Antonio (IT) esta semana — Juan le reenvía el último mail como contexto",
+          "Cambio de plan: Copilot Studio se discontinúa en Credicorp → ir directo a Copilot 365",
+          "El documento técnico requerido por IT tiene definiciones que solo IT puede dar (seguridad interna, plataforma DevOps, tenant) — no es trabajo de +Partners",
+          "Con 2 reuniones de trabajo con IT se puede completar el documento y avanzar",
+          "Destrabar esto desbloquea también el agente de Romy para todos + iniciativas futuras con Alicia",
+          "Idea adicional: agente para change mgmt de Hub Brasil + análisis semántico de preguntas para medir clima en tiempo real"
+        ],
+        actions: [
+          { text: "Juan reenvía a Pablo el último mail enviado a IT como contexto", owner: "Juan", due: "hoy 9 abr", status: "open" },
+          { text: "Agendar 2 reuniones de trabajo con IT una vez que Pablo haga el unlock", owner: "Sasan / Juan", due: "abr 2026", status: "open" }
+        ]
+      },
       { date: "30 mar 2026", title: "Copilot Studio — seguimiento con Gisselle", type: "reunion", imp: true,
         participants: ["Sasan Maniei", "Gisselle Ripamonti (Credicorp)", "Juan Fornaguera"],
         content: "Sasan escribió a Gisselle pidiendo ayuda para desbloquear IT (Ysela Santana / Antonio García). El proyecto GCG GPT lleva 4 mails sin respuesta desde el 5 de marzo.",
@@ -1004,7 +1036,7 @@ const PROJECTS = {
   },
   romy: {
     name: "Romy — Movilidad", sub: "Programa de movilidad internacional LATAM",
-    avatar: "R", status: "En riesgo", lastMeeting: "31 mar 2026",
+    avatar: "R", status: "En riesgo", lastMeeting: "9 abr 2026",
     gantt: { start: '2025-12', end: '2026-06', phase: 'Playbook + Benchmarks' },
     docs: [
       { name: "Análisis Kickoff Movilidad Credicorp", type: "📄", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1tV6ZWZhLuQHdGL8--fkWwAOIlCRfoaeU2lc8cfxbff8/edit" },
@@ -1033,6 +1065,21 @@ const PROJECTS = {
           { text: "Definir filosofía, objetivo y 3-4 modalidades de contratación con Romy este Q", owner: "Jorge / Lucía", due: "abr 2026", status: "open" },
           { text: "Evaluar cuándo y cómo convocar al equipo de Desarrollo — consensuar con Pablo", owner: "Jorge / Romy", due: "abr 2026", status: "open" },
           { text: "Enviar a Pablo calendario de viajes +Partners (Miami, Chile, Madrid, Brasil)", owner: "Juan", due: "mar 2026", status: "open" }
+        ]
+      },
+      { date: "9 abr 2026", title: "Reunión con Pablo — 5 benchmarks completados, informe cierre", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Jorge Moreno", "Lucía Palomeque", "Juan Fornaguera"],
+        content: "5 benchmarks completados con referentes clave. Dos prototipos de handbook entregados a Romy (Manual de Procesos + Guía para empleados). Agente IA funcionando en Copilot de Romy. Pablo tiene reunión hoy con René Goniad sobre Mobility (Short Term Assignments). Mañana (10 abr) reunión con Romy para armar informe cierre.",
+        insights: [
+          "5 benchmarks completados: Nubank, Philips, Mercado Libre, Accenture, Boehringer — calidad muy alta",
+          "Dos prototipos entregados a Romy — feedback incorporado, en iteración final de storytelling para jefatura",
+          "Agente IA en Copilot de Romy funcionando — ej: cuadro comparativo STA de 5 empresas en 1 minuto",
+          "Pablo tiene reunión hoy con René Goniad sobre Mobility — tema urgente Short Term Assignments",
+          "Urgente: informe cierre de benchmarks para presentar a Pablo y Lucho"
+        ],
+        actions: [
+          { text: "Reunión con Romy 10 abr — bajar toda la info y definir informe cierre final", owner: "Jorge / Lucía", due: "10 abr 2026", status: "open" },
+          { text: "Armar informe cierre benchmarks Mobility para presentar a Pablo / Lucho", owner: "Jorge / Lucía / Juan", due: "abr 2026", status: "open" }
         ]
       },
       { date: "30 mar 2026", title: "Benchmark con Boehringer Ingelheim", type: "benchmark", imp: true,
@@ -1078,7 +1125,7 @@ const PROJECTS = {
   },
   brasil: {
     name: "HUB Brasil / EVP", sub: "Benchmark competitividad São Paulo — talento digital",
-    avatar: "B", status: "En curso", lastMeeting: "20 mar 2026",
+    avatar: "B", status: "En curso", lastMeeting: "9 abr 2026",
     gantt: { start: '2025-12', end: '2026-07', phase: 'Benchmark activo' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit" },
@@ -1107,6 +1154,24 @@ const PROJECTS = {
           { text: "Mapear workstreams / owners / fechas con Lu; definir nueva fecha go-live con Pablo", owner: "Juan", due: "abr 2026", status: "open" },
           { text: "Incluir a Cindy y Liz (equipo Bienestar) en siguientes reuniones desde el inicio", owner: "Juan", due: "abr 2026", status: "open" },
           { text: "Construir base de datos M365 + agente IA Hub Brasil con todos los docs y transcripts", owner: "Juan / Sasan", due: "abr 2026", status: "open" }
+        ]
+      },
+      { date: "9 abr 2026", title: "Reunión con Pablo — go-live junio confirmado + plan change mgmt", type: "reunion", imp: true,
+        participants: ["Pablo Silva (Credicorp)", "Juan Fornaguera", "Sasan Maniei", "Jorge Moreno", "Mara Schmitman"],
+        content: "Go-live junio confirmado definitivamente (Pablo lo validó con Úrsula, CHRO). Dos preocupaciones de Pablo: plan de change management no desarrollado aún, y dos bloqueadores activos (documentos legales apostillados y sistemas TI legacy). Proveedor de nómina Brasil definido como prioridad crítica. Reunión con Lu agendada lunes 13 abr 2pm PE.",
+        insights: [
+          "Junio es la fecha definitiva — validado con Úrsula (CHRO) que reporta a Gianfranco (CEO)",
+          "Pablo preocupado: plan de change mgmt no desarrollado — presentaciones en mayo, go-live en junio",
+          "Formato change mgmt: escenario presencial SP quincena mayo + escenario virtual en paralelo. Formato: facilitador + todos los de Brasil + desayuno en una mañana",
+          "Bloqueador legal: documentos apostillados de Grupo Crédito hacia Brasil todavía en trámite",
+          "Bloqueador TI: sistemas legacy requieren 1-1.5 meses adicionales de configuración",
+          "Proveedor de nómina: crítico. Mala experiencia en hub España. Pablo prefiere uno sólido de nómina solo, a uno mediocre que haga nómina + beneficios",
+          "Puede usarse IY como doble check en los primeros meses"
+        ],
+        actions: [
+          { text: "Shortlist proveedores de nómina Brasil — recomendar opción sólida a Pablo (urgente)", owner: "Juan / Mara", due: "esta semana", status: "open" },
+          { text: "Armar plan change mgmt: escenario presencial SP (quincena mayo) + escenario virtual", owner: "Juan / Mara", due: "abr 2026", status: "open" },
+          { text: "Sync lunes 13 abr 2pm PE con Lu + Pablo — mapear stakeholders y calendarizar reuniones previas al go-live", owner: "Juan / Mara / Lu", due: "13 abr 2026", status: "open" }
         ]
       },
       { date: "30 mar 2026", title: "Convocatoria Hub Brasil — Change Management", type: "reunion", imp: true,
@@ -1208,11 +1273,14 @@ const PROJECTS = {
 
 // ── UPCOMING MEETINGS (futuras) ──
 const UPCOMING = [
-  { date: '2026-04-08', title: 'Reunión Change Mgmt — Hub Brasil (Lucila Guelfo)', project: 'brasil', type: 'future' },
-  { date: '2026-04-15', title: 'Alicia regresa de vacaciones — arranque proyecto', project: 'alicia', type: 'future' },
+  { date: '2026-04-10', title: 'Reunión con Romy — informe cierre benchmarks Mobility', project: 'romy', type: 'future' },
+  { date: '2026-04-13', title: 'Alicia regresa de vacaciones — arranque inmediato', project: 'alicia', type: 'future' },
+  { date: '2026-04-13', title: 'Sync Lu + Pablo — mapeo stakeholders change mgmt Brasil (2pm PE)', project: 'brasil', type: 'future' },
   { date: '2026-04-15', title: 'Benchmark Nestlé — Movilidad (confirmado)', project: 'romy', type: 'future' },
+  { date: '2026-04-15', title: 'Revisión onboarding con Alicia — arranque workstream', project: 'alicia', type: 'future' },
   { date: '2026-04-20', title: 'Benchmark Worley — Movilidad (confirmado para abril)', project: 'romy', type: 'future' },
-  { date: '2026-05-03', title: 'Viaje +Partners a Chile (hub importante para Credicorp)', project: 'romy', type: 'future' },
+  { date: '2026-05-03', title: 'Viaje +Partners a Chile', project: 'romy', type: 'future' },
+  { date: '2026-05-15', title: 'Plan change mgmt Hub Brasil — presentaciones stakeholders SP', project: 'brasil', type: 'future' },
   { date: '2026-05-31', title: 'DEADLINE: Renovación contrato Credicorp', project: 'alicia', type: 'future' },
 ];
 
