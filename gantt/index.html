@@ -22,7 +22,7 @@
   --amber:       #854F0B; --amber-bg:  #FAEEDA;
   --red:         #A32D2D; --red-bg:    #FCEBEB;
   --blue:        #185FA5; --blue-bg:   #E6F1FB;
-  --r-sm:  6px; --r-md: 10px; --r-lg: 14px;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
   --shadow: 0 1px 3px rgba(0,0,0,0.06);
   --label-w: 120px;
   --row-h:   30px;
@@ -35,7 +35,7 @@ body {
   min-height: 100vh; font-size: 14px; line-height: 1.6;
 }
 
-/* ── TOPBAR (idéntico al dashboard) ── */
+/* ── TOPBAR ── */
 .topbar {
   background: var(--accent);
   height: 52px; padding: 0 1.5rem;
@@ -61,15 +61,12 @@ body {
   text-decoration: none; transition: background .12s;
 }
 .btn-back:hover { background: rgba(255,255,255,0.2); }
-.topbar-date {
-  font-size: 11px; color: rgba(255,255,255,0.4);
-  font-family: 'DM Mono', monospace;
-}
+.topbar-date { font-size: 11px; color: rgba(255,255,255,0.4); font-family: 'DM Mono', monospace; }
 
 /* ── PAGE ── */
 .main { padding: 1.5rem; max-width: 1280px; margin: 0 auto; }
 
-/* ── HEADER SECTION (pablo-header style) ── */
+/* ── HERO ── */
 .page-hero {
   background: linear-gradient(135deg, #1a1730 0%, #2a2450 100%);
   border-radius: var(--r-md); padding: 1.5rem 2rem;
@@ -78,9 +75,9 @@ body {
 }
 .page-hero h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.4px; }
 .page-hero p  { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
-.hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.hero-logo  { font-size: 18px; font-weight: 800; color: #a3e635; letter-spacing: -1px; }
-.hero-sub   { font-size: 11px; color: rgba(255,255,255,0.4); }
+.hero-right   { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.hero-logo    { font-size: 18px; font-weight: 800; color: #a3e635; letter-spacing: -1px; }
+.hero-sub     { font-size: 11px; color: rgba(255,255,255,0.4); }
 
 /* ── LEGEND ── */
 .legend-bar {
@@ -89,50 +86,39 @@ body {
   margin-bottom: 1.25rem;
   display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
 }
-.legend-title {
-  font-size: 10px; font-weight: 500; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: .07em;
-  margin-right: 4px;
-}
+.legend-title { font-size: 10px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: .07em; margin-right: 4px; }
 .leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-2); }
-.leg-bar    { width: 22px; height: 8px; border-radius: 3px; }
-.leg-bar-ghost { width: 22px; height: 8px; border-radius: 3px; opacity: .35; }
-.leg-diamond{ width: 8px; height: 8px; transform: rotate(45deg); flex-shrink: 0; }
-.leg-dot    { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.leg-dot-out{ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: transparent; border: 1.5px solid; }
+.leg-bar     { width: 22px; height: 8px; border-radius: 3px; }
+.leg-diamond { width: 8px; height: 8px; transform: rotate(45deg); flex-shrink: 0; }
+.leg-dot     { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.leg-dot-out { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: transparent; border: 1.5px solid; }
 
-/* ── GANTT CONTAINER ── */
+/* ── GANTT ── */
 .gantt-wrapper {
   background: var(--surface); border: 0.5px solid var(--border);
-  border-radius: var(--r-md); overflow: hidden;
-  box-shadow: var(--shadow);
+  border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow);
 }
 .gantt-scroll { overflow-x: auto; }
 
 /* ── MONTH HEADER ── */
 .month-header {
-  display: flex;
-  background: var(--surface2);
+  display: flex; background: var(--surface2);
   border-bottom: 0.5px solid var(--border-md);
   position: sticky; top: 52px; z-index: 50;
 }
-.month-spacer {
-  width: var(--label-w); flex-shrink: 0;
-  border-right: 0.5px solid var(--border-md);
-}
-.months-row { flex: 1; display: flex; }
+.month-spacer { width: var(--label-w); flex-shrink: 0; border-right: 0.5px solid var(--border-md); }
+.months-row   { flex: 1; display: flex; }
 .month-cell {
   flex: 1; text-align: center;
   font-size: 10px; font-weight: 500; color: var(--text-3);
   text-transform: uppercase; letter-spacing: .06em;
-  padding: 7px 0;
-  border-right: 0.5px solid var(--border);
+  padding: 7px 0; border-right: 0.5px solid var(--border);
   font-family: 'DM Mono', monospace;
 }
 .month-cell:last-child { border-right: none; }
 .month-cell.is-now { color: var(--accent-mid); font-weight: 700; }
 
-/* ── SECTION HEADER ── */
+/* ── SECTION ── */
 .section-hdr {
   display: flex; align-items: center; gap: 8px;
   padding: 8px 12px 7px;
@@ -140,12 +126,8 @@ body {
   border-bottom: 0.5px solid var(--border);
   border-top: 0.5px solid var(--border-md);
 }
-.section-hdr:first-of-type { border-top: none; }
-.section-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.section-label {
-  font-size: 10px; font-weight: 600; color: var(--text-2);
-  text-transform: uppercase; letter-spacing: .07em;
-}
+.section-dot  { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.section-label { font-size: 10px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: .07em; }
 
 /* ── ROW ── */
 .gantt-row {
@@ -158,82 +140,36 @@ body {
   width: var(--label-w); flex-shrink: 0;
   font-size: 10px; font-weight: 500; color: var(--text-3);
   text-transform: uppercase; letter-spacing: .04em;
-  padding: 0 10px;
-  border-right: 0.5px solid var(--border);
+  padding: 0 10px; border-right: 0.5px solid var(--border);
   line-height: 1.25;
 }
-
-/* ── TRACK ── */
 .track { flex: 1; position: relative; height: var(--row-h); }
-.grid-vline {
-  position: absolute; top: 0; bottom: 0;
-  width: 0.5px; background: var(--border);
-  pointer-events: none;
-}
-.today-vline {
-  position: absolute; top: 0; bottom: 0;
-  width: 1.5px; background: var(--red);
-  opacity: .55; pointer-events: none; z-index: 5;
-}
+.grid-vline { position: absolute; top: 0; bottom: 0; width: 0.5px; background: var(--border); pointer-events: none; }
+.today-vline { position: absolute; top: 0; bottom: 0; width: 1.5px; background: var(--red); opacity: .5; pointer-events: none; z-index: 5; }
 
-/* ── GANTT ELEMENTS ── */
-.g-bar {
-  position: absolute;
-  height: 12px; top: 50%; transform: translateY(-50%);
-  border-radius: 3px; cursor: pointer;
-  transition: filter .12s, opacity .12s;
-}
-.g-bar:hover { filter: brightness(.9); }
-
-.g-diamond {
-  position: absolute; top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  cursor: pointer; z-index: 4;
-  transition: transform .12s;
-}
-.g-diamond:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.35); }
-
-.g-dot {
-  position: absolute; top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%; cursor: pointer; z-index: 4;
-  transition: transform .12s;
-}
-.g-dot:hover { transform: translate(-50%, -50%) scale(1.4); }
+/* ── ELEMENTS ── */
+.g-bar { position: absolute; height: 12px; top: 50%; transform: translateY(-50%); border-radius: 3px; cursor: pointer; transition: filter .12s; }
+.g-bar:hover { filter: brightness(.88); }
+.g-diamond { position: absolute; top: 50%; transform: translate(-50%,-50%) rotate(45deg); cursor: pointer; z-index: 4; transition: transform .12s; }
+.g-diamond:hover { transform: translate(-50%,-50%) rotate(45deg) scale(1.35); }
+.g-dot { position: absolute; top: 50%; transform: translate(-50%,-50%); border-radius: 50%; cursor: pointer; z-index: 4; transition: transform .12s; }
+.g-dot:hover { transform: translate(-50%,-50%) scale(1.4); }
 
 /* ── TOOLTIP ── */
 #tooltip {
   position: fixed; z-index: 9999;
-  background: var(--surface);
-  border: 0.5px solid var(--border-md);
-  border-radius: var(--r-md);
-  padding: 14px 16px;
+  background: var(--surface); border: 0.5px solid var(--border-md);
+  border-radius: var(--r-md); padding: 14px 16px;
   min-width: 240px; max-width: 340px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  pointer-events: none;
-  opacity: 0; transition: opacity .1s;
+  pointer-events: none; opacity: 0; transition: opacity .1s;
 }
 #tooltip.vis { opacity: 1; }
-.tt-tag {
-  display: inline-block; font-size: 10px; font-weight: 500;
-  padding: 2px 8px; border-radius: 20px; margin-bottom: 7px;
-}
-.tt-title {
-  font-size: 13px; font-weight: 500; color: var(--text);
-  margin-bottom: 3px; line-height: 1.4;
-}
-.tt-date {
-  font-size: 11px; color: var(--text-3);
-  font-family: 'DM Mono', monospace; margin-bottom: 7px;
-}
-.tt-divider {
-  height: 0.5px; background: var(--border);
-  margin: 8px 0;
-}
-.tt-body {
-  font-size: 12px; color: var(--text-2);
-  line-height: 1.55; margin-bottom: 8px;
-}
+.tt-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-bottom: 7px; }
+.tt-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
+.tt-date  { font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; margin-bottom: 7px; }
+.tt-divider { height: 0.5px; background: var(--border); margin: 8px 0; }
+.tt-body  { font-size: 12px; color: var(--text-2); line-height: 1.55; margin-bottom: 8px; }
 .tt-links { display: flex; flex-direction: column; gap: 5px; }
 .tt-link {
   display: flex; align-items: center; gap: 6px;
@@ -243,15 +179,11 @@ body {
   background: var(--blue-bg); transition: background .1s;
 }
 .tt-link:hover { background: #d0e7f8; }
-.tt-link::before {
-  content: '↗'; font-size: 10px;
-  opacity: .7; flex-shrink: 0;
-}
+.tt-link::before { content: '↗'; font-size: 10px; opacity: .7; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
     <a href="https://bondy-group.github.io/-Partners/" class="logo">+Partners <span class="logo-sep">/</span> Credicorp</a>
@@ -263,50 +195,45 @@ body {
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- HERO -->
   <div class="page-hero">
     <div>
       <h1>Timeline del proyecto</h1>
-      <p>HR Innovation Sprints · Credicorp · Dic 2025 — Sep 2026 &nbsp;·&nbsp; Pasá el mouse por cada elemento para ver fechas, notas y links</p>
+      <p>HR Innovation Sprints · Credicorp · Dic 2025 — Sep 2026 &nbsp;·&nbsp; Pasá el mouse por cada elemento para ver detalle</p>
     </div>
     <div class="hero-right">
       <div class="hero-logo">+Partners</div>
-      <div class="hero-sub">Powered by PM Agent IA</div>
+      <div class="hero-sub">HR Innovation Sprints</div>
     </div>
   </div>
 
-  <!-- LEGEND -->
   <div class="legend-bar">
     <span class="legend-title">Referencias</span>
-    <div class="leg"><div class="leg-bar" style="background:var(--accent-light);border:0.5px solid var(--accent-mid)"></div>Sprint activo</div>
-    <div class="leg"><div class="leg-bar-ghost" style="background:var(--accent-light);border:0.5px solid var(--accent-mid)"></div>Monitoreo</div>
-    <div class="leg"><div class="leg-diamond" style="background:var(--red)"></div>Hito crítico</div>
+    <div class="leg"><div class="leg-bar" style="background:var(--green-bg);border:0.5px solid var(--green)"></div>Sprint / trabajo activo</div>
+    <div class="leg"><div class="leg-bar" style="background:var(--green-bg);border:0.5px solid var(--green);opacity:.35"></div>Soporte continuo</div>
+    <div class="leg"><div class="leg-diamond" style="background:var(--red)"></div>Hito clave</div>
     <div class="leg"><div class="leg-diamond" style="background:var(--green)"></div>Hito completado ✓</div>
     <div class="leg"><div class="leg-diamond" style="background:var(--amber)"></div>Hito próximo</div>
-    <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Reunión benchmark</div>
-    <div class="leg"><div class="leg-dot-out" style="border-color:var(--text-3)"></div>Reunión seguimiento</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Reunión de benchmark</div>
+    <div class="leg"><div class="leg-dot-out" style="border-color:var(--text-3)"></div>Reunión de seguimiento</div>
     <div class="leg" style="color:var(--red);font-weight:500;">│ Hoy</div>
   </div>
 
-  <!-- GANTT -->
   <div class="gantt-wrapper">
     <div class="gantt-scroll">
       <div id="gantt" style="min-width:900px;"></div>
     </div>
   </div>
 
-</div><!-- /main -->
+</div>
 
-<!-- TOOLTIP -->
 <div id="tooltip">
-  <div id="tt-tag" class="tt-tag"></div>
+  <div id="tt-tag"   class="tt-tag"></div>
   <div id="tt-title" class="tt-title"></div>
-  <div id="tt-date" class="tt-date"></div>
+  <div id="tt-date"  class="tt-date"></div>
   <div class="tt-divider"></div>
-  <div id="tt-body" class="tt-body"></div>
+  <div id="tt-body"  class="tt-body"></div>
   <div id="tt-links" class="tt-links"></div>
 </div>
 
@@ -317,388 +244,321 @@ const RANGE_START = new Date('2025-12-01');
 const RANGE_END   = new Date('2026-10-01');
 const TODAY       = new Date('2026-04-09');
 
-function frac(d) {
-  const dt = typeof d === 'string' ? new Date(d) : d;
-  return Math.max(0, Math.min(1, (dt - RANGE_START) / (RANGE_END - RANGE_START)));
-}
-function pct(d) { return (frac(d) * 100).toFixed(3) + '%'; }
-function wpct(a, b) { return ((frac(b) - frac(a)) * 100).toFixed(3) + '%'; }
+function frac(d){ const dt = typeof d==='string'?new Date(d):d; return Math.max(0,Math.min(1,(dt-RANGE_START)/(RANGE_END-RANGE_START))); }
+function pct(d){ return (frac(d)*100).toFixed(3)+'%'; }
 
-// ── Color helpers matching dashboard pills ──────────────────
 const PROJ = {
-  brasil:   { bar: '#EAF3DE', barBorder: '#3B6D11', dot: '#639922', tag: 'pill-green' },
-  gise:     { bar: '#EEEDFE', barBorder: '#534AB7', dot: '#534AB7', tag: 'pill-blue' },
-  mobility: { bar: '#E6F1FB', barBorder: '#185FA5', dot: '#185FA5', tag: 'pill-blue' },
-  alicia:   { bar: '#FAEEDA', barBorder: '#854F0B', dot: '#BA7517', tag: 'pill-amber' },
-  general:  { bar: '#F0EFE9', barBorder: '#9E9D98', dot: '#9E9D98', tag: '' },
+  brasil:   { bg:'#EAF3DE', bd:'#639922', dot:'#639922' },
+  gise:     { bg:'#EEEDFE', bd:'#534AB7', dot:'#534AB7' },
+  mobility: { bg:'#E6F1FB', bd:'#185FA5', dot:'#185FA5' },
+  alicia:   { bg:'#FAEEDA', bd:'#BA7517', dot:'#BA7517' },
+  general:  { bg:'#F0EFE9', bd:'#9E9D98', dot:'#9E9D98' },
 };
+const RED='#A32D2D', GREEN='#3B6D11', AMBER='#854F0B', ACCMID='#534AB7', BLUE='#185FA5';
 
-const RED    = '#A32D2D';
-const GREEN  = '#3B6D11';
-const AMBER  = '#854F0B';
-const ACCMID = '#534AB7';
-
-// ── DATA ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// DATOS — versión para Pablo (sin info interna sensible)
+// ══════════════════════════════════════════════════════
 const SECTIONS = [
+
+// ── REUNIONES MENSUALES CON PABLO ─────────────────────
 {
-  label: 'Seguimiento general', proj: 'general',
-  rows: [
-    { label: 'Con Pablo', items: [
-      { type:'dot-out', date:'2026-03-09', color:'#9E9D98', tt: {
-        tag:'Seguimiento', tagStyle:'background:var(--surface2);color:var(--text-2)',
-        title:'Reunión de seguimiento — Pablo Silva',
-        date:'9 de marzo 2026',
-        body:'Revisión de todos los proyectos. GiseGPT validado en vivo. Hub Brasil retrasado. Arranque Alicia confirmado para abril. 7 mobilities/año confirmados sobre 45.000 empleados.',
-        links:[{ label:'Transcript Fathom — 9 mar', url:'https://docs.google.com/document/d/1XfiDb0I7mUWc5XmL0GpJs5LL9qPaXI4ZcUnaEYnCcc0/edit' }] }},
-      { type:'dot-out', date:'2026-04-09', color:RED, tt: {
-        tag:'Hoy', tagStyle:'background:var(--red-bg);color:var(--red)',
-        title:'Reunión de seguimiento — Pablo Silva',
-        date:'9 de abril 2026 · HOY',
-        body:'Reunión mensual con Pablo. Presentación del estado de 4 proyectos. Se solicita apoyo para destrabar IT (GiseGPT). Alicia regresa hoy. Acción requerida de Pablo.',
-        links:[{ label:'PPT reunión 9 abr', url:'https://docs.google.com/presentation/d/124NTd3PVEEj2wlBIBNEm_F9DKUSBy4F8_xPQEQ22DIo/edit' }] }},
-      { type:'dot-out', date:'2026-05-14', color:'#9E9D98', tt: {
-        tag:'Próximo', tagStyle:'background:var(--surface2);color:var(--text-2)',
-        title:'Próxima reunión mensual — Pablo Silva',
-        date:'~14 de mayo 2026 (por confirmar)',
-        body:'Seguimiento mensual. Objetivo: presentar renovación del contrato (vence 31 mayo), confirmar go-live GiseGPT, estado del lanzamiento de Mobility.',
-        links:[] }},
-    ]},
-    { label: 'Internas', items: [
-      { type:'dot-out', date:'2026-03-16', color:'#9E9D98', tt: {
-        tag:'Interna', tagStyle:'background:var(--surface2);color:var(--text-2)',
-        title:'Reunión interna — Equipo +Partners',
-        date:'16 de marzo 2026',
-        body:'Análisis estratégico post-9mar. Renovación del contrato al 31 mayo. Giro de posicionamiento: de "consultora que entrega informes" a "agente de PM con IA como diferencial".',
-        links:[{ label:'Transcript — 16 mar', url:'https://docs.google.com/document/d/1RW7rxTFNd38mqlk4kDygJkdidj3WTu-qoxJw0m25it0/edit' }] }},
-      { type:'dot-out', date:'2026-04-08', color:'#9E9D98', tt: {
-        tag:'Interna', tagStyle:'background:var(--surface2);color:var(--text-2)',
-        title:'Reunión interna — Prep. reunión con Pablo',
-        date:'8 de abril 2026',
-        body:'Preparación de la presentación del 9 de abril. Se decidió usar PPT en lugar del dashboard. Fathom recap disponible.',
-        links:[] }},
+  label: 'Reuniones de seguimiento', proj:'general',
+  rows:[
+    { label:'Con Pablo', items:[
+      { type:'dot-out', date:'2026-03-09', color:'#9E9D98', tt:{
+          tag:'Seguimiento', ts:'background:var(--surface2);color:var(--text-2)',
+          title:'Reunión de seguimiento — 9 de marzo',
+          date:'9 de marzo 2026',
+          body:'Revisión del avance de los 4 proyectos. Alineación de prioridades para el segundo trimestre.',
+          links:[] }},
+      { type:'dot-out', date:'2026-04-09', color:RED, tt:{
+          tag:'Hoy', ts:'background:var(--red-bg);color:var(--red)',
+          title:'Reunión de seguimiento — 9 de abril',
+          date:'9 de abril 2026 · HOY',
+          body:'Presentación del estado de los 4 proyectos activos. Hitos alcanzados en marzo y plan para mayo.',
+          links:[{ label:'Presentación de hoy', url:'https://docs.google.com/presentation/d/124NTd3PVEEj2wlBIBNEm_F9DKUSBy4F8_xPQEQ22DIo/edit' }] }},
+      { type:'dot-out', date:'2026-05-14', color:'#9E9D98', tt:{
+          tag:'Próximo', ts:'background:var(--surface2);color:var(--text-2)',
+          title:'Próxima reunión de seguimiento',
+          date:'~14 de mayo 2026 (por confirmar)',
+          body:'Seguimiento mensual. Revisión de avances en los 4 proyectos y próximos pasos.',
+          links:[] }},
     ]},
   ]
 },
+
+// ── HUB BRASIL ────────────────────────────────────────
 {
-  label: 'Hub Brasil — Lucila Guelfo', proj: 'brasil',
-  rows: [
-    { label: 'Sprint', items: [
-      { type:'bar', from:'2025-12-01', to:'2026-03-15', proj:'brasil', tt: {
-        tag:'Sprint 1', tagStyle:'background:var(--green-bg);color:var(--green)',
-        title:'Sprint 1 — Hub Brasil',
-        date:'Dic 2025 — Mar 2026',
-        body:'Benchmark de 10 proveedores de beneficios + 6 empresas directas + extendido (MeLi, Nubank, Accenture). Informe preliminar de 15 páginas. Handbook preliminar v1. Agente en Copilot M365.',
-        links:[
-          { label:'Informe preliminar — Carpeta Drive', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' },
-          { label:'Esqueleto Handbook v2', url:'https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit' },
-          { label:'Piso de EVP Brasil', url:'https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit' },
-        ]}},
-      { type:'bar', from:'2026-03-15', to:'2026-07-01', proj:'brasil', ghost:true, tt: {
-        tag:'Monitoreo', tagStyle:'background:var(--green-bg);color:var(--green)',
-        title:'Monitoreo y soporte activo — Hub Brasil',
-        date:'Mar — Jun 2026',
-        body:'Acompañamiento a Lu Guelfo como PM: mapeo de workstreams, coaching de gestión, soporte en presentaciones ante Gerencia, búsqueda de proveedor de nómina (LG en gestión).',
-        links:[
-          { label:'Documentos de Lu Guelfo', url:'https://drive.google.com/drive/folders/1afnUPjeaBr33GXGM23ypRHwJLDfg70xE' },
-          { label:'Reuniones con proveedores', url:'https://drive.google.com/drive/folders/1jA9kCuDwNtt-oPk3htUPJhRCNzaq6Dmg' },
-        ]}},
+  label:'Hub Brasil — Lucila Guelfo', proj:'brasil',
+  rows:[
+    { label:'Trabajo activo', items:[
+      { type:'bar', from:'2025-12-01', to:'2026-03-15', proj:'brasil', tt:{
+          tag:'Sprint 1', ts:'background:var(--green-bg);color:var(--green)',
+          title:'Sprint 1 — Benchmark y diagnóstico',
+          date:'Dic 2025 — Mar 2026',
+          body:'Benchmark con 10 proveedores de beneficios en Brasil + 6 empresas entrevistadas directamente + análisis extendido (MeLi, Nubank, Accenture). Informe preliminar de 15 páginas. Handbook preliminar. Agente IA del proyecto.',
+          links:[
+            { label:'Carpeta Hub Brasil', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' },
+            { label:'Piso de EVP Brasil', url:'https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit' },
+            { label:'Handbook Hub Brasil v2', url:'https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit' },
+          ]}},
+      { type:'bar', from:'2026-03-15', to:'2026-07-01', proj:'brasil', ghost:true, tt:{
+          tag:'Soporte continuo', ts:'background:var(--green-bg);color:var(--green)',
+          title:'Acompañamiento y soporte al lanzamiento',
+          date:'Mar — Jun 2026',
+          body:'Acompañamiento activo a Lu Guelfo: coordinación de frentes (legal, tech, comp, RRHH, relaciones laborales), soporte en presentaciones, y búsqueda de proveedor de nómina.',
+          links:[
+            { label:'Documentos Lu Guelfo', url:'https://drive.google.com/drive/folders/1afnUPjeaBr33GXGM23ypRHwJLDfg70xE' },
+          ]}},
     ]},
-    { label: 'Reuniones Lu', items: [
-      { type:'dot', date:'2025-12-10', color:'#639922', tt: { tag:'Brasil', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Kickoff — Lucila Guelfo', date:'10 dic 2025', body:'Kickoff del proyecto Hub Brasil. Alcance, frentes y metodología.', links:[] }},
-      { type:'dot', date:'2026-01-20', color:'#639922', tt: { tag:'Brasil', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Update 1 — Lucila Guelfo', date:'~20 ene 2026', body:'Primera revisión de avance. Benchmark de proveedores y primeras conclusiones del mercado brasileño.', links:[] }},
-      { type:'dot', date:'2026-02-18', color:'#639922', tt: { tag:'Brasil', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Update 2 — Lucila Guelfo', date:'~18 feb 2026', body:'Revisión del informe preliminar. Lu presentó al equipo de Bienestar (Cindy y Liz). Feedback incorporado.', links:[{ label:'Transcript — 20 mar Hub Brasil', url:'https://docs.google.com/document/d/1UJxgTxxHpHOCTmH_cDJOEBwM9_rEM6rAjRFu2DKjDUI/edit' }] }},
-      { type:'dot', date:'2026-03-20', color:'#639922', tt: { tag:'Brasil', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Update 3 — Mapeo de workstreams', date:'20 mar 2026', body:'Post reunión con Pablo. Mapeo de workstreams (legal, tech, comp, RRHH, rel. laborales). Nueva fecha go-live definida: junio 2026.', links:[{ label:'Transcript — Hub Brasil 20 mar', url:'https://docs.google.com/document/d/1UJxgTxxHpHOCTmH_cDJOEBwM9_rEM6rAjRFu2DKjDUI/edit' }] }},
-      { type:'dot', date:'2026-03-30', color:'#639922', tt: { tag:'Brasil', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Change Management — Lucila Guelfo', date:'30 mar 2026', body:'Reunión convocada por Lu. Foco en gestión del cambio para el lanzamiento del Hub en junio.', links:[] }},
-      { type:'dot', date:'2026-04-09', color:'#639922', tt: { tag:'Brasil · Hito', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Update 4 — OK Gerencial obtenido ✓', date:'9 abr 2026', body:'Resultado exitoso: presentación ante la Gerencia aprobada. OK formal obtenido. Deadlines de acción definidos. Go-live programado para junio. En gestión: proveedor de nómina (LG).', links:[{ label:'Carpeta Hub Brasil Drive', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' }] }},
+    { label:'Reuniones Lu', items:[
+      { type:'dot', date:'2025-12-10', color:'#639922', tt:{ tag:'Brasil', ts:'background:var(--green-bg);color:var(--green)', title:'Kickoff — Lucila Guelfo', date:'10 dic 2025', body:'Kickoff del proyecto. Definición de alcance, frentes y metodología de trabajo.', links:[] }},
+      { type:'dot', date:'2026-01-20', color:'#639922', tt:{ tag:'Brasil', ts:'background:var(--green-bg);color:var(--green)', title:'Update 1 — Avance benchmark', date:'~20 ene 2026', body:'Primera revisión de avance. Benchmark de proveedores en curso. Primeras conclusiones del mercado brasileño.', links:[] }},
+      { type:'dot', date:'2026-02-18', color:'#639922', tt:{ tag:'Brasil', ts:'background:var(--green-bg);color:var(--green)', title:'Update 2 — Revisión informe preliminar', date:'~18 feb 2026', body:'Revisión del informe preliminar de 15 páginas. Incorporación de feedback del equipo de Bienestar de Credicorp.', links:[] }},
+      { type:'dot', date:'2026-03-20', color:'#639922', tt:{ tag:'Brasil', ts:'background:var(--green-bg);color:var(--green)', title:'Update 3 — Mapeo de workstreams', date:'20 mar 2026', body:'Mapeo de los frentes del Hub Brasil con owners y fechas. Definición de nueva fecha de go-live: junio 2026.', links:[{ label:'Transcript — Hub Brasil 20 mar', url:'https://docs.google.com/document/d/1UJxgTxxHpHOCTmH_cDJOEBwM9_rEM6rAjRFu2DKjDUI/edit' }] }},
+      { type:'dot', date:'2026-03-30', color:'#639922', tt:{ tag:'Brasil', ts:'background:var(--green-bg);color:var(--green)', title:'Change Management', date:'30 mar 2026', body:'Sesión de gestión del cambio orientada al lanzamiento del Hub Brasil en junio.', links:[] }},
+      { type:'dot', date:'2026-04-09', color:'#639922', tt:{ tag:'Brasil · Hito', ts:'background:var(--green-bg);color:var(--green)', title:'Update 4 — OK Gerencial obtenido ✓', date:'9 abr 2026', body:'Presentación ante Gerencia aprobada. OK formal obtenido. Deadlines de acción definidos. Go-live programado para junio 2026. En gestión: proveedor de nómina (LG).', links:[{ label:'Carpeta Hub Brasil', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' }] }},
     ]},
-    { label: 'Bench proveed.', items: [
-      { type:'bar', from:'2025-12-05', to:'2026-02-10', proj:'brasil', semi:true, tt: {
-        tag:'Brasil · Benchmark', tagStyle:'background:var(--green-bg);color:var(--green)',
-        title:'Benchmark proveedores — 10 reuniones',
-        date:'Dic 2025 — Feb 2026',
-        body:'Ticket, Edenred, iFood Benefícios, Caju, Wellhub, Total Pass, Bradesco Saúde, SulAmérica, Convenia, Tako, Sólides, Apdata, Mercer, Maslow, Globus.',
-        links:[{ label:'Reuniones con proveedores', url:'https://drive.google.com/drive/folders/1jA9kCuDwNtt-oPk3htUPJhRCNzaq6Dmg' }] }},
+    { label:'Bench proveed.', items:[
+      { type:'bar', from:'2025-12-05', to:'2026-02-10', proj:'brasil', semi:true, tt:{
+          tag:'Benchmark', ts:'background:var(--green-bg);color:var(--green)',
+          title:'10 reuniones con proveedores de beneficios',
+          date:'Dic 2025 — Feb 2026',
+          body:'Plataformas multibeneficios: Ticket, Edenred, iFood, Caju, Wellhub, Total Pass. Seguros: Bradesco Saúde, SulAmérica. Administración: Convenia, Tako, Sólides, Apdata, Mercer, Maslow, Globus.',
+          links:[{ label:'Reuniones con proveedores', url:'https://drive.google.com/drive/folders/1jA9kCuDwNtt-oPk3htUPJhRCNzaq6Dmg' }] }},
     ]},
-    { label: 'Bench empresas', items: [
-      { type:'dot', date:'2025-12-15', color:'#639922', tt: { tag:'Benchmark', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Clara', date:'~15 dic 2025', body:'Paulina Rodríguez — Total Rewards & Ops Lead. VR+VA altos, stock/acciones, big tech regional de referencia para LATAM.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
-      { type:'dot', date:'2026-01-08', color:'#639922', tt: { tag:'Benchmark', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Amazon Web Services', date:'~8 ene 2026', body:'Semi Kim — Sr. Portfolio Growth Manager. RSUs, paquete premium global, cultura de alto rendimiento.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
-      { type:'dot', date:'2026-01-22', color:'#639922', tt: { tag:'Benchmark', tagStyle:'background:var(--green-bg);color:var(--green)', title:'C6 Bank / Koin', date:'~22 ene 2026', body:'C6: Rafael Gottardi (Tech Engineering Lead Architect). Koin: Camila Nobrega (CHRO). Salarios cuartil alto, equity, bienestar integral.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
-      { type:'dot', date:'2026-02-05', color:'#639922', tt: { tag:'Benchmark', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Stone / Adidas', date:'~5 feb 2026', body:'Stone: Mônica Santos (Diretora de Pessoas). Adidas: Silene Rodríguez (HR Director). PLR, employer branding, D&I activo.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
-      { type:'dot', date:'2026-02-15', color:'#639922', tt: { tag:'Benchmark ext.', tagStyle:'background:var(--green-bg);color:var(--green)', title:'MeLi / Nubank / Accenture', date:'~15 feb 2026', body:'Análisis documental. Mercado Libre (EVP full package), Nubank (RSUs + NuCare + DEI), Accenture (bono 15-25%, híbrido 3+2).', links:[{ label:'Piso de EVP Brasil', url:'https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit' }] }},
+    { label:'Bench empresas', items:[
+      { type:'dot', date:'2025-12-15', color:'#639922', tt:{ tag:'Benchmark', ts:'background:var(--green-bg);color:var(--green)', title:'Clara', date:'~15 dic 2025', body:'Paulina Rodríguez — Total Rewards & Ops Lead. E-commerce / Fintech LATAM. Referente de compensación y beneficios para talento tech en Brasil.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
+      { type:'dot', date:'2026-01-08', color:'#639922', tt:{ tag:'Benchmark', ts:'background:var(--green-bg);color:var(--green)', title:'Amazon Web Services', date:'~8 ene 2026', body:'Semi Kim — Sr. Portfolio Growth Manager. Hub tech global. RSUs, paquete premium, cultura de alto rendimiento.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
+      { type:'dot', date:'2026-01-22', color:'#639922', tt:{ tag:'Benchmark', ts:'background:var(--green-bg);color:var(--green)', title:'C6 Bank / Koin', date:'~22 ene 2026', body:'C6: Rafael Gottardi (Tech Engineering Lead Architect). Koin: Camila Nobrega (CHRO). Fintechs brasileñas, salarios cuartil alto, equity, bienestar.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
+      { type:'dot', date:'2026-02-05', color:'#639922', tt:{ tag:'Benchmark', ts:'background:var(--green-bg);color:var(--green)', title:'Stone / Adidas', date:'~5 feb 2026', body:'Stone: Mônica Santos (Diretora de Pessoas). Adidas: Silene Rodríguez (HR Director). PLR, employer branding activo, D&I.', links:[{ label:'Reuniones bench', url:'https://drive.google.com/drive/folders/1XYrf3tSCWeybUWJgLL4jQo-hirDD9V0E' }] }},
+      { type:'dot', date:'2026-02-15', color:'#639922', tt:{ tag:'Benchmark extendido', ts:'background:var(--green-bg);color:var(--green)', title:'Mercado Libre / Nubank / Accenture', date:'~15 feb 2026', body:'Análisis de mercado. Mercado Libre (EVP "full package"), Nubank (RSUs + NuCare + DEI activo), Accenture (bono 15-25%, híbrido 3+2).', links:[{ label:'Piso EVP Brasil', url:'https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit' }] }},
     ]},
-    { label: 'Hitos', items: [
-      { type:'diamond', date:'2026-02-20', color:GREEN, size:9, tt: { tag:'Hito ✓', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Informe preliminar entregado (15p)', date:'~20 feb 2026', body:'Informe de 15 páginas entregado a Lu. Benchmark de proveedores con Heat Map + benchmark de empresas + primeras recomendaciones.', links:[{ label:'Carpeta Hub Brasil', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' }] }},
-      { type:'diamond', date:'2026-04-09', color:RED, size:11, tt: { tag:'Hito crítico ✓', tagStyle:'background:var(--red-bg);color:var(--red)', title:'OK gerencial obtenido', date:'9 abr 2026', body:'Presentación ante la Gerencia aprobada. Deadlines de acción definidos para el lanzamiento del Hub Brasil.', links:[] }},
-      { type:'diamond', date:'2026-06-20', color:AMBER, size:10, tt: { tag:'Hito crítico', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Go-live Hub Brasil', date:'Junio 2026 (por confirmar)', body:'Fecha objetivo de lanzamiento. Incluye todos los frentes: legal, tech (subsidiaria), comp, RRHH, relaciones laborales.', links:[] }},
+    { label:'Hitos', items:[
+      { type:'diamond', date:'2026-02-20', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'Informe preliminar entregado (15p) ✓', date:'~20 feb 2026', body:'Informe de 15 páginas entregado a Lu Guelfo. Incluye benchmark de proveedores con Heat Map, benchmark de empresas y primeras recomendaciones.', links:[{ label:'Carpeta Hub Brasil', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' }] }},
+      { type:'diamond', date:'2026-04-09', color:GREEN, size:11, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'OK gerencial obtenido ✓', date:'9 abr 2026', body:'Presentación ante Gerencia aprobada. OK formal obtenido. Deadlines de acción definidos para el lanzamiento.', links:[] }},
+      { type:'diamond', date:'2026-06-20', color:AMBER, size:10, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Go-live Hub Brasil', date:'Junio 2026', body:'Fecha objetivo de lanzamiento del Hub Brasil. Todos los frentes en curso: legal, tech, compensación, RRHH y relaciones laborales.', links:[] }},
     ]},
   ]
 },
+
+// ── GESTIÓN DEL DESEMPEÑO ─────────────────────────────
 {
-  label: 'Gestión del Desempeño — GiseGPT (Gisselle Ripamonti)', proj: 'gise',
-  rows: [
-    { label: 'Desarrollo', items: [
-      { type:'bar', from:'2025-12-01', to:'2026-03-01', proj:'gise', tt: {
-        tag:'Sprint 1', tagStyle:'background:var(--accent-light);color:var(--accent-mid)',
-        title:'Sprint 1 — Desarrollo GiseGPT',
-        date:'Dic 2025 — Mar 2026',
-        body:'Construcción del agente GiseGPT en entorno Copilot M365. Ayuda a los 300 TOPs (C-Level) a armar sus objetivos KPI/KR. Benchmark: Galicia y Naranja X. Research HR Techs: Humand (USD 66M Serie A).',
-        links:[
-          { label:'Prompt del agente GiseGPT', url:'https://docs.google.com/document/d/1I3qNtWz4X88Xt5zEkoSRCLSHICdnE99UUSJs0qYOAts/edit' },
-          { label:'Manual de uso GiseGPT', url:'https://docs.google.com/document/d/1ZYNLX6cfbDUdp9AQfZNKh3tzFjfMBGOxvd1KAOe4Y6c/edit' },
-        ]}},
-      { type:'bar', from:'2026-03-01', to:'2026-07-15', proj:'gise', ghost:true, tt: {
-        tag:'Bloqueado IT', tagStyle:'background:var(--red-bg);color:var(--red)',
-        title:'Bloqueo IT — Migración a Copilot Studio',
-        date:'Mar 2026 — en curso',
-        body:'Copilot 365 se discontinúa en Credicorp. Hay que migrar a Copilot Studio. Requiere DevSecOps interno. Responsable: José Gomer (Jefe de Tecnología). IT sin respuesta a 4+ mails. Escalado a Pablo el 26 mar.',
-        links:[] }},
+  label:'Gestión del Desempeño — GiseGPT (Gisselle Ripamonti)', proj:'gise',
+  rows:[
+    { label:'Desarrollo', items:[
+      { type:'bar', from:'2025-12-01', to:'2026-03-01', proj:'gise', tt:{
+          tag:'Sprint 1', ts:'background:var(--accent-light);color:var(--accent-mid)',
+          title:'Sprint 1 — Desarrollo del agente GiseGPT',
+          date:'Dic 2025 — Mar 2026',
+          body:'Construcción del agente en entorno Copilot M365. Ayuda a los 300 TOPs (C-Level) a armar sus objetivos KPI/KR para la Planilla de Desempeño. Benchmark con Banco Galicia y Naranja X. Research: Humand (USD 66M Serie A en HR Tech).',
+          links:[
+            { label:'Prompt del agente GiseGPT', url:'https://docs.google.com/document/d/1I3qNtWz4X88Xt5zEkoSRCLSHICdnE99UUSJs0qYOAts/edit' },
+            { label:'Manual de uso GiseGPT', url:'https://docs.google.com/document/d/1ZYNLX6cfbDUdp9AQfZNKh3tzFjfMBGOxvd1KAOe4Y6c/edit' },
+          ]}},
+      { type:'bar', from:'2026-03-01', to:'2026-07-15', proj:'gise', ghost:true, tt:{
+          tag:'Implementación', ts:'background:var(--accent-light);color:var(--accent-mid)',
+          title:'Implementación corporativa — Copilot Studio',
+          date:'Mar 2026 — en curso',
+          body:'Migración de Copilot 365 a Copilot Studio para corporativizar el agente a los 300 TOPs. El agente ya funciona y está validado. En proceso de habilitación técnica con el área de Tecnología.',
+          links:[] }},
     ]},
-    { label: 'IT / destrabe', items: [
-      { type:'dot-out', date:'2026-03-05', color:ACCMID, tt: { tag:'IT', tagStyle:'background:var(--accent-light);color:var(--accent-mid)', title:'Mail IT #1 — Juan → Ysela/Antonio', date:'5 mar 2026', body:'Primer mail de Juan al equipo de IT (Ysela Santana y Antonio García). Sin respuesta.', links:[] }},
-      { type:'dot-out', date:'2026-03-10', color:ACCMID, tt: { tag:'IT', tagStyle:'background:var(--accent-light);color:var(--accent-mid)', title:'Mail IT #2', date:'10 mar 2026', body:'Segundo seguimiento. Sin respuesta.', links:[] }},
-      { type:'dot-out', date:'2026-03-16', color:ACCMID, tt: { tag:'IT', tagStyle:'background:var(--accent-light);color:var(--accent-mid)', title:'Mail IT #3', date:'16 mar 2026', body:'Tercer seguimiento. Sin respuesta.', links:[] }},
-      { type:'dot-out', date:'2026-03-26', color:RED,    tt: { tag:'Escalada', tagStyle:'background:var(--red-bg);color:var(--red)', title:'Escalada a Pablo Silva', date:'26 mar 2026', body:'Juan escala el bloqueo directamente a Pablo. Sin resolución al 9 de abril. Se presenta hoy en reunión.', links:[] }},
-      { type:'dot-out', date:'2026-03-30', color:ACCMID, tt: { tag:'IT', tagStyle:'background:var(--accent-light);color:var(--accent-mid)', title:'Sasan → Gisselle', date:'30 mar 2026', body:'Sasan escribe a Gisselle para alinear próximos pasos y presionar desde su lado al área de tecnología.', links:[] }},
-      { type:'dot-out', date:'2026-04-09', color:RED,    tt: { tag:'Acción requerida', tagStyle:'background:var(--red-bg);color:var(--red)', title:'Reunión con Pablo — pedido de apoyo IT', date:'9 abr 2026 · HOY', body:'Se solicita formalmente el apoyo de Pablo para desbloquear comunicación con José Gomer (Jefe IT) y acelerar el go-live corporativo.', links:[] }},
-    ]},
-    { label: 'Hitos', items: [
-      { type:'diamond', date:'2026-02-15', color:GREEN, size:9, tt: { tag:'Hito ✓', tagStyle:'background:var(--green-bg);color:var(--green)', title:'GiseGPT funcionando en M365 ✓', date:'~15 feb 2026', body:'Agente construido y validado. Pablo y Gisselle lo probaron en vivo. Responde preguntas sobre objetivos KPI/KR, tiempos y dependencias. Gisse recontra compró el agente.', links:[{ label:'Prompt del agente', url:'https://docs.google.com/document/d/1I3qNtWz4X88Xt5zEkoSRCLSHICdnE99UUSJs0qYOAts/edit' }, { label:'Manual de uso', url:'https://docs.google.com/document/d/1ZYNLX6cfbDUdp9AQfZNKh3tzFjfMBGOxvd1KAOe4Y6c/edit' }] }},
-      { type:'diamond', date:'2026-04-09', color:RED, size:11, tt: { tag:'Hito crítico', tagStyle:'background:var(--red-bg);color:var(--red)', title:'Apoyo de Pablo para destrabar IT', date:'9 abr 2026', body:'Acción requerida: Pablo habla con José Gomer para que asigne un DevSecOps interno y habilite Copilot Studio corporativamente para los 300 TOPs.', links:[] }},
-      { type:'diamond', date:'2026-07-01', color:AMBER, size:10, tt: { tag:'Hito crítico', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Go-live GiseGPT — 300 TOPs', date:'Julio 2026 — objetivo', body:'Fecha objetivo para el ciclo anual de objetivos de los 300 TOPs (C-Level). El agente corporativo debe estar listo antes del inicio del ciclo de planilla de desempeño.', links:[] }},
+    { label:'Hitos', items:[
+      { type:'diamond', date:'2026-02-15', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'GiseGPT funcionando — validado con Gisselle ✓', date:'~15 feb 2026', body:'Agente construido y probado en vivo. Responde preguntas sobre objetivos KPI/KR, tiempos y dependencias. Gisselle y Pablo validaron el funcionamiento.', links:[{ label:'Manual de uso', url:'https://docs.google.com/document/d/1ZYNLX6cfbDUdp9AQfZNKh3tzFjfMBGOxvd1KAOe4Y6c/edit' }] }},
+      { type:'diamond', date:'2026-04-09', color:AMBER, size:10, tt:{ tag:'En curso', ts:'background:var(--amber-bg);color:var(--amber)', title:'Habilitación corporativa — requiere soporte de IT', date:'9 abr 2026', body:'El agente está listo. La habilitación para los 300 TOPs requiere coordinación con el área de Tecnología (José Gomer). Se requiere el apoyo de Pablo para acelerar el proceso.', links:[] }},
+      { type:'diamond', date:'2026-07-01', color:AMBER, size:10, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Go-live GiseGPT — 300 TOPs', date:'Julio 2026 — objetivo', body:'Fecha objetivo para el ciclo anual de objetivos. El agente estará disponible para los 300 TOPs antes del inicio del ciclo de planilla de desempeño.', links:[] }},
     ]},
   ]
 },
+
+// ── MOBILITY ──────────────────────────────────────────
 {
-  label: 'Mobility — Romina Mitidieri', proj: 'mobility',
-  rows: [
-    { label: 'Sprint', items: [
-      { type:'bar', from:'2026-02-01', to:'2026-04-30', proj:'mobility', tt: {
-        tag:'Sprint 2', tagStyle:'background:var(--blue-bg);color:var(--blue)',
-        title:'Sprint 2 — Mobility',
-        date:'Feb — Abr 2026',
-        body:'4 ejes: Benchmark organizacional, Estrategia de comunicación (Playbook + Handbook), Agente IA en Copilot, Puente con Desarrollo de Talento (en hold estratégico).',
-        links:[
-          { label:'Análisis kickoff Movilidad', url:'https://docs.google.com/document/d/1tV6ZWZhLuQHdGL8--fkWwAOIlCRfoaeU2lc8cfxbff8/edit' },
-          { label:'Sprint Roadmap Movilidad', url:'https://docs.google.com/document/d/1n93kiYejsqy5OHFBZLUYAQGPPFu3MAYcguzVKzTyTMo/edit' },
-        ]}},
-      { type:'bar', from:'2026-04-30', to:'2026-06-15', proj:'mobility', ghost:true, tt: {
-        tag:'Lanzamiento', tagStyle:'background:var(--blue-bg);color:var(--blue)',
-        title:'Lanzamiento Mobility',
-        date:'May — Jun 2026',
-        body:'Presentación del Playbook a Desarrollo de Talento y Gerencia. Lanzamiento oficial del programa de Mobility rediseñado.', links:[] }},
+  label:'Mobility — Romina Mitidieri', proj:'mobility',
+  rows:[
+    { label:'Trabajo activo', items:[
+      { type:'bar', from:'2026-02-01', to:'2026-04-30', proj:'mobility', tt:{
+          tag:'Sprint 2', ts:'background:var(--blue-bg);color:var(--blue)',
+          title:'Sprint 2 — Mobility',
+          date:'Feb — Abr 2026',
+          body:'4 ejes: benchmark organizacional, estrategia de comunicación (Playbook + Handbook), agente IA en Copilot, y articulación con Desarrollo de Talento.',
+          links:[
+            { label:'Análisis kickoff Movilidad', url:'https://docs.google.com/document/d/1tV6ZWZhLuQHdGL8--fkWwAOIlCRfoaeU2lc8cfxbff8/edit' },
+            { label:'Sprint Roadmap Movilidad', url:'https://docs.google.com/document/d/1n93kiYejsqy5OHFBZLUYAQGPPFu3MAYcguzVKzTyTMo/edit' },
+          ]}},
+      { type:'bar', from:'2026-04-30', to:'2026-06-15', proj:'mobility', ghost:true, tt:{
+          tag:'Lanzamiento', ts:'background:var(--blue-bg);color:var(--blue)',
+          title:'Lanzamiento del programa de Mobility',
+          date:'May — Jun 2026',
+          body:'Presentación del Playbook a Desarrollo de Talento y Gerencia. Lanzamiento oficial del programa rediseñado.', links:[] }},
     ]},
-    { label: 'Benchmark', items: [
-      { type:'dot', date:'2026-02-10', color:'#185FA5', tt: { tag:'Benchmark', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Nubank ✓', date:'~10 feb 2026', body:'Fabiana Christians — Head of Global Mobility. Modelo de movilidad en fintech. Tipos de asignación, beneficios, governance LATAM.', links:[{ label:'Info Benchmark Romi', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
-      { type:'dot', date:'2026-02-20', color:'#185FA5', tt: { tag:'Benchmark', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Philips ✓', date:'~20 feb 2026', body:'María Pía Logiovane — Head of HR LATAM. Movilidad reactiva por necesidad de negocio, no integrada con desarrollo. Proveedores: Deloitte (fiscal), Alter (relocation).', links:[{ label:'Info Benchmark Romi', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
-      { type:'dot', date:'2026-03-17', color:'#185FA5', tt: { tag:'Benchmark', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Mercado Libre ✓', date:'17 mar 2026', body:'Santiago Laidlaw — Global Mobility Manager. Modelo estructurado para LATAM. Roles regionales, movilidad interna entre unidades de negocio.', links:[{ label:'Info Benchmark Romi', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
-      { type:'dot', date:'2026-03-28', color:'#185FA5', tt: { tag:'Benchmark', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Boehringer Ingelheim ✓', date:'~28 mar 2026', body:'Natalia Bauchmann — HR Manager (ARG, UY & PY). Programa de movilidad en multinacional farmacéutica. Gestión de expatriados en LATAM.', links:[{ label:'Info Benchmark Romi', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
-      { type:'dot', date:'2026-04-05', color:'#185FA5', tt: { tag:'Benchmark', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Accenture ✓', date:'~5 abr 2026', body:'Valeria Usatinsky — HR Mobility Premium Services. Modelo en consultoría global. Tipos de asignación, beneficios premium, gestión de retorno.', links:[{ label:'Info Benchmark Romi', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
-      { type:'dot', date:'2026-04-20', color:'#185FA5', tt: { tag:'Confirmado', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Nestlé — confirmado', date:'~20 abr 2026', body:'Benchmark confirmado para abril. FMCG multinacional con fuerte programa de movilidad en LATAM.', links:[] }},
-      { type:'dot', date:'2026-04-25', color:'#185FA5', tt: { tag:'Confirmado', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Worley — confirmado', date:'~25 abr 2026', body:'Benchmark confirmado para abril. Empresa de ingeniería global con movilidad de personal técnico especializado.', links:[] }},
+    { label:'Benchmark', items:[
+      { type:'dot', date:'2026-02-10', color:BLUE, tt:{ tag:'Benchmark', ts:'background:var(--blue-bg);color:var(--blue)', title:'Nubank ✓', date:'~10 feb 2026', body:'Fabiana Christians — Head of Global Mobility. Modelo de movilidad en fintech LATAM. Tipos de asignación, beneficios y governance.', links:[{ label:'Carpeta benchmarks', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
+      { type:'dot', date:'2026-02-20', color:BLUE, tt:{ tag:'Benchmark', ts:'background:var(--blue-bg);color:var(--blue)', title:'Philips ✓', date:'~20 feb 2026', body:'María Pía Logiovane — Head of HR LATAM. Programa de movilidad internacional, modalidades de asignación y proveedores en LATAM.', links:[{ label:'Carpeta benchmarks', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
+      { type:'dot', date:'2026-03-17', color:BLUE, tt:{ tag:'Benchmark', ts:'background:var(--blue-bg);color:var(--blue)', title:'Mercado Libre ✓', date:'17 mar 2026', body:'Santiago Laidlaw — Global Mobility Manager. Modelo estructurado para LATAM, roles regionales y movilidad interna entre unidades de negocio.', links:[{ label:'Carpeta benchmarks', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
+      { type:'dot', date:'2026-03-28', color:BLUE, tt:{ tag:'Benchmark', ts:'background:var(--blue-bg);color:var(--blue)', title:'Boehringer Ingelheim ✓', date:'~28 mar 2026', body:'Natalia Bauchmann — HR Manager (ARG, UY & PY). Programa de movilidad en multinacional farmacéutica, gestión de expatriados en LATAM.', links:[{ label:'Carpeta benchmarks', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
+      { type:'dot', date:'2026-04-05', color:BLUE, tt:{ tag:'Benchmark', ts:'background:var(--blue-bg);color:var(--blue)', title:'Accenture ✓', date:'~5 abr 2026', body:'Valeria Usatinsky — HR Mobility Premium Services. Modelo de movilidad en consultoría global, tipos de asignación y gestión del retorno.', links:[{ label:'Carpeta benchmarks', url:'https://drive.google.com/drive/folders/1vVpctsgWol8tXLmholTUygc62Z4PxzOt' }] }},
+      { type:'dot', date:'2026-04-20', color:BLUE, tt:{ tag:'Confirmado', ts:'background:var(--blue-bg);color:var(--blue)', title:'Nestlé — confirmado', date:'~20 abr 2026', body:'Benchmark confirmado para abril. FMCG multinacional con fuerte programa de movilidad internacional en LATAM.', links:[] }},
+      { type:'dot', date:'2026-04-25', color:BLUE, tt:{ tag:'Confirmado', ts:'background:var(--blue-bg);color:var(--blue)', title:'Worley — confirmado', date:'~25 abr 2026', body:'Benchmark confirmado para abril. Empresa de ingeniería global con movilidad de personal técnico especializado.', links:[] }},
     ]},
-    { label: 'Diagnóstico', items: [
-      { type:'bar', from:'2026-03-01', to:'2026-04-01', proj:'mobility', semi:true, tt: { tag:'Mobility', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'HTML Interactivo de Diagnóstico', date:'Mar — Abr 2026', body:'Desarrollo e implementación de un HTML interactivo para relevar el estado actual del proceso de Mobility. Resultado: gaps identificados, puntos a aclarar, definiciones para el nuevo seteo.', links:[] }},
-      { type:'diamond', date:'2026-03-31', color:GREEN, size:9, tt: { tag:'Hito ✓', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Diagnóstico completado ✓', date:'31 mar 2026', body:'Diagnóstico finalizado. Identificación precisa de gaps, puntos a aclarar y definiciones ya establecidas para el nuevo seteo del programa.', links:[] }},
+    { label:'Diagnóstico', items:[
+      { type:'bar', from:'2026-03-01', to:'2026-04-01', proj:'mobility', semi:true, tt:{ tag:'Mobility', ts:'background:var(--blue-bg);color:var(--blue)', title:'Diagnóstico interactivo del proceso', date:'Mar — Abr 2026', body:'Desarrollo de herramienta HTML interactiva para relevar el estado actual del proceso de Mobility. Resultado: gaps identificados, puntos a definir y bases para el nuevo diseño.', links:[] }},
+      { type:'diamond', date:'2026-03-31', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'Diagnóstico completado ✓', date:'31 mar 2026', body:'Diagnóstico finalizado. Identificación precisa de brechas, puntos a aclarar y definiciones ya establecidas para el rediseño del programa.', links:[] }},
     ]},
-    { label: 'Playbook', items: [
-      { type:'bar', from:'2026-03-15', to:'2026-05-01', proj:'mobility', semi:true, tt: { tag:'Mobility', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Playbook y Handbook de Movilidad', date:'Mar — May 2026', body:'Dos prototipos: Manual de Procesos Genérico (técnico y operativo) + Guía de Experiencia (comunicacional para empleados). En poder de Romina para pulido final.', links:[{ label:'Strategy & Handbook v0', url:'https://drive.google.com/drive/folders/13bLB0P2U7yii5a8_dNFmWU7vR8SmUZJA' }] }},
-      { type:'diamond', date:'2026-05-01', color:AMBER, size:10, tt: { tag:'Hito', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Lanzamiento del Playbook', date:'Mayo 2026 — objetivo', body:'Presentación y aprobación del Playbook de Movilidad ante Gerencia y equipo de Desarrollo de Talento.', links:[] }},
+    { label:'Playbook', items:[
+      { type:'bar', from:'2026-03-15', to:'2026-05-01', proj:'mobility', semi:true, tt:{ tag:'Mobility', ts:'background:var(--blue-bg);color:var(--blue)', title:'Playbook y Handbook de Movilidad', date:'Mar — May 2026', body:'Dos versiones en desarrollo: Manual de Procesos (técnico y operativo) y Guía de Experiencia (orientada al empleado). En etapa final de pulido con Romina.', links:[{ label:'Handbook Mobility v0', url:'https://drive.google.com/drive/folders/13bLB0P2U7yii5a8_dNFmWU7vR8SmUZJA' }] }},
+      { type:'diamond', date:'2026-05-01', color:AMBER, size:10, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Lanzamiento del Playbook', date:'Mayo 2026 — objetivo', body:'Presentación y aprobación del Playbook de Mobility ante Gerencia y Desarrollo de Talento.', links:[] }},
     ]},
-    { label: 'Agente IA', items: [
-      { type:'bar', from:'2026-03-20', to:'2026-04-09', proj:'mobility', semi:true, tt: { tag:'Mobility', tagStyle:'background:var(--blue-bg);color:var(--blue)', title:'Agente IA en Copilot', date:'Mar — Abr 2026', body:'Creación del agente bajo ownership de Romina. Permite consultar instantáneamente toda la base de conocimiento de los benchmarks realizados.', links:[] }},
-      { type:'diamond', date:'2026-04-09', color:GREEN, size:9, tt: { tag:'Hito ✓', tagStyle:'background:var(--green-bg);color:var(--green)', title:'Agente de IA implementado ✓', date:'9 abr 2026', body:'Agente implementado en Copilot bajo ownership de Romina. Consulta instantánea de benchmarks. Segundo agente (público para empleados) en desarrollo.', links:[] }},
+    { label:'Agente IA', items:[
+      { type:'bar', from:'2026-03-20', to:'2026-04-09', proj:'mobility', semi:true, tt:{ tag:'Mobility', ts:'background:var(--blue-bg);color:var(--blue)', title:'Agente IA en Copilot', date:'Mar — Abr 2026', body:'Desarrollo del agente de consulta bajo ownership de Romina. Permite consultar la base de conocimiento de todos los benchmarks realizados.', links:[] }},
+      { type:'diamond', date:'2026-04-09', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'Agente IA implementado ✓', date:'9 abr 2026', body:'Agente implementado en Copilot, bajo ownership de Romina Mitidieri. Consulta instantánea de benchmarks de movilidad. Segundo agente (orientado a empleados) en desarrollo.', links:[] }},
     ]},
   ]
 },
+
+// ── OPS / HR TECH ─────────────────────────────────────
 {
-  label: 'Ops / HR Tech — Alicia Rivera', proj: 'alicia',
-  rows: [
-    { label: 'Prep / gathering', items: [
-      { type:'bar', from:'2026-02-15', to:'2026-04-15', proj:'alicia', ghost:true, tt: {
-        tag:'Pre-arranque', tagStyle:'background:var(--amber-bg);color:var(--amber)',
-        title:'Fase de preparación y gathering',
-        date:'Feb — Abr 2026',
-        body:'Alicia en LTI (Long Term Incentive) hasta fines de marzo: pago de acciones multi-país, multi-modalidad, muy complejo. Reuniones de relevamiento con stakeholders adicionales. Estrategia: compatibilidad con PeopleSoft.',
-        links:[] }},
-      { type:'dot-out', date:'2026-03-19', color:'#BA7517', tt: { tag:'Alicia', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Pre-kickoff con Alicia', date:'19 mar 2026', body:'Reunión preparatoria para "bajar el estrés". Revisión del backlog, marcado de iniciativas prioritarias. Objetivo: arranque sin fricción el 15 de abril.', links:[] }},
+  label:'Ops / HR Tech — Alicia Rivera', proj:'alicia',
+  rows:[
+    { label:'Preparación', items:[
+      { type:'bar', from:'2026-02-15', to:'2026-04-15', proj:'alicia', ghost:true, tt:{
+          tag:'Pre-arranque', ts:'background:var(--amber-bg);color:var(--amber)',
+          title:'Fase de relevamiento y gathering',
+          date:'Feb — Abr 2026',
+          body:'Reuniones de relevamiento con Alicia y stakeholders clave. Diagnóstico inicial de procesos. Definición del roadmap compatible con la implementación de Oracle/PeopleSoft.',
+          links:[] }},
     ]},
-    { label: 'Ejecución', items: [
-      { type:'bar', from:'2026-04-15', to:'2026-09-01', proj:'alicia', tt: {
-        tag:'Sprint', tagStyle:'background:var(--amber-bg);color:var(--amber)',
-        title:'Sprint activo — Ops / HR Tech',
-        date:'15 abr 2026 — Sep 2026',
-        body:'3 frentes: (1) Eficiencia de procesos HR + dashboard de control, (2) UX del empleado (employee journey), (3) Incentivos LP (LTI — base ya trabajada en marzo).',
-        links:[{ label:'Carpeta Ops-Alicia', url:'https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ' }] }},
+    { label:'Ejecución', items:[
+      { type:'bar', from:'2026-04-15', to:'2026-09-01', proj:'alicia', tt:{
+          tag:'Sprint activo', ts:'background:var(--amber-bg);color:var(--amber)',
+          title:'Sprint activo — Ops / HR Tech',
+          date:'15 abr 2026 — Sep 2026',
+          body:'3 frentes: (1) Eficiencia de procesos HR + dashboard de control, (2) Experiencia del empleado (employee journey), (3) Incentivos de largo plazo (LTI).',
+          links:[{ label:'Carpeta Ops-Alicia', url:'https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ' }] }},
     ]},
-    { label: 'Hitos', items: [
-      { type:'diamond', date:'2026-03-18', color:AMBER, size:8, tt: { tag:'Restricción', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Kickoff Oracle / PeopleSoft', date:'18 mar 2026', body:'Kickoff de Oracle/PeopleSoft en Credicorp (4 años en el pipeline). Restricción crítica: todas las soluciones deben ser compatibles. Módulo de desempeño incluido.', links:[] }},
-      { type:'diamond', date:'2026-04-15', color:RED, size:11, tt: { tag:'Hito crítico', tagStyle:'background:var(--red-bg);color:var(--red)', title:'Arranque Alicia — regresa hoy', date:'15 abr 2026', body:'Alicia regresa de vacaciones. Inicio del sprint operativo con roadmap ya alineado en el pre-kickoff del 19 de marzo.', links:[{ label:'Carpeta Ops-Alicia', url:'https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ' }] }},
-      { type:'diamond', date:'2026-05-15', color:AMBER, size:8, tt: { tag:'Hito', tagStyle:'background:var(--amber-bg);color:var(--amber)', title:'Roadmap v1 — Alicia', date:'~15 may 2026 (estimado)', body:'Primer entregable: roadmap detallado de los 3 frentes, backlog priorizado, quick wins identificados.', links:[] }},
+    { label:'Hitos', items:[
+      { type:'diamond', date:'2026-03-18', color:AMBER, size:8, tt:{ tag:'Restricción técnica', ts:'background:var(--amber-bg);color:var(--amber)', title:'Kickoff Oracle / PeopleSoft', date:'18 mar 2026', body:'Kickoff oficial de Oracle/PeopleSoft en Credicorp. Todas las soluciones propuestas son compatibles con este stack. El módulo de desempeño está incluido en la plataforma.', links:[] }},
+      { type:'diamond', date:'2026-04-15', color:RED, size:11, tt:{ tag:'Hito clave', ts:'background:var(--red-bg);color:var(--red)', title:'Arranque del proyecto con Alicia', date:'15 abr 2026', body:'Inicio del sprint operativo. Roadmap ya alineado. Los tres frentes arrancan en paralelo desde esta semana.', links:[{ label:'Carpeta Ops-Alicia', url:'https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ' }] }},
+      { type:'diamond', date:'2026-05-15', color:AMBER, size:8, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Roadmap v1 — Alicia', date:'~15 may 2026', body:'Primer entregable del sprint: roadmap detallado de los 3 frentes, backlog priorizado y quick wins identificados.', links:[] }},
     ]},
   ]
 },
+
+// ── VIAJES Y CONTEXTO ─────────────────────────────────
 {
-  label: 'Hitos del proyecto', proj: 'general',
-  rows: [
-    { label: '', items: [
-      { type:'diamond', date:'2026-05-31', color:RED, size:13, tt: { tag:'Crítico', tagStyle:'background:var(--red-bg);color:var(--red)', title:'Renovación del contrato — deadline', date:'31 de mayo 2026', body:'Fecha de vencimiento del contrato con Credicorp. La renovación depende del avance en los 4 proyectos. Estrategia: posicionar +Partners como "agente de PM con IA como diferencial".', links:[] }},
-      { type:'dot-out', date:'2026-05-05', color:'#9E9D98', tt: { tag:'Viaje', tagStyle:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Chile', date:'3-8 mayo 2026', body:'Hub importante para Credicorp. Pablo invitado. Al costo para clientes.', links:[] }},
-      { type:'dot-out', date:'2026-06-09', color:'#9E9D98', tt: { tag:'Viaje', tagStyle:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Madrid', date:'7-12 junio 2026', body:'Pablo invitado. Al costo para los clientes.', links:[] }},
-      { type:'dot-out', date:'2026-08-18', color:'#9E9D98', tt: { tag:'Viaje', tagStyle:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Brasil', date:'16-20 agosto 2026', body:'São Paulo. Relevante para el Hub Brasil — reuniones in situ posibles. Pablo invitado.', links:[] }},
+  label:'Agenda regional +Partners', proj:'general',
+  rows:[
+    { label:'', items:[
+      { type:'dot-out', date:'2026-05-05', color:'#9E9D98', tt:{ tag:'Viaje', ts:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Chile', date:'3-8 mayo 2026', body:'El equipo de +Partners estará en Santiago. Disponibles para reuniones con el equipo de Credicorp en Chile. Pablo y su equipo están invitados a sumarse.', links:[] }},
+      { type:'dot-out', date:'2026-06-09', color:'#9E9D98', tt:{ tag:'Viaje', ts:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Madrid', date:'7-12 junio 2026', body:'El equipo de +Partners estará en Madrid. Disponibles para reuniones con el equipo de Credicorp en España. Pablo invitado.', links:[] }},
+      { type:'dot-out', date:'2026-08-18', color:'#9E9D98', tt:{ tag:'Viaje', ts:'background:var(--surface2);color:var(--text-2)', title:'Viaje +Partners a Brasil', date:'16-20 agosto 2026', body:'El equipo de +Partners estará en São Paulo. Oportunidad de hacer reuniones in situ relacionadas con el Hub Brasil. Pablo invitado.', links:[] }},
     ]},
   ]
 },
 ];
 
-// ── RENDER ─────────────────────────────────────────────
+// ── RENDER ──────────────────────────────────────────────────
 const root = document.getElementById('gantt');
 
-function barColors(proj, ghost, semi) {
+function getBarStyle(proj, ghost, semi){
   const p = PROJ[proj] || PROJ.general;
-  const base = p.bar;
-  const border = p.barBorder;
-  if (ghost) return { bg: base, border, opacity: '.25' };
-  if (semi)  return { bg: base, border, opacity: '.55' };
-  return { bg: base, border, opacity: '1' };
+  const op = ghost ? '.22' : semi ? '.5' : '1';
+  return `background:${p.bg};border:0.5px solid ${p.bd};opacity:${op}`;
 }
 
-function makeMonthHeader() {
-  const wrap = document.createElement('div');
-  wrap.className = 'month-header';
-  const sp = document.createElement('div');
-  sp.className = 'month-spacer';
-  wrap.appendChild(sp);
-  const mr = document.createElement('div');
-  mr.className = 'months-row';
-  MONTHS.forEach((m, i) => {
+function makeMonthHeader(){
+  const wrap = document.createElement('div'); wrap.className = 'month-header';
+  const sp   = document.createElement('div'); sp.className = 'month-spacer'; wrap.appendChild(sp);
+  const mr   = document.createElement('div'); mr.className = 'months-row';
+  MONTHS.forEach((m,i)=>{
     const mc = document.createElement('div');
-    mc.className = 'month-cell' + (i === 4 ? ' is-now' : '');
-    mc.textContent = m;
-    mr.appendChild(mc);
+    mc.className = 'month-cell' + (i===4?' is-now':'');
+    mc.textContent = m; mr.appendChild(mc);
   });
-  wrap.appendChild(mr);
-  root.appendChild(wrap);
+  wrap.appendChild(mr); root.appendChild(wrap);
 }
 
-function makeSection(sec) {
-  const hdr = document.createElement('div');
-  hdr.className = 'section-hdr';
-  const dot = document.createElement('div');
-  dot.className = 'section-dot';
-  const p = PROJ[sec.proj] || PROJ.general;
-  dot.style.background = p.barBorder;
+function makeSection(sec){
+  const hdr = document.createElement('div'); hdr.className = 'section-hdr';
+  const dot = document.createElement('div'); dot.className = 'section-dot';
+  dot.style.background = (PROJ[sec.proj]||PROJ.general).bd;
   hdr.appendChild(dot);
-  const lbl = document.createElement('div');
-  lbl.className = 'section-label';
-  lbl.textContent = sec.label;
-  hdr.appendChild(lbl);
+  const lbl = document.createElement('div'); lbl.className = 'section-label';
+  lbl.textContent = sec.label; hdr.appendChild(lbl);
   root.appendChild(hdr);
-
   sec.rows.forEach(row => makeRow(row, sec.proj));
 }
 
-function makeRow(row, defaultProj) {
-  const rowDiv = document.createElement('div');
-  rowDiv.className = 'gantt-row';
-
-  const lbl = document.createElement('div');
-  lbl.className = 'row-label';
-  lbl.textContent = row.label;
+function makeRow(row, defProj){
+  const rowDiv = document.createElement('div'); rowDiv.className = 'gantt-row';
+  const lbl = document.createElement('div');   lbl.className = 'row-label'; lbl.textContent = row.label;
   rowDiv.appendChild(lbl);
-
-  const track = document.createElement('div');
-  track.className = 'track';
-
-  // grid lines
-  for (let i = 1; i < N; i++) {
-    const gl = document.createElement('div');
-    gl.className = 'grid-vline';
-    gl.style.left = ((i / (N - 1)) * 100) + '%';
-    track.appendChild(gl);
+  const track = document.createElement('div'); track.className = 'track';
+  for(let i=1;i<N;i++){
+    const gl = document.createElement('div'); gl.className = 'grid-vline';
+    gl.style.left = ((i/(N-1))*100)+'%'; track.appendChild(gl);
   }
-  // today line
-  const tl = document.createElement('div');
-  tl.className = 'today-vline';
-  tl.style.left = (frac(TODAY) * 100) + '%';
-  track.appendChild(tl);
-
-  row.items.forEach(item => renderItem(track, item, defaultProj));
-  rowDiv.appendChild(track);
-  root.appendChild(rowDiv);
+  const tl = document.createElement('div'); tl.className = 'today-vline';
+  tl.style.left = (frac(TODAY)*100)+'%'; track.appendChild(tl);
+  row.items.forEach(item => renderItem(track, item, defProj));
+  rowDiv.appendChild(track); root.appendChild(rowDiv);
 }
 
-function renderItem(track, item, defaultProj) {
+function renderItem(track, item, defProj){
   let el;
-  const proj = item.proj || defaultProj;
-
-  if (item.type === 'bar') {
-    el = document.createElement('div');
-    el.className = 'g-bar';
-    const f = (frac(item.from) * 100).toFixed(3);
-    const w = ((frac(item.to) - frac(item.from)) * 100).toFixed(3);
-    const c = barColors(proj, item.ghost, item.semi);
-    el.style.cssText = `left:${f}%;width:${w}%;background:${c.bg};border:0.5px solid ${c.border};opacity:${c.opacity}`;
-  } else if (item.type === 'diamond') {
-    el = document.createElement('div');
-    el.className = 'g-diamond';
-    const sz = item.size || 9;
+  const proj = item.proj || defProj;
+  if(item.type==='bar'){
+    el = document.createElement('div'); el.className = 'g-bar';
+    const f = (frac(item.from)*100).toFixed(3);
+    const w = ((frac(item.to)-frac(item.from))*100).toFixed(3);
+    el.style.cssText = `left:${f}%;width:${w}%;${getBarStyle(proj, item.ghost, item.semi)}`;
+  } else if(item.type==='diamond'){
+    el = document.createElement('div'); el.className = 'g-diamond';
+    const sz = item.size||9;
     el.style.cssText = `left:${pct(item.date)};width:${sz}px;height:${sz}px;background:${item.color}`;
-  } else if (item.type === 'dot') {
-    el = document.createElement('div');
-    el.className = 'g-dot';
+  } else if(item.type==='dot'){
+    el = document.createElement('div'); el.className = 'g-dot';
     el.style.cssText = `left:${pct(item.date)};width:8px;height:8px;background:${item.color}`;
-  } else if (item.type === 'dot-out') {
-    el = document.createElement('div');
-    el.className = 'g-dot';
+  } else if(item.type==='dot-out'){
+    el = document.createElement('div'); el.className = 'g-dot';
     el.style.cssText = `left:${pct(item.date)};width:8px;height:8px;background:var(--surface);border:1.5px solid ${item.color}`;
   }
-
-  if (el && item.tt) {
+  if(el && item.tt){
     el.addEventListener('mouseenter', e => showTT(e, item.tt));
     el.addEventListener('mousemove',  e => posTT(e));
     el.addEventListener('mouseleave', hideTT);
   }
-  if (el) track.appendChild(el);
+  if(el) track.appendChild(el);
 }
 
-// ── TOOLTIP ─────────────────────────────────────────────
+// ── TOOLTIP ─────────────────────────────────────────────────
 const tooltip = document.getElementById('tooltip');
-
-function showTT(e, d) {
+function showTT(e, d){
   const tag = document.getElementById('tt-tag');
-  tag.textContent = d.tag;
-  tag.style.cssText = d.tagStyle;
+  tag.textContent = d.tag; tag.style.cssText = d.ts;
   document.getElementById('tt-title').textContent = d.title;
-  document.getElementById('tt-date').textContent  = d.date || '';
-  document.getElementById('tt-body').textContent  = d.body || '';
-  const linksDiv = document.getElementById('tt-links');
-  linksDiv.innerHTML = '';
-  if (d.links && d.links.length) {
-    d.links.forEach(lk => {
-      const a = document.createElement('a');
-      a.className = 'tt-link';
-      a.href = lk.url; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = lk.label;
-      linksDiv.appendChild(a);
-    });
-  }
-  tooltip.classList.add('vis');
-  posTT(e);
+  document.getElementById('tt-date').textContent  = d.date||'';
+  document.getElementById('tt-body').textContent  = d.body||'';
+  const ld = document.getElementById('tt-links'); ld.innerHTML = '';
+  (d.links||[]).forEach(lk=>{
+    const a = document.createElement('a');
+    a.className='tt-link'; a.href=lk.url; a.target='_blank'; a.rel='noopener';
+    a.textContent=lk.label; ld.appendChild(a);
+  });
+  tooltip.classList.add('vis'); posTT(e);
 }
-function posTT(e) {
-  const m = 16, tw = tooltip.offsetWidth || 280, th = tooltip.offsetHeight || 180;
-  let x = e.clientX + m, y = e.clientY + m;
-  if (x + tw > window.innerWidth  - 8) x = e.clientX - tw - m;
-  if (y + th > window.innerHeight - 8) y = e.clientY - th - m;
-  tooltip.style.left = x + 'px';
-  tooltip.style.top  = y + 'px';
+function posTT(e){
+  const m=16, tw=tooltip.offsetWidth||280, th=tooltip.offsetHeight||180;
+  let x=e.clientX+m, y=e.clientY+m;
+  if(x+tw>window.innerWidth-8)  x=e.clientX-tw-m;
+  if(y+th>window.innerHeight-8) y=e.clientY-th-m;
+  tooltip.style.left=x+'px'; tooltip.style.top=y+'px';
 }
-function hideTT() { tooltip.classList.remove('vis'); }
+function hideTT(){ tooltip.classList.remove('vis'); }
 
-// ── INIT ────────────────────────────────────────────────
+// ── INIT ────────────────────────────────────────────────────
 document.getElementById('today-str').textContent =
-  TODAY.toLocaleDateString('es-AR', { day:'numeric', month:'long', year:'numeric' });
-
+  TODAY.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});
 makeMonthHeader();
 SECTIONS.forEach(makeSection);
 </script>
