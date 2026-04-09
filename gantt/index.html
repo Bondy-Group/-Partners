@@ -275,9 +275,12 @@ const SECTIONS = [
       { type:'dot-out', date:'2026-04-09', color:RED, tt:{
           tag:'Hoy', ts:'background:var(--red-bg);color:var(--red)',
           title:'Reunión de seguimiento — 9 de abril',
-          date:'9 de abril 2026 · HOY',
-          body:'Presentación del estado de los 4 proyectos activos. Hitos alcanzados en marzo y plan para mayo.',
-          links:[{ label:'Presentación de hoy', url:'https://docs.google.com/presentation/d/124NTd3PVEEj2wlBIBNEm_F9DKUSBy4F8_xPQEQ22DIo/edit' }] }},
+          date:'9 de abril 2026',
+          body:'Go-live Brasil confirmado para junio. Pablo se comprometió a escribir a IT para destrabar GiseGPT. 5 benchmarks Mobility completados. Alicia regresa lunes 13 abr. Prioridades Alicia: ILP/LTI (agente Q1 2027) + onboarding.',
+          links:[
+            { label:'Presentación reunión 9 abr', url:'https://docs.google.com/presentation/d/124NTd3PVEEj2wlBIBNEm_F9DKUSBy4F8_xPQEQ22DIo/edit' },
+            { label:'Transcript Fathom — 9 abr', url:'https://fathom.video/share/xpzWpKkxSTvJb831zGzP-48GrPHrKLst' },
+          ] }},
       { type:'dot-out', date:'2026-05-14', color:'#9E9D98', tt:{
           tag:'Próximo', ts:'background:var(--surface2);color:var(--text-2)',
           title:'Próxima reunión de seguimiento',
@@ -337,6 +340,7 @@ const SECTIONS = [
     ]},
     { label:'Hitos', items:[
       { type:'diamond', date:'2026-02-20', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'Informe preliminar entregado (15p) ✓', date:'~20 feb 2026', body:'Informe de 15 páginas entregado a Lu Guelfo. Incluye benchmark de proveedores con Heat Map, benchmark de empresas y primeras recomendaciones.', links:[{ label:'Carpeta Hub Brasil', url:'https://drive.google.com/drive/folders/1r7OVohP1DddnfPLQuYKaPyfYv9zbOkF8' }] }},
+      { type:'diamond', date:'2026-04-13', color:AMBER, size:9, tt:{ tag:'Próximo', ts:'background:var(--amber-bg);color:var(--amber)', title:'Sync Lu + Pablo — mapeo stakeholders change mgmt', date:'13 abr 2026 · Lunes 2pm PE', body:'Reunión para mapear stakeholders, calendarizar presentaciones previas al go-live de junio y definir plan de change management (escenario presencial SP + virtual).', links:[] }},
       { type:'diamond', date:'2026-04-09', color:GREEN, size:11, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'OK gerencial obtenido ✓', date:'9 abr 2026', body:'Presentación ante Gerencia aprobada. OK formal obtenido. Deadlines de acción definidos para el lanzamiento.', links:[] }},
       { type:'diamond', date:'2026-06-20', color:AMBER, size:10, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Go-live Hub Brasil', date:'Junio 2026', body:'Fecha objetivo de lanzamiento del Hub Brasil. Todos los frentes en curso: legal, tech, compensación, RRHH y relaciones laborales.', links:[] }},
     ]},
@@ -366,7 +370,7 @@ const SECTIONS = [
     ]},
     { label:'Hitos', items:[
       { type:'diamond', date:'2026-02-15', color:GREEN, size:9, tt:{ tag:'Hito ✓', ts:'background:var(--green-bg);color:var(--green)', title:'GiseGPT funcionando — validado con Gisselle ✓', date:'~15 feb 2026', body:'Agente construido y probado en vivo. Responde preguntas sobre objetivos KPI/KR, tiempos y dependencias. Gisselle y Pablo validaron el funcionamiento.', links:[{ label:'Manual de uso', url:'https://docs.google.com/document/d/1ZYNLX6cfbDUdp9AQfZNKh3tzFjfMBGOxvd1KAOe4Y6c/edit' }] }},
-      { type:'diamond', date:'2026-04-09', color:AMBER, size:10, tt:{ tag:'En curso', ts:'background:var(--amber-bg);color:var(--amber)', title:'Habilitación corporativa — requiere soporte de IT', date:'9 abr 2026', body:'El agente está listo. La habilitación para los 300 TOPs requiere coordinación con el área de Tecnología (José Gomer). Se requiere el apoyo de Pablo para acelerar el proceso.', links:[] }},
+      { type:'diamond', date:'2026-04-09', color:GREEN, size:10, tt:{ tag:'Acción confirmada', ts:'background:var(--green-bg);color:var(--green)', title:'Pablo confirma: escribirá a IT esta semana ✓', date:'9 abr 2026', body:'Pablo se comprometió en la reunión de hoy a escribir personalmente a Estela y Antonio (IT). Cambio técnico: Copilot Studio se discontinúa → ir a Copilot 365. Con 2 reuniones de trabajo con IT se puede cerrar el documento y avanzar.', links:[{ label:'Transcript Fathom — 9 abr', url:'https://fathom.video/share/xpzWpKkxSTvJb831zGzP-48GrPHrKLst' }] }},
       { type:'diamond', date:'2026-07-01', color:AMBER, size:10, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Go-live GiseGPT — 300 TOPs', date:'Julio 2026 — objetivo', body:'Fecha objetivo para el ciclo anual de objetivos. El agente estará disponible para los 300 TOPs antes del inicio del ciclo de planilla de desempeño.', links:[] }},
     ]},
   ]
@@ -438,6 +442,8 @@ const SECTIONS = [
     ]},
     { label:'Hitos', items:[
       { type:'diamond', date:'2026-03-18', color:AMBER, size:8, tt:{ tag:'Restricción técnica', ts:'background:var(--amber-bg);color:var(--amber)', title:'Kickoff Oracle / PeopleSoft', date:'18 mar 2026', body:'Kickoff oficial de Oracle/PeopleSoft en Credicorp. Todas las soluciones propuestas son compatibles con este stack. El módulo de desempeño está incluido en la plataforma.', links:[] }},
+      { type:'diamond', date:'2026-04-13', color:RED, size:11, tt:{ tag:'Hito clave', ts:'background:var(--red-bg);color:var(--red)', title:'Alicia regresa — arranque inmediato',
+          date:'13 abr 2026 · Lunes', body:'Alicia regresa de vacaciones el lunes 13 de abril. Sprint operativo arranca de inmediato con roadmap ya alineado. Prioridades confirmadas por Pablo: ILP/LTI (agente Q1 2027) + onboarding.', links:[] }},
       { type:'diamond', date:'2026-04-15', color:RED, size:11, tt:{ tag:'Hito clave', ts:'background:var(--red-bg);color:var(--red)', title:'Arranque del proyecto con Alicia', date:'15 abr 2026', body:'Inicio del sprint operativo. Roadmap ya alineado. Los tres frentes arrancan en paralelo desde esta semana.', links:[{ label:'Carpeta Ops-Alicia', url:'https://drive.google.com/drive/folders/1v0BbFVQJwmow90ROvhaCQsv9BT3JIMsZ' }] }},
       { type:'diamond', date:'2026-05-15', color:AMBER, size:8, tt:{ tag:'Próximo hito', ts:'background:var(--amber-bg);color:var(--amber)', title:'Roadmap v1 — Alicia', date:'~15 may 2026', body:'Primer entregable del sprint: roadmap detallado de los 3 frentes, backlog priorizado y quick wins identificados.', links:[] }},
     ]},
