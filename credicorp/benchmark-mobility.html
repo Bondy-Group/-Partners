@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benchmarking Global Mobility · Romy — Credicorp</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F6F2;--surface:#FFFFFF;--surface2:#F0EFE9;--border:rgba(0,0,0,.09);--border-md:rgba(0,0,0,.14);--text:#1C1B18;--text-2:#6B6A65;--text-3:#9E9D98;--accent:#2A2560;--accent-light:#EEEDFE;--accent-mid:#534AB7;--green:#3B6D11;--green-bg:#EAF3DE;--amber:#854F0B;--amber-bg:#FAEEDA;--red:#A32D2D;--red-bg:#FCEBEB;--blue:#185FA5;--blue-bg:#E6F1FB;--r-sm:6px;--r-md:10px;--r-lg:14px;--shadow:0 1px 3px rgba(0,0,0,.06);--h1:#B71C1C;--h2:#E65100;--h3:#F57F17;--h4:#2E7D32;--h5:#1B5E20}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
+/* TOPBAR */
+.topbar{background:var(--accent);height:52px;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300}
+.topbar-left{display:flex;align-items:center;gap:8px}
+.logo{font-size:15px;font-weight:500;color:#fff;letter-spacing:-.01em}
+.sep{color:rgba(255,255,255,.3);margin:0 1px}
+.crumb{font-size:13px;color:rgba(255,255,255,.6)}
+.crumb a{color:rgba(255,255,255,.6);text-decoration:none}
+.crumb a:hover{color:#fff}
+.crumb.cur{color:#fff;font-weight:500}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.chip{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:10px;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.15);letter-spacing:.05em}
+.chip.hi{background:rgba(163,230,53,.1);color:#a3e635;border-color:rgba(163,230,53,.3)}
+.btn-back{display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.15);padding:5px 12px;border-radius:var(--r-sm);cursor:pointer;font-family:inherit;text-decoration:none;transition:background .12s}
+.btn-back:hover{background:rgba(255,255,255,.18);color:#fff}
+/* MAIN */
+.main{padding:1.5rem;max-width:1180px;margin:0 auto}
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a1730 0%,#2a2450 100%);border-radius:var(--r-md);padding:1.5rem 2rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.hero-left h1{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.4px;margin-bottom:3px}
+.hero-left p{font-size:13px;color:rgba(255,255,255,.55);margin:0}
+.hero-meta{display:flex;gap:20px;margin-top:12px;flex-wrap:wrap}
+.hm-item{display:flex;flex-direction:column;gap:1px}
+.hm-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em}
+.hm-val{font-size:13px;font-weight:500;color:rgba(255,255,255,.9)}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.hero-brand{font-size:17px;font-weight:700;color:#a3e635;letter-spacing:-.5px}
+.hero-date{font-size:11px;color:rgba(255,255,255,.3);font-family:'DM Mono',monospace}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+.metric{background:var(--surface);border-radius:var(--r-md);border:.5px solid var(--border);padding:1rem 1.25rem}
+.metric-label{font-size:11px;color:var(--text-3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.metric-value{font-size:24px;font-weight:300;letter-spacing:-.02em}
+.mv-accent{color:var(--accent-mid)}
+.mv-green{color:var(--green)}
+/* TABS */
+.tabs{display:flex;gap:2px;border-bottom:.5px solid var(--border-md);margin-bottom:1.25rem}
+.tab{font-size:13px;padding:8px 14px;border-radius:var(--r-sm) var(--r-sm) 0 0;cursor:pointer;color:var(--text-2);border:.5px solid transparent;border-bottom:none;background:transparent;font-family:inherit;transition:color .12s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--text);font-weight:500;background:var(--surface);border-color:var(--border-md);margin-bottom:-.5px}
+.tb{background:var(--surface2);color:var(--text-3);font-size:10px;font-family:'DM Mono',monospace;border-radius:10px;padding:1px 6px;margin-left:5px}
+.tab.active .tb{background:var(--accent-light);color:var(--accent-mid)}
+/* PANELS */
+.panel{display:none;animation:fi .18s ease-out}
+.panel.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* BANNERS */
+.banner{font-size:12px;padding:10px 14px;border-radius:var(--r-sm);margin-bottom:1.25rem;display:flex;gap:8px;align-items:flex-start;line-height:1.6}
+.banner-blue{background:var(--blue-bg);color:var(--blue)}
+.banner-amber{background:var(--amber-bg);color:var(--amber)}
+/* LEGEND */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:1rem;background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-sm);padding:10px 14px}
+.li{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)}
+.ld{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+/* TABLE WRAP */
+.tw{overflow-x:auto;border-radius:var(--r-md);border:.5px solid var(--border);box-shadow:var(--shadow);margin-bottom:1.25rem}
+table{width:100%;border-collapse:collapse;background:var(--surface)}
+/* HEATMAP */
+.ht thead th{background:var(--accent);color:rgba(255,255,255,.9);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:11px 14px;text-align:center;border-right:.5px solid rgba(255,255,255,.1);white-space:nowrap}
+.ht thead th:first-child{text-align:left;min-width:215px;padding-left:16px}
+.ht thead th.avgh{background:#1a1540}
+.ht tbody tr:hover td{filter:brightness(.96)}
+.ht tbody tr:last-child td{border-bottom:none}
+.ht td{padding:10px 14px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);font-size:13px}
+.ht td.dtd{font-size:12px;font-weight:500;color:var(--text);text-align:left;background:var(--bg);border-right:.5px solid var(--border-md);min-width:215px}
+.dtd .ds{font-size:10px;color:var(--text-3);font-weight:400;margin-top:2px;line-height:1.4}
+.std{text-align:center;font-weight:600;font-size:14px;color:#fff;cursor:default;position:relative}
+.avtd{text-align:center;font-weight:600;font-size:14px;background:var(--accent-light)!important;color:var(--accent-mid)!important;border-right:none!important}
+.ht tfoot td{border-top:1.5px solid var(--border-md);font-weight:600;text-align:center;padding:11px 14px}
+.ht tfoot td:first-child{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);background:var(--bg);text-align:left;padding-left:16px}
+.s1{background:var(--h1)}.s2{background:var(--h2)}.s3{background:var(--h3)}.s4{background:var(--h4)}.s5{background:var(--h5)}
+/* tooltip */
+.ttw{position:relative;display:inline-block;width:100%;text-align:center}
+.ttw .tt{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1C1B18;color:#fff;font-size:11px;padding:6px 10px;border-radius:5px;white-space:normal;max-width:220px;text-align:left;z-index:50;pointer-events:none;line-height:1.5}
+.ttw:hover .tt{display:block}
+/* COMP TABLE */
+.csec{margin-bottom:1.5rem}
+.csec-title{background:var(--accent);color:rgba(255,255,255,.92);font-size:12px;font-weight:500;padding:9px 16px;border-radius:var(--r-sm) var(--r-sm) 0 0;display:flex;align-items:center;gap:8px}
+.csec .tw{margin-bottom:0;border-radius:0 0 var(--r-md) var(--r-md)}
+.ct thead th{background:#3D3878;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:10px 14px;text-align:center;border-right:.5px solid rgba(255,255,255,.1);min-width:152px;white-space:nowrap}
+.ct thead th:first-child{background:#2A2560;text-align:left;min-width:160px}
+.ct tbody td{padding:11px 14px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);font-size:12px;color:var(--text-2);vertical-align:top;line-height:1.65}
+.ct tbody tr:nth-child(even) td{background:#FAFAF8}
+.ct tbody tr:hover td{background:var(--accent-light)!important}
+.ct tbody td.dtd2{font-weight:500;font-size:12px;color:var(--text);background:var(--bg)!important}
+.ct tbody tr:hover td.dtd2{background:var(--accent-light)!important}
+.ct tbody tr:last-child td{border-bottom:none}
+.codot{width:8px;height:8px;border-radius:50%}
+.coh{display:flex;flex-direction:column;align-items:center;gap:4px}
+/* FORM TABLE */
+.ft thead th{background:var(--accent);color:rgba(255,255,255,.9);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:11px 14px;text-align:center;border-right:.5px solid rgba(255,255,255,.1);min-width:162px;white-space:nowrap}
+.ft thead th:first-child{background:#1a1540;text-align:left;min-width:200px}
+.ft tbody td{padding:11px 14px;border-bottom:.5px solid var(--border);border-right:.5px solid var(--border);font-size:12px;color:var(--text-2);vertical-align:top;line-height:1.65}
+.ft tbody tr:nth-child(even) td{background:#FAFAF8}
+.ft tbody tr:hover td{background:var(--accent-light)!important}
+.ft tbody td.qtd{color:var(--text);background:var(--bg)!important}
+.ft tbody tr:hover td.qtd{background:var(--accent-light)!important}
+.ft tbody tr:last-child td{border-bottom:none}
+.ft .sr td{background:var(--accent)!important;color:rgba(255,255,255,.9)!important;font-size:12px;font-weight:500;padding:9px 14px!important;border-color:transparent!important}
+.ft .sr:hover td{background:var(--accent)!important}
+.qn{font-size:10px;color:var(--text-3);font-family:'DM Mono',monospace;margin-bottom:2px}
+.qt{font-size:12px;font-weight:500;color:var(--text)}
+/* FOOTER */
+.footer{margin-top:2rem;padding-top:1rem;border-top:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footer-txt{font-size:11px;color:var(--text-3)}
+.footer-brand{font-size:12px;font-weight:600;color:var(--accent-mid);letter-spacing:-.2px}
+@media(max-width:768px){.metrics{grid-template-columns:repeat(2,1fr)}.hero{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="logo">+Partners</span>
+    <span class="sep">/</span>
+    <span class="crumb"><a href="../index.html">Dashboard</a></span>
+    <span class="sep">/</span>
+    <span class="crumb"><a href="index.html">Romy — Movilidad</a></span>
+    <span class="sep">/</span>
+    <span class="crumb cur">Benchmarking</span>
+  </div>
+  <div class="topbar-right">
+    <a class="btn-back" href="index.html">← Proyecto</a>
+    <span class="chip hi">Entregable</span>
+    <span class="chip">Abr 2026</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="hero">
+    <div class="hero-left">
+      <h1>Benchmarking Global Mobility</h1>
+      <p>Análisis comparativo de prácticas de movilidad internacional · Proyecto Credicorp</p>
+      <div class="hero-meta">
+        <div class="hm-item"><span class="hm-label">Empresas analizadas</span><span class="hm-val">6</span></div>
+        <div class="hm-item"><span class="hm-label">Entrevistas directas</span><span class="hm-val">5</span></div>
+        <div class="hm-item"><span class="hm-label">Dimensiones</span><span class="hm-val">12</span></div>
+        <div class="hm-item"><span class="hm-label">Responsable</span><span class="hm-val">Romina Mitidieri</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-brand">+Partners</div>
+      <div class="hero-date">Credicorp · Abril 2026</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-label">Empresas bench</div><div class="metric-value mv-accent">6</div></div>
+    <div class="metric"><div class="metric-label">Entrevistas realizadas</div><div class="metric-value mv-green">5</div></div>
+    <div class="metric"><div class="metric-label">Prom. madurez general</div><div class="metric-value mv-accent">3.7</div></div>
+    <div class="metric"><div class="metric-label">Dimensiones evaluadas</div><div class="metric-value">12</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('heatmap',this)">↗ Heat Map<span class="tb">12</span></button>
+    <button class="tab" onclick="showTab('comp',this)">≡ Cuadro Comparativo<span class="tb">7</span></button>
+    <button class="tab" onclick="showTab('form',this)">◉ Respuestas al Formulario<span class="tb">24</span></button>
+  </div>
+
+  <!-- HEATMAP -->
+  <div class="panel active" id="panel-heatmap">
+    <div class="banner banner-blue"><span>ℹ</span><span>Puntajes inferenciales (1–5) basados en evidencia cualitativa de entrevistas directas + documentación Natura. Sirven para visualizar fortalezas relativas, no como auditoría exacta. Pasar el cursor sobre cada score para ver detalle.</span></div>
+    <div class="legend">
+      <div class="li"><div class="ld" style="background:var(--h1)"></div>1 — Muy bajo / ausente</div>
+      <div class="li"><div class="ld" style="background:var(--h2)"></div>2 — Bajo</div>
+      <div class="li"><div class="ld" style="background:var(--h3)"></div>3 — Intermedio</div>
+      <div class="li"><div class="ld" style="background:var(--h4)"></div>4 — Sólido</div>
+      <div class="li"><div class="ld" style="background:var(--h5)"></div>5 — Muy maduro</div>
+    </div>
+    <div class="tw"><table class="ht">
+      <thead><tr>
+        <th>Dimensión</th>
+        <th><div class="coh"><div class="codot" style="background:#8B85E8"></div>Philips</div></th>
+        <th><div class="coh"><div class="codot" style="background:#A78BFA"></div>Mercado Libre</div></th>
+        <th><div class="coh"><div class="codot" style="background:#F59E0B"></div>Nubank</div></th>
+        <th><div class="coh"><div class="codot" style="background:#60A5FA"></div>Accenture</div></th>
+        <th><div class="coh"><div class="codot" style="background:#4ADE80"></div>Boehringer</div></th>
+        <th><div class="coh"><div class="codot" style="background:#FBBF24"></div>Natura</div></th>
+        <th class="avgh">Prom.</th>
+      </tr></thead>
+      <tbody id="htb"></tbody>
+      <tfoot id="htf"></tfoot>
+    </table></div>
+  </div>
+
+  <!-- COMPARATIVO -->
+  <div class="panel" id="panel-comp">
+    <div id="cw"></div>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="panel" id="panel-form">
+    <div class="banner banner-amber"><span>◎</span><span>Respuestas <strong>inferidas de transcripts de entrevistas directas</strong> con cada empresa y documentación de Natura. No son respuestas formales al formulario. Usar como base de validación al enviar el formulario.</span></div>
+    <div class="tw"><table class="ft">
+      <thead><tr>
+        <th>Pregunta</th>
+        <th><div class="coh"><div class="codot" style="background:#8B85E8"></div>Philips</div></th>
+        <th><div class="coh"><div class="codot" style="background:#A78BFA"></div>Mercado Libre</div></th>
+        <th><div class="coh"><div class="codot" style="background:#F59E0B"></div>Nubank</div></th>
+        <th><div class="coh"><div class="codot" style="background:#60A5FA"></div>Accenture</div></th>
+        <th><div class="coh"><div class="codot" style="background:#4ADE80"></div>Boehringer</div></th>
+      </tr></thead>
+      <tbody id="ftb"></tbody>
+    </table></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-txt">Preparado por +Partners · Proyecto Movilidad Internacional · Credicorp · Abril 2026 · Confidencial</div>
+    <div class="footer-brand">+Partners</div>
+  </div>
+
+</div>
+
+<script>
+const COS=["Philips","Mercado Libre","Nubank","Accenture","Boehringer","Natura"];
+const DOTS=["#8B85E8","#A78BFA","#F59E0B","#60A5FA","#4ADE80","#FBBF24"];
+
+const H=[
+  {d:"Formalización de política",s:"Claridad de categorías, reglas y criterios",v:[3,4,4,5,5,4],t:["Política formal pero poco integrada en LATAM","Simple y clara; no publicada masivamente","En rediseño activo; diferencia negocio vs personal","Muy alta: transfers, assignments, ST/LT, direct hires","Política corporativa global con aprobaciones diferenciadas","Tres modalidades bien definidas con criterios claros"]},
+  {d:"Integración con desarrollo / sucesión",s:"Conexión con talent planning y planes de carrera",v:[2,3,3,4,5,4],t:["Parcialmente estructurado; no mapeado año a año","Domina la lógica de negocio; no es eje de sucesión formal","Roadmap futuro: early talent y programas de liderazgo","HR Partner arma planes de carrera para MD y perfiles altos","Muy fuerte: todo parte del TDD (Talent Development Discussion)","Integrado: LTA incluye gestión de carrera post-retorno"]},
+  {d:"Orientación estratégica al negocio",s:"Uso de movilidad para expansión y transferencia de know-how",v:[4,5,4,4,4,4],t:["Cubrir vacantes críticas; dar exposición regional","Muy activa para expansión MX/China; transmitir ADN MELI","Expansión internacional con talento on the ground","Proyectos de clientes en múltiples geografías","Cubrir posiciones con know-how específico o desarrollar alto potencial","Impulsar liderazgos globales y transferir conocimiento"]},
+  {d:"Variedad de tipos de movilidad",s:"Permanentes, ST, LT, excepciones, modalidades mixtas",v:[3,4,2,5,4,5],t:["Permanentes principal; ST existe pero no es programa robusto","Permanente + ST hasta 6m; excepción China 2 años","Solo permanentes y ST ad hoc; evitaron LTA por costo payroll","Transfers, assignments ST/LT, short trips, direct hires","GRP, GGA (LT), ST, transferencia permanente","LTA, Permanente, ST — todos bien definidos con criterios"]},
+  {d:"Claridad de elegibilidad",s:"Criterios explícitos y documentados para habilitar movimientos",v:[2,4,4,4,5,4],t:["No muy explicitados; generalmente líderes o perfiles en crecimiento","≥12m, performance buena, sin issues, aprobación negocio","Business case como filtro principal; en revisión activa","Varía por tipo: demanda empresa, beneficio mutuo o solicitud personal","Muy claros: TDD para GGA; know-how específico para GRP","LTA: Directores+; Permanente y ST: todos los colaboradores"]},
+  {d:"Madurez de governance / proceso",s:"Flujo, aprobaciones y ownership del proceso",v:[3,4,4,5,4,3],t:["Más maduro en paquetes que en integración con talento","Pragmática; People concentra la política","Mejoró al mapear procesos; desafío: excepciones de senior leadership","Muy alta: HRBP, recruiting, immigration, travel, Mobility Service Lead","Centralizado regional; aprobaciones diferenciadas por tipo","Tipos bien definidos; detalle operativo no documentado"]},
+  {d:"Rigor en control de costos",s:"Business case, aprobaciones por nivel y seguimiento del costo total",v:[2,4,5,4,4,3],t:["Presupuesto histórico; sin planificación detallada","Control desde 2025 con aprobación director+","Muy fuerte: costo origen/destino, payroll, paquete, impuestos, termination","Costo es driver central aunque menos estructurado que Nubank","Siempre queda claro quién paga según tipo de programa","Sin proceso formal de business case descrito"]},
+  {d:"Robustez del paquete de relocation",s:"Vivienda, mudanza, allowances, partner support",v:[5,4,4,5,4,3],t:["Visita previa, vivienda, colegio, banco, mudanza, allowances, gross-up","Permanent: básico. Business ST: housing + flights + per diem","Business: partner career, colegio, alojamiento, relocation. Personal: compliance","Assignment: casa, escuela, transporte, tax eq., car rental. Transfer: 30d + vendor","ST: vivienda+comida+allowance. LTA: paquete completo","Tres tipos definidos; detalle de beneficios limitado en docs disponibles"]},
+  {d:"Consistencia de compensación",s:"Lógica salarial clara; menor riesgo de inequidad",v:[4,3,2,4,4,3],t:["Allowances por familia y nivel; pago neto con gross-up","ST: salario origen. Permanente: nómina destino","Compa-ratio al mercado destino; gran desafío de expectativas 'expat'","Assignment: origen+allowances. Transfer: adaptado al host country","Mantiene salario de origen + allowances. Siempre paga quien manda","Gestión desde origen en ST; transición al destino en LTA/permanente"]},
+  {d:"Experiencia del empleado / medición",s:"Survey, soporte y visibilidad del employee journey",v:[2,4,3,3,3,3],t:["No estructurado; zona gris entre origen y destino","Survey de favorabilidad para empleado y proveedor desde 2025","Alta sensibilidad; fricción en negociación de paquete y expectativas","Acompañamiento por Mobility Service Lead como punto de contacto único","No se menciona medición formal de experiencia","No mencionado en documentación disponible"]},
+  {d:"Reintegración / retorno",s:"Política, proceso y soporte de regreso al país de origen",v:[2,1,1,2,4,4],t:["Clawback si se va antes de 3 años; sin financiamiento si renuncia","One-way ticket; sin financiamiento de retorno por decisión personal","Sin reintegración formal; permanentes asumen que se quedan","Assignment: headcount origen protegido. Transfer: sin retorno garantizado","Varios tipos incluyen retorno garantizado o plan de próxima posición","LTA contempla muy bien el retorno como parte del proceso estratégico"]},
+  {d:"Escalabilidad / preparación futura",s:"Capacidad de soportar expansión internacional futura",v:[3,4,5,4,4,4],t:["Buena base de paquetes/proveedores; menos fuerte en estrategia integral","Alta claridad operativa; muy pegada al negocio","Política en rediseño activo para soportar crecimiento acelerado","Estructura global madura para multi-geografía y multi-tipo","Política corporativa escalable con tipos diferenciados y aprobaciones claras","Marco conceptual sólido de tres modalidades, extensible"]},
+];
+
+function sc(v){return 's'+v}
+function ac(v){if(v<=2.4)return 's2';if(v<=3.2)return 's3';if(v<=3.8)return 's4';return 's5'}
+
+function buildHM(){
+  const tb=document.getElementById('htb'),tf=document.getElementById('htf');
+  const cs=[0,0,0,0,0,0];let os=0;
+  H.forEach(r=>{
+    const avg=r.v.reduce((a,b)=>a+b,0)/r.v.length;
+    r.v.forEach((s,i)=>cs[i]+=s);os+=avg;
+    let tr=`<tr><td class="dtd">${r.d}<div class="ds">${r.s}</div></td>`;
+    r.v.forEach((s,i)=>{tr+=`<td class="std ${sc(s)}"><div class="ttw">${s}<span class="tt">${COS[i]}: ${r.t[i]}</span></div></td>`;});
+    tr+=`<td class="avtd">${Math.round(avg*10)/10}</td></tr>`;
+    tb.innerHTML+=tr;
+  });
+  const ca=cs.map(s=>Math.round(s/H.length*10)/10);
+  const oa=Math.round(os/H.length*10)/10;
+  let tr=`<tr><td>Promedio general</td>`;
+  ca.forEach(a=>{tr+=`<td class="${ac(a)}" style="font-weight:700;font-size:14px;color:#fff;">${a}</td>`;});
+  tr+=`<td class="avtd" style="font-size:15px;font-weight:700;">${oa}</td></tr>`;
+  tf.innerHTML=tr;
+}
+
+const COMP=[
+  {t:"🎯 Estrategia y Enfoque",rows:[
+    {d:"Enfoque general / filosofía",v:["Necesidades de negocio; dar exposición regional. Poco formalizado en LATAM.","Expansión activa: transmitir cultura MELI y know-how. Foco en México y China.","Relocations permanentes como modelo principal. ST solo ad hoc y no publicado.","Movilidad global para proyectos de clientes. Segmentación sofisticada de paquetes.","Política corporativa; 4 tipos diferenciados. Mercados emergentes exportan talento.","Tres modalidades bien definidas: LTA, Permanente, ST. Foco en desarrollo y negocio."]},
+    {d:"Objetivo principal",v:["Cubrir vacantes críticas no disponibles localmente; dar exposición regional.","Resolver necesidades del negocio en mercados estratégicos; transferir cultura.","Expansión internacional con talento on the ground. Futuro: desarrollo y retención.","Cubrir proyectos de clientes, retener talento escaso y sostener planes de carrera.","Cubrir posiciones con know-how específico (GRP) o desarrollar alto potencial (GGA).","Impulsar liderazgos globales, viabilizar experiencias internacionales."]},
+    {d:"Nivel de formalización",v:["Política formal, pero en LATAM poco integrada y poco estructurada.","Estructura simple y clara. No publicada masivamente; solo maneja People.","En rediseño. Pasaron de casos ad hoc a política que diferencia negocio vs. personal.","Muy alto. Segmentación sofisticada: transfers, assignments, ST/LT, direct hires.","Muy alto. Política corporativa global. Lanzada 2021-2022.","Alto. Tres modalidades con criterios de duración, elegibilidad y carrera claros."]},
+  ]},
+  {t:"🧠 Conexión con Talento",rows:[
+    {d:"Conexión con Talent / Sucesión",v:["Existe para algunos talentos clave; no estructurado ni mapeado año a año.","No es eje central de sucesión formal. Domina la lógica de negocio.","Hoy pesa más la necesidad del negocio. Roadmap: early talent y liderazgo.","Sí: HR Partner arma planes de carrera con opciones de movilidad para MD+.","Muy fuerte. Todo el movimiento estratégico nace del TDD.","Integrado: en LTA la carrera post-retorno es clave; en ST, el origen gestiona."]},
+    {d:"Identificación de talento",v:["No muy estructurado; surge de necesidad del negocio o del líder.","Lo define el negocio (director+). No hay proceso formal de alto potencial.","Business case valida la decisión. Antes: demostrar que no había talento local.","SAP con skills. HRBP y recruiting mapean candidatos globalmente.","TDD semestral: identifica sucesores, candidatos listos y en quiénes invertir.","LTA: Directores y superiores. Permanente y ST: todos los colaboradores."]},
+  ]},
+  {t:"📋 Tipos y Modalidades",rows:[
+    {d:"Tipos de movilidad disponibles",v:["Principalmente transfers permanentes. ST existe, no es programa robusto en LATAM.","Relocation permanente y ST hasta 6 meses. Excepción: temporary relocation 2 años en China.","Permanent relocation como modelo principal. ST solo ad hoc.","Transfers, assignments (ST y LT), short trips y direct hires internacionales.","Global Resourcing, Global Growth (LT), Short Term, Transferencia Permanente.","Largo Plazo (1-3 años), Permanente (indeterminado), Corto Plazo (3-12 meses)."]},
+    {d:"Long term / Short term",v:["Existen como categorías, pero poco formalizadas en LATAM.","ST: hasta 6 meses. LT clásico: no. Prefieren permanentes.","No hacen LTA (costo payroll Brasil). ST solo excepcional.","Ambos. ST muy frecuente; LT para perfiles escasos o proyectos prolongados.","ST: hasta 6m. LTA (GRP + GGA): más de 6m hasta 2 años.","ST: 3 a 12 meses. LTA: 1 a 3 años. Permanente: indeterminado."]},
+    {d:"Asignaciones < 90 días",v:["No mencionado formalmente.","No documentado como modalidad separada.","No mencionado.","Short trips: estadías breves con visa de negocios o permiso de trabajo.","Sí: hasta 89 días = viaje de trabajo. Sin implicancias tributarias.","No mencionado explícitamente."]},
+  ]},
+  {t:"⚙️ Proceso y Governance",rows:[
+    {d:"Quién inicia el proceso",v:["Líder → HRBP → Talent Acquisition → Mobility.","Negocio vía BP (principal). También puede iniciar el empleado.","HRBP o manager abre ticket; Mobility arma business case.","Business → HRBP → Mobility Service Lead coordina todo.","Negocio o corporativo → HRBP → vinculado al TDD.","Invitación directa o postulación abierta según el tipo de traslado."]},
+    {d:"Business case / control de costos",v:["Presupuesto por volumen histórico; sin planificación detallada.","Empezaron a medir desde 2025. Control de costos con aprobación director+.","Muy fuerte: costo origen vs. destino, payroll, paquete, impuestos, termination costs.","El costo es driver central; menos estructurado que Nubank.","Siempre queda claro quién paga. Costos ligados al tipo de programa.","Sin proceso de business case formal descrito."]},
+    {d:"Criterios de elegibilidad",v:["No explicitados. Generalmente líderes o personas en crecimiento.","Mínimo 12 meses, performance buena, sin issues, aprobación negocio.","Antes: no hay talento local. Hoy: business case como filtro principal.","Varía por tipo: demanda de empresa, beneficio mutuo o solicitud personal.","Muy claros: TDD para GGA; know-how específico para GRP.","LTA: Directores y superiores. Permanente y ST: todos."]},
+  ]},
+  {t:"💰 Compensación y Paquetes",rows:[
+    {d:"Filosofía de compensación",v:["Allowances por familia y nivel; pago neto con gross-up.","ST: mantiene salario origen + allowances. Permanente: nómina destino.","Compa-ratio ajustado al mercado destino. Desafío: expectativas 'expat'.","Assignment: origen + allowances on top. Transfer: adaptado al host country.","Mantiene salario de origen + allowances. Siempre paga quien manda.","Gestión desde origen en ST; transición al destino en LTA y permanente."]},
+    {d:"Paquete principal de relocation",v:["Visita previa, vivienda, colegio, banco, mudanza, allowances, gross-up.","Permanent: básico. Business ST: housing + flights + per diem.","Business move: paquete amplio. Personal: mínimo compliance.","Assignment: casa, escuela, transporte, tax eq., car rental. Transfer: 30d + vendor.","ST: vivienda+comida+allowance. LTA: paquete completo con retorno garantizado.","LTA: paquete estratégico + retorno. Permanente: viabilización. ST: básico técnico."]},
+    {d:"Nómina (origen vs. destino)",v:["No detallado explícitamente; foco en moves permanentes.","ST: nómina origen. Permanente: nómina destino.","Preferencia por nómina destino para evitar doble costo payroll Brasil.","Assignment: headcount origen. Transfer: pasa a headcount host.","Nómina origen con allowances (salvo exigencia legal local).","ST: desde origen. LTA y permanente: transición al destino."]},
+  ]},
+  {t:"🤝 Proveedores",rows:[
+    {d:"Proveedor fiscal / tributario",v:["Deloitte.","KPMG.","Deloitte + K2 (LATAM).","EY.","KPMG → PwC → Vialto (actual).","No mencionado."]},
+    {d:"Proveedor de immigration / visas",v:["Firmas locales (no Big Four).","KPMG.","Deloitte / K2 para LATAM.","EY (immigration).","Holistic para toda Sudamérica.","No mencionado."]},
+    {d:"Proveedor de relocation",v:["Alter. Cultural awareness incluido.","SILVA.","K2 (muy personalizado). Remote y Deel como EOR.","Destination services vendor. Mobility Service Lead coordina.","Holistic para la región.","No mencionado."]},
+  ]},
+  {t:"📊 Medición y Desafíos",rows:[
+    {d:"Experiencia del empleado",v:["No estructurado. Zona gris entre origen y destino.","Survey de favorabilidad para empleado y proveedor desde 2025.","Alta sensibilidad; fricción en negociación de paquete y expectativas.","Acompañamiento por Mobility Service Lead como punto de contacto único.","No se menciona medición formal de experiencia.","No mencionado."]},
+    {d:"Reintegración / retorno",v:["Clawback si se va antes de 3 años. Sin financiamiento si renuncia.","One-way ticket. Sin financiamiento de retorno por decisión personal.","Sin reintegración formal. Permanentes asumen que el empleado se queda.","Assignment: headcount origen protegido. Transfer: sin retorno garantizado.","Varios tipos incluyen retorno garantizado o plan de próxima posición.","LTA: retorno contemplado como parte del proceso estratégico."]},
+    {d:"Mayor desafío declarado",v:["Integración incompleta con desarrollo/sucesión y seguimiento de experiencia.","Balancear negocio, costo y control en mercados complejos (México, China).","Compensación y expectativas; excepciones de senior leadership que crean precedentes.","Alta complejidad operativa global; diseño diferencial de paquetes.","ST complejo de ejecutar (papeles, costo, doble nómina).","No se detallan desafíos en documentación disponible."]},
+    {d:"Madurez relativa",v:["Intermedia. Buena base de paquetes. Menos fuerte en estrategia integral.","Alta en ejecución práctica y claridad operativa.","Intermedia-alta en diseño y governance. En transición por crecimiento.","Muy alta. Estructura global madura y segmentación sofisticada.","Muy alta. Política corporativa conectada a talent management.","Alta en conceptualización. Menos detalle operativo disponible."]},
+  ]},
+];
+
+function buildComp(){
+  const w=document.getElementById('cw');
+  COMP.forEach(sec=>{
+    let h=`<div class="csec"><div class="csec-title">${sec.t}</div><div class="tw"><table class="ct"><thead><tr><th>Dimensión</th>`;
+    COS.forEach((c,i)=>{h+=`<th><div class="coh"><div class="codot" style="background:${DOTS[i]}"></div>${c}</div></th>`;});
+    h+=`</tr></thead><tbody>`;
+    sec.rows.forEach(r=>{
+      h+=`<tr><td class="dtd2">${r.d}</td>`;
+      r.v.forEach(v=>{h+=`<td>${v}</td>`;});
+      h+=`</tr>`;
+    });
+    h+=`</tbody></table></div></div>`;
+    w.innerHTML+=h;
+  });
+}
+
+const FORM=[
+  {s:"Sección 1 — Información General"},
+  {q:"1. Empresa / Industria",n:"1",a:["Philips · Tecnología médica / multinacional","Mercado Libre · E-commerce / Fintech","Nubank · Banco digital / Fintech","Accenture · Consultoría global","Boehringer Ingelheim · Farmacéutica"]},
+  {q:"2. Headcount total aproximado",n:"2",a:["~80.000 (global)","~130.000 (global)","~8.500","700.000+ (global)","~52.000 global / ~1.500 Sudamérica"]},
+  {q:"3. Presencia geográfica principal",n:"3",a:["Global; LATAM: BR, MX, CO, AR, CL, PE","LATAM (AR, BR, MX, CL, CO, PE, UY), China, EE.UU.","BR, MX, CO, AR, EE.UU., Europa, Canadá (abriendo)","Global 50+ países: Américas, EMEA, Asia","Global; Sudamérica: AR, BR, CL, CO, EC, PE, PY, UY, VE"]},
+  {q:"4. ¿Tienen política formal de movilidad?",n:"4",a:["Sí, pero poco integrada en LATAM.","Sí. Simple y clara; no publicada masivamente.","Sí. En rediseño activo.","Sí. Muy formalizada: transfers, assignments, ST/LT, direct hires.","Sí. Política corporativa global aprobada desde Alemania."]},
+  {s:"Sección 2 — Tipos de Movilidad"},
+  {q:"5. Tipos de movilidad utilizados",n:"5",a:["Permanente (principal). ST existe pero no estructurado.","Permanente. ST hasta 6 meses.","Permanente (principal). ST solo ad hoc.","Transfers permanentes. Assignments ST y LT. Short trips. Direct hires.","GRP, GGA (LT), ST (≤6m), Transferencia permanente."]},
+  {q:"6. Duración de asignaciones de corto plazo",n:"6",a:["Existe, variable. No muy formalizada en LATAM.","Hasta 6 meses.","3 a 6 meses (ad hoc).","Generalmente < 6 meses.","Hasta 6 meses; más de eso se convierte en LTA."]},
+  {q:"7. Duración de asignaciones de largo plazo",n:"7",a:["No muy formalizada en LATAM.","No usan LTA. Solo permanentes + ST.","No usan LTA (costo payroll Brasil).","Puede superar 2-3 años según proyecto.","GRP y GGA: > 6 meses hasta 2 años; prorrogable."]},
+  {q:"8. ¿Tienen asignaciones < 90 días?",n:"8",a:["No mencionado.","No documentado.","No.","Sí: short trips con visa de negocios o permiso de trabajo.","Sí. Hasta 89 días = viaje de trabajo; sin implicancias tributarias."]},
+  {s:"Sección 3 — Elegibilidad y Governance"},
+  {q:"9. ¿Existen criterios formales de elegibilidad?",n:"9",a:["No muy explicitados. Generalmente líderes o perfiles en crecimiento.","Sí: ≥12 meses, performance buena, sin issues, aprobación negocio.","Sí: business case como filtro principal; en revisión activa.","Sí: varía por tipo (demanda empresa, beneficio mutuo, solicitud personal).","Muy claros: TDD para GGA; know-how específico para GRP."]},
+  {q:"10. ¿Quién inicia el proceso?",n:"10",a:["Líder → HRBP → Talent Acquisition → Mobility.","Negocio vía BP (principal). También iniciativa personal.","HRBP o manager abre ticket; Mobility arma business case.","Business → HRBP → Mobility Service Lead coordina.","Negocio o corporativo → HRBP → vinculado al TDD."]},
+  {q:"11. ¿Requieren business case formal?",n:"11",a:["No formal. Presupuesto histórico.","Sí desde 2025: aprobación director+.","Sí, muy robusto: costo, payroll, paquete, impuestos, termination costs.","El costo es driver central; menos estructurado que Nubank.","Sí: vías de aprobación diferenciadas por tipo de programa."]},
+  {q:"12. ¿Conectado con sucesión / desarrollo de talento?",n:"12",a:["Parcialmente. No estructurado ni mapeado año a año.","No es eje de sucesión formal. Domina la lógica de negocio.","No aún formalmente. En el roadmap: early talent y liderazgo.","Sí, para MD y perfiles altos: HR Partner construye plan de carrera.","Muy fuerte. Todo el movimiento estratégico nace del TDD."]},
+  {s:"Sección 4 — Compensación y Paquetes"},
+  {q:"13. Filosofía de compensación",n:"13",a:["Allowances por familia y nivel; pago neto con gross-up.","ST: salario origen + allowances. Permanente: nómina destino.","Compa-ratio ajustado al mercado destino.","Assignment: origen + allowances. Transfer: adaptación al host.","Mantiene salario origen + allowances. Siempre paga quien manda."]},
+  {q:"14. ¿Aplican tax equalization?",n:"14",a:["Sí: gross-up aplicado.","No en general. China: nómina destino para evitar doble imposición.","No se describe. Foco en compliance individual.","Sí en assignments. Transfers: apoyo fiscal primer año.","Tienen proveedor fiscal para filing; tax eq. no explícito."]},
+  {q:"15. Paquete principal de relocation",n:"15",a:["Visita previa, vivienda, colegio, banco, mudanza, allowances, gross-up.","Permanent: básico. Business ST: housing + flights + per diem.","Business: partner career, colegio, alojamiento, relocation. Personal: solo compliance.","Assignment: casa, escuela, transporte, tax eq., car rental. Transfer: 30d + vendor.","ST: vivienda+comida+allowance. LTA: mudanza, housing, escuela, fiscal, retorno garantizado."]},
+  {q:"16. ¿Cómo manejan la nómina?",n:"16",a:["No detallado explícitamente.","ST: nómina origen. Permanente: nómina destino.","Preferencia por nómina destino para evitar doble costo payroll Brasil.","Assignment: headcount origen. Transfer: pasa a headcount host.","Nómina origen con allowances on top (salvo exigencia legal local)."]},
+  {s:"Sección 5 — Proveedores"},
+  {q:"17. Proveedor fiscal / tributario",n:"17",a:["Deloitte.","KPMG.","Deloitte + K2 (LATAM).","EY.","KPMG → PwC → Vialto (actual)."]},
+  {q:"18. Proveedor de immigration / visas",n:"18",a:["Firmas locales (no Big Four).","KPMG.","Deloitte / K2 para LATAM.","EY (immigration).","Holistic para toda Sudamérica."]},
+  {q:"19. Proveedor de relocation",n:"19",a:["Alter. Cultural awareness incluido.","SILVA.","K2 (muy personalizado). Remote y Deel como EOR.","Destination services vendor; Mobility Service Lead coordina.","Holistic para la región."]},
+  {s:"Sección 6 — Medición y Desafíos"},
+  {q:"20. ¿Miden la experiencia del empleado?",n:"20",a:["No estructurado. Zona gris origen-destino.","Sí: survey de favorabilidad para empleado y proveedor desde 2025.","No formalmente. Alta sensibilidad en negociación y expectativas.","No específicamente. Integrado en proceso general de performance.","No mencionado."]},
+  {q:"21. ¿KPIs de movilidad?",n:"21",a:["No comparten métricas de movilidad.","Empezaron a medir costos y experiencia. Sin KPI de resultado de negocio.","Foco en costos y governance. Sin framework maduro de KPIs post-move.","Performance integrada en proceso general de talent/HR Partner.","No mencionado como framework propio."]},
+  {q:"22. ¿Proceso formal de reintegración?",n:"22",a:["No formal. Clawback si se va antes de 3 años.","No. One-way ticket. Sin financiamiento de retorno.","No. Permanentes asumen estadía. Retorno desde Alemania genera fricción salarial.","Assignment: headcount origen protegido. Transfer: sin retorno garantizado.","Sí: varios tipos incluyen retorno garantizado o plan de próxima posición."]},
+  {q:"23. Principales desafíos en movilidad",n:"23",a:["Poca integración con desarrollo/sucesión. Seguimiento de experiencia débil.","Balancear negocio, costo y control en mercados complejos (México, China).","Compensación y expectativas. Excepciones de senior leadership que crean precedentes.","Complejidad operativa global; limitaciones del trabajo remoto indefinido.","ST complejo de ejecutar (papeles, costo, doble nómina). Driver del movimiento debe ser muy claro."]},
+  {q:"24. Aprendizaje clave para empresa en etapa inicial",n:"24",a:["Tener proveedores sólidos y paquetes claros antes de expandir el programa.","Definir criterios claros de elegibilidad y anclar la política al negocio.","Separar muy bien moves por negocio vs. personales para proteger el presupuesto.","Invertir en governance (Mobility Service Lead) para integrar business, HRBP y mobility.","Conectar movilidad con talent management desde el inicio. Sin esa conexión, la movilidad es reactiva."]},
+];
+
+function buildForm(){
+  const tb=document.getElementById('ftb');
+  FORM.forEach(r=>{
+    if(r.s){tb.innerHTML+=`<tr class="sr"><td colspan="6">${r.s}</td></tr>`;}
+    else{
+      let tr=`<tr><td class="qtd"><div class="qn">${r.n}.</div><div class="qt">${r.q}</div></td>`;
+      r.a.forEach(a=>{tr+=`<td>${a}</td>`;});
+      tr+=`</tr>`;
+      tb.innerHTML+=tr;
+    }
+  });
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+buildHM();buildComp();buildForm();
+</script>
+</body>
+</html>
