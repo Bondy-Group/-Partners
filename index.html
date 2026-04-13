@@ -722,6 +722,7 @@ select.btn { cursor: pointer; }
       <button class="tab admin-only" onclick="switchTab('transcripts')" id="tab-btn-transcripts" style="display:none;">🎙️ Transcripts</button>
       <button class="tab" onclick="switchTab('docs')">Documentos</button>
       <button class="tab" onclick="switchTab('decisions')">Decisiones</button>
+      <button class="tab" id="tab-btn-changemgmt" onclick="switchTab('changemgmt')">Change Mgmt</button>
 
     </div>
 
@@ -731,6 +732,7 @@ select.btn { cursor: pointer; }
     <div class="panel" id="tab-docs"></div>
     <div class="panel panel-card" id="tab-decisions"></div>
     <div class="panel" id="tab-openqs"></div>
+    <div class="panel" id="tab-changemgmt"></div>
   </div>
 </div>
 
@@ -1438,7 +1440,7 @@ function switchTab(tab) {
   // Si no es admin y trata de abrir transcripts, redirigir a timeline
   if (tab === 'transcripts' && !isAdmin) tab = 'timeline';
   currentTab = tab;
-  const tabNames = ['timeline','tasks','transcripts','docs','decisions'];
+  const tabNames = ['timeline','tasks','transcripts','docs','decisions','changemgmt'];
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', tabNames[i] === tab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
@@ -1662,6 +1664,172 @@ function renderTab(tab) {
       </div>
     </div>`;
   }
+
+  if (tab === 'changemgmt') {
+    const isBrasil = currentProject === 'brasil';
+    if (!isBrasil) {
+      el.innerHTML = '<div style="font-size:13px;color:var(--text-3);padding:1rem 0;">Esta sección es específica del proyecto Hub Brasil / EVP.</div>';
+      return;
+    }
+    el.classList.add('panel-card');
+    el.innerHTML = renderChangeMgmt();
+  }
+}
+
+
+// ── CHANGE MGMT — HUB BRASIL ──
+function renderChangeMgmt() {
+  const ideas = [
+    {
+      num: '01',
+      title: 'El speech de Álvaro — las tres verdades',
+      priority: true,
+      viab: 'alta',
+      viabLabel: 'Viabilidad alta',
+      pills: ['Costo cero', 'Implementable esta semana'],
+      body: 'El equipo fue contratado por referidos de Álvaro. La relación de confianza ya existe y es el activo más valioso. No necesitamos construirla — necesitamos no destruirla con comunicación corporativa genérica. El mensaje tiene que venir de él, en su voz, sin slides de HR.',
+      col1Label: 'Por qué funciona en Credicorp',
+      col1: 'Credicorp no tiene business partner asignado a este equipo. El canal de comunicación real es Álvaro. Usar ese canal es la única opción con credibilidad.',
+      col2Label: 'Estructura del mensaje',
+      col2: '(1) Qué cambia operativamente — nómina, contratante. (2) Qué NO cambia — tu trabajo, equipo, condiciones. (3) Por qué esto abre puertas — visibilidad regional, Credicorp.',
+      quote: '"Vocês foram escolhidos porque são os melhores. Agora isso tem um nome formal: Hub Brasil. O que muda é como a folha de pagamento é processada."',
+      alert: 'ok',
+      alertText: 'Entregar a Álvaro un manual de 1 página: puntos clave, frases que SÍ usar, frases a evitar, y cómo responder las 5 preguntas más probables. Elizabeth lee la sala en el post-reunión.'
+    },
+    {
+      num: '02',
+      title: 'El timeline con dibujitos — hoja de ruta personal',
+      viab: 'alta',
+      viabLabel: 'Viabilidad alta',
+      pills: ['1–2 días de producción', 'PDF + digital'],
+      body: 'Para perfiles tech y seniors, la incertidumbre es más disruptiva que el cambio en sí. Una pieza visual ultra-clara con fechas concretas de los próximos 90 días elimina el ruido. Sin jerga de HR, en portugués, con íconos simples.',
+      col1Label: 'Contenido del timeline',
+      col1: 'Fecha kickoff → entrada nuevo proveedor nómina → primera liquidación nueva → canal de preguntas disponible → primer check-in con Álvaro.',
+      col2Label: 'Por qué funciona',
+      col2: 'Sin HCM, sin BP asignado, la gente no sabe a quién preguntarle. El mapa les da autonomía y reduce las preguntas reactivas a Álvaro.',
+      alert: 'ok',
+      alertText: 'Compartir como PDF + link. No depende de sistemas internos. Se puede tener listo antes de la reunión del lunes.'
+    },
+    {
+      num: '03',
+      title: 'El mapa del equipo — "Vocês são o hub"',
+      viab: 'alta',
+      viabLabel: 'Viabilidad alta',
+      pills: ['Pieza visual única', 'Alto impacto emocional'],
+      body: '50% en São Paulo, resto disperso en Pernambuco, Espírito Santo, Río. Un mapa de Brasil con un punto por persona y su nombre convierte la dispersión geográfica en identidad de equipo.',
+      col1Label: 'Mensaje central',
+      col1: '"O hub não é um lugar. São vocês." Reencuadra la transición como reconocimiento, no como reestructura.',
+      col2Label: 'Formato recomendado',
+      col2: 'Slide con mapa vectorial de Brasil + puntos + nombres. El "momento wow" de la presentación virtual. Compartir post-evento como pieza de orgullo.',
+      alert: 'ok',
+      alertText: 'Necesita solo los nombres y ciudades de los 33. Producción: 2–3 horas. Funciona perfectamente en formato virtual.'
+    },
+    {
+      num: '04',
+      title: 'Canal asincrónico con análisis de sentimiento',
+      viab: 'media',
+      viabLabel: 'Viabilidad media',
+      pills: ['Requiere setup técnico', 'Impacto diferencial alto'],
+      body: 'Agente donde la gente puede hacer preguntas en portugués de forma anónima — nómina, contratante, beneficios. Responde dudas Y analiza semánticamente para detectar resistencia no verbalizada.',
+      col1Label: 'Por qué funciona',
+      col1: 'Para perfiles tech, el canal anónimo reduce la barrera de preguntar. Muchos no van a levantar la mano en la reunión virtual. Esto les da voz sin exposición.',
+      col2Label: 'Qué mide internamente',
+      col2: 'Temas que se repiten, tono de las preguntas, resistencias emergentes. Reporte semanal de "temperatura del equipo" para Elizabeth y Álvaro.',
+      alert: 'warn',
+      alertText: 'Requiere aprobación de IT/ciberseguridad. Alternativa rápida: formulario anónimo en Google Forms + Claude API para el análisis, sin datos en sistemas del banco.'
+    },
+    {
+      num: '05',
+      title: 'El kit "Día 1" — detalle personalizado a domicilio',
+      viab: 'cond',
+      viabLabel: 'Viabilidad condicionada',
+      pills: ['Presupuesto necesario', 'Logística compleja'],
+      body: 'Enviar un objeto físico a los 33 domicilios antes de la reunión — termo o taza con su nombre + nota de Álvaro: "Chegamos." El detalle personalizado lo diferencia de la típica parafernalia corporativa.',
+      col1Label: 'Por qué puede funcionar',
+      col1: 'Son 33 personas, número manejable. El gesto físico en formato virtual es disruptivo. Llegar a la casa dice "te vemos como persona", no como recurso.',
+      col2Label: 'Riesgos reales',
+      col2: 'Gente dispersa por todo Brasil. Coordinar 33 envíos personalizados en 1–2 semanas es logísticamente difícil. Si llega tarde, el efecto se invierte.',
+      alert: 'warn',
+      alertText: 'Si el presupuesto y la logística no están confirmados hoy, mejor la versión digital: tarjeta personalizada con su nombre + ciudad en el mapa enviada por WhatsApp. Mismo impacto emocional, cero logística.'
+    }
+  ];
+
+  const viabColors = {
+    alta: { bg: '#EAF3DE', txt: '#3B6D11' },
+    media: { bg: '#FAEEDA', txt: '#854F0B' },
+    cond: { bg: '#FAECE7', txt: '#993C1D' }
+  };
+  const numColors = ['#E6F1FB','#EAF3DE','#E1F5EE','#FAEEDA','#FAECE7'];
+  const numTxtColors = ['#185FA5','#3B6D11','#0F6E56','#854F0B','#993C1D'];
+
+  let html = `
+    <div style="margin-bottom:1rem; padding-bottom:.75rem; border-bottom:0.5px solid var(--border);">
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Equipo: ~33 personas · perfil senior IT · 100% brasileros · vocero: Álvaro (CTO) · formato: virtual sincrónico</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:#EAF3DE;color:#3B6D11;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Viabilidad alta</span>
+        <span style="background:#FAEEDA;color:#854F0B;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Viabilidad media</span>
+        <span style="background:#FAECE7;color:#993C1D;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Condicionada</span>
+      </div>
+    </div>`;
+
+  ideas.forEach((idea, i) => {
+    const vc = viabColors[idea.viab];
+    const priorityBadge = idea.priority ? '<span style="background:#E6F1FB;color:#185FA5;font-size:11px;padding:2px 8px;border-radius:6px;margin-left:8px;">Prioritaria</span>' : '';
+    const alertHtml = idea.alert === 'ok'
+      ? `<div style="border-left:3px solid #639922;background:#EAF3DE;border-radius:0 6px 6px 0;padding:8px 12px;margin-top:10px;font-size:12px;color:#3B6D11;">${idea.alertText}</div>`
+      : `<div style="border-left:3px solid #BA7517;background:#FAEEDA;border-radius:0 6px 6px 0;padding:8px 12px;margin-top:10px;font-size:12px;color:#854F0B;">${idea.alertText}</div>`;
+    const pillsHtml = idea.pills.map(p => `<span style="font-size:11px;padding:3px 10px;border-radius:99px;border:0.5px solid var(--border-md);color:var(--text-2);">${p}</span>`).join('');
+    const quoteHtml = idea.quote ? `<div style="border-left:3px solid #B5D4F4;background:#E6F1FB;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:12px;color:#185FA5;line-height:1.6;font-style:italic;">${idea.quote}</div>` : '';
+    const borderStyle = idea.priority ? 'border:1.5px solid #378ADD;' : 'border:0.5px solid var(--border);';
+
+    html += `
+    <div style="${borderStyle}background:var(--surface);border-radius:var(--r-lg);padding:1.25rem;margin-bottom:1rem;">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:${numColors[i]};color:${numTxtColors[i]};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;">${idea.num}</div>
+        <div style="flex:1;">
+          <div style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px;">${idea.title}${priorityBadge}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <span style="background:${vc.bg};color:${vc.txt};font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">${idea.viabLabel}</span>
+            ${pillsHtml}
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:12px;">${idea.body}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;">
+        <div style="background:var(--surface2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">${idea.col1Label}</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.5;">${idea.col1}</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;">${idea.col2Label}</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.5;">${idea.col2}</div>
+        </div>
+      </div>
+      ${quoteHtml}
+      ${alertHtml}
+    </div>`;
+  });
+
+  // Order of implementation
+  html += `
+    <div style="border-top:0.5px solid var(--border);margin-top:1.5rem;padding-top:1.25rem;">
+      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px;">Orden de implementación sugerido</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        ${[
+          ['#185FA5','Manual de Álvaro (speech + FAQ) — producir antes de la reunión con Pablo'],
+          ['#185FA5','Mapa del equipo — slide Brasil + 33 puntos — necesita lista nombres y ciudades'],
+          ['#185FA5','Timeline 90 días — PDF en portugués, compartir post-reunión'],
+          ['#97C459','Canal de preguntas — activar post-reunión en las semanas siguientes'],
+          ['#B4B2A9','Kit físico — solo si logística y presupuesto confirmados; si no, versión digital']
+        ].map(([color, text], i) => `
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-2);">
+            <span style="background:${color};color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">${i+1}</span>
+            ${text}
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  return html;
 }
 
 // ── DOCS HANDLERS ──
