@@ -242,7 +242,7 @@ const MONTHS = ['Dic 25','Ene 26','Feb 26','Mar 26','Abr 26','May 26','Jun 26','
 const N = MONTHS.length;
 const RANGE_START = new Date('2025-12-01');
 const RANGE_END   = new Date('2026-10-01');
-const TODAY       = new Date('2026-04-09');
+const TODAY       = new Date('2026-04-15');
 
 function frac(d){ const dt = typeof d==='string'?new Date(d):d; return Math.max(0,Math.min(1,(dt-RANGE_START)/(RANGE_END-RANGE_START))); }
 function pct(d){ return (frac(d)*100).toFixed(3)+'%'; }

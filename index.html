@@ -1075,9 +1075,9 @@ const PROJECTS = {
     ]
   },
   romy: {
-    name: "Romy — Movilidad", sub: "Programa de movilidad internacional LATAM",
-    avatar: "R", status: "En riesgo", lastMeeting: "9 abr 2026",
-    gantt: { start: '2025-12', end: '2026-06', phase: 'Playbook + Benchmarks' },
+    name: "Mobility — Romina", sub: "Responsable: Romina Mitidieri Villacorta · Programa de movilidad internacional LATAM",
+    avatar: "M", status: "En riesgo", lastMeeting: "10 abr 2026",
+    gantt: { start: '2025-12', end: '2026-07', phase: 'Cierre Benchmarks + Playbook' },
     docs: [
       { name: "Análisis Kickoff Movilidad Credicorp", type: "📄", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1tV6ZWZhLuQHdGL8--fkWwAOIlCRfoaeU2lc8cfxbff8/edit" },
       { name: "Sprint Roadmap Movilidad", type: "📊", meta: "feb 2026", status: "wip", statusLabel: "En revisión", gdrive: "https://docs.google.com/document/d/1n93kiYejsqy5OHFBZLUYAQGPPFu3MAYcguzVKzTyTMo/edit" },
@@ -1148,10 +1148,12 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Sesión Mobility 360 — próxima instancia con Romina", owner: "Juan / Lucía / Mara", priority: "Alta" },
-      { task: "Solicitar entregable formal a Romy para presentar a liderazgo", owner: "Juan / Lucía / Sasan", priority: "Alta" },
-      { task: "Coordinar reuniones interdepartamentales con equipo Talento", owner: "Romy (presionar)", priority: "Alta" },
-      { task: "Definir formato entregable final: deck, memo o informe", owner: "Equipo consultoría", priority: "Media" }
+      { task: "Armar informe cierre benchmarks Mobility para presentar a Pablo / Lucho", owner: "Jorge / Lucía / Juan", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Reunión con Romy post 10 abr — definir informe cierre final", owner: "Jorge / Lucía", priority: "Alta", due: "10 abr 2026", status: "open" },
+      { task: "Definir filosofía, objetivo y 3-4 modalidades de contratación con Romy", owner: "Jorge / Lucía", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Evaluar cuándo y cómo convocar al equipo de Desarrollo", owner: "Jorge / Romy", priority: "Media", due: "abr 2026", status: "open" },
+      { task: "Mapear workstreams Mobility / owners / fechas con Romy", owner: "Jorge", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Definir formato entregable final: deck, memo o informe", owner: "Equipo consultoría", priority: "Media", due: "abr 2026", status: "open" }
     ],
     decisions: [
       { title: "Benchmark con Philips completado", date: "3 mar 2026", body: "Philips elegido como primer referente por madurez en movilidad LATAM y accesibilidad del contacto.", owner: "Mara / Equipo" },
@@ -1164,9 +1166,9 @@ const PROJECTS = {
     ]
   },
   brasil: {
-    name: "HUB Brasil / EVP", sub: "Benchmark competitividad São Paulo — talento digital",
+    name: "Hub Brasil — Lucía G.", sub: "Responsable: Lucia Guelfo · Go-live junio 2026 — nómina, change mgmt, EVP",
     avatar: "B", status: "En curso", lastMeeting: "13 abr 2026",
-    gantt: { start: '2025-12', end: '2026-07', phase: 'Benchmark activo' },
+    gantt: { start: '2025-12', end: '2026-06', phase: 'Go-live Junio → Nómina + Change Mgmt' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit" },
       { name: "Esqueleto Handbook Hub Brasil v2.0", type: "📄", meta: "ene 2026", status: "wip", statusLabel: "En revisión", gdrive: "https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit" },
@@ -1259,10 +1261,13 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Cerrar lista final empresas benchmark para SP", owner: "Mara / Equipo", priority: "Alta" },
-      { task: "Obtener oferta actual exacta de Credicorp para Hub Brasil", owner: "Romina / Sasan", priority: "Alta" },
-      { task: "Construir tabla comparativa y heatmap de brechas EVP", owner: "Lucía", priority: "Media" },
-      { task: "Analizar employer branding de referentes en SP", owner: "Equipo", priority: "Media" }
+      { task: "Shortlist proveedores de nómina Brasil — recomendar opción sólida a Pablo", owner: "Juan / Mara", priority: "Alta", due: "esta semana — URGENTE", status: "open" },
+      { task: "Armar plan change mgmt: escenario presencial SP (quincena mayo) + virtual", owner: "Juan / Mara", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "LG: conectar con Yusara (Gerente Socios BPO) para recomendaciones de partners BPO", owner: "LG / Adassa", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Mapear workstreams / owners / fechas Hub Brasil con Lu Guelfo", owner: "Juan", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Seguimiento bloqueador legal: documentos apostillados Grupo Crédito → Brasil", owner: "Credicorp", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Seguimiento bloqueador TI: sistemas legacy (1-1.5 meses adicionales)", owner: "Credicorp IT", priority: "Alta", due: "abr-may 2026", status: "open" },
+      { task: "Construir tabla comparativa y heatmap de brechas EVP", owner: "Lucía", priority: "Media", due: "abr 2026", status: "open" }
     ],
     decisions: [
       { title: "Foco en talento digital y ejecutivo en São Paulo", date: "dic 2025", body: "El benchmark se concentra en perfiles ejecutivos y digitales en SP, no en Brasil en general.", owner: "Alineado con Credicorp" },
@@ -1276,9 +1281,9 @@ const PROJECTS = {
     ]
   },
   desempeno: {
-    name: "Desempeño — GiseGPT", sub: "Agente de objetivos y desempeño para TOPs Credicorp",
-    avatar: "D", status: "En riesgo", lastMeeting: "dic 2025",
-    gantt: { start: '2025-12', end: '2026-08', phase: 'Diagnóstico inicial' },
+    name: "Desempeño — Giselle", sub: "Responsable: Giselle Ripamonti · Agente GiseGPT para TOPs Credicorp",
+    avatar: "D", status: "En riesgo", lastMeeting: "9 abr 2026",
+    gantt: { start: '2025-12', end: '2026-08', phase: 'GiseGPT → Copilot Studio (bloqueado IT)' },
     transcripts: [],
     docs: [
       { name: "GiseGPT — Prompt del agente", type: "🤖", meta: "ene 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1I3qNtWz4X88Xt5zEkoSRCLSHICdnE99UUSJs0qYOAts/edit" },
@@ -1313,9 +1318,10 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Confirmar alcance exacto del diagnóstico con Credicorp", owner: "Sasan / Mara", priority: "Alta" },
-      { task: "Mapear proceso actual de evaluación de desempeño", owner: "Por asignar", priority: "Media" },
-      { task: "Identificar conexión performance-compensación-carrera", owner: "Por asignar", priority: "Media" }
+      { task: "Retomar conversación con José Gomer (jefe de tecnología) para destrabar DevSecOps", owner: "Juan / Sasan", priority: "Alta", due: "abr 2026", status: "open" },
+      { task: "Agendar reuniones de HR Tech con Pablo (Human como proveedor long-term)", owner: "Sasan", priority: "Media", due: "abr 2026", status: "open" },
+      { task: "Corporativizar GiseGPT para 300 TOPs vía Copilot Studio", owner: "Sasan / IT Credicorp", priority: "Alta", due: "jul 2026", status: "open" },
+      { task: "Mapear proceso actual de evaluación de desempeño y conexión con PeopleSoft", owner: "Por asignar", priority: "Media", due: "Pendiente", status: "open" }
     ],
     decisions: [
       { title: "GiseGPT: ir por Copilot Studio, no por 365", date: "9 mar 2026", body: "Copilot 365 se discontinúa en Credicorp. El camino correcto es Copilot Studio con aprobación de Security/DevSecOps interno. Más largo pero es el path correcto.", owner: "IT Credicorp — reunión con Ysela" },
@@ -1332,22 +1338,24 @@ const PROJECTS = {
 
 // ── UPCOMING MEETINGS (futuras) ──
 const UPCOMING = [
-  { date: '2026-04-10', title: 'Reunión con Romy — informe cierre benchmarks Mobility', project: 'romy', type: 'future' },
-  { date: '2026-04-13', title: 'Alicia regresa de vacaciones — arranque inmediato', project: 'alicia', type: 'future' },
-  { date: '2026-04-13', title: 'Sync Lu + Pablo — mapeo stakeholders change mgmt Brasil (2pm PE)', project: 'brasil', type: 'future' },
-  { date: '2026-04-15', title: 'Benchmark Nestlé — Movilidad (confirmado)', project: 'romy', type: 'future' },
+  { date: '2026-04-15', title: 'Benchmark Nestlé — Movilidad (confirmado hoy)', project: 'romy', type: 'future' },
   { date: '2026-04-15', title: 'Revisión onboarding con Alicia — arranque workstream', project: 'alicia', type: 'future' },
-  { date: '2026-04-20', title: 'Benchmark Worley — Movilidad (confirmado para abril)', project: 'romy', type: 'future' },
+  { date: '2026-04-20', title: 'Benchmark Worley — Movilidad (confirmado)', project: 'romy', type: 'future' },
+  { date: '2026-04-21', title: 'Shortlist proveedores nómina Brasil → recomendación a Pablo (DEADLINE)', project: 'brasil', type: 'future' },
+  { date: '2026-04-25', title: 'Entrega informe cierre benchmarks Mobility a Pablo / Lucho', project: 'romy', type: 'future' },
+  { date: '2026-04-30', title: 'Armar plan change mgmt Hub Brasil (presencial SP + virtual)', project: 'brasil', type: 'future' },
   { date: '2026-05-03', title: 'Viaje +Partners a Chile', project: 'romy', type: 'future' },
   { date: '2026-05-15', title: 'Plan change mgmt Hub Brasil — presentaciones stakeholders SP', project: 'brasil', type: 'future' },
   { date: '2026-05-31', title: 'DEADLINE: Renovación contrato Credicorp', project: 'alicia', type: 'future' },
+  { date: '2026-06-07', title: 'Viaje +Partners a Madrid', project: 'romy', type: 'future' },
+  { date: '2026-06-30', title: 'Go-live Hub Brasil — primer nómina', project: 'brasil', type: 'future' },
 ];
 
 // ── GANTT ──
 function renderGantt() {
   const months = ['Dic 25','Ene 26','Feb 26','Mar 26','Abr 26','May 26','Jun 26','Jul 26','Ago 26'];
   const monthKeys = ['2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08'];
-  const todayKey = '2026-03';
+  const todayKey = '2026-04';
   const todayIdx = monthKeys.indexOf(todayKey);
 
   const barStyles = { 'En curso': 'bar-active', 'En riesgo': 'bar-risk', 'Bloqueado': 'bar-blocked' };
@@ -1910,7 +1918,7 @@ function addDecision(pid) {
 }
 
 // ── INGEST ──
-const pLabels = { alicia:'Alicia — Ops/HR Tech', romy:'Romy — Movilidad', brasil:'HUB Brasil / EVP', desempeno:'Desempeño' };
+const pLabels = { alicia:'Alicia — Ops/HR Tech', romy:'Mobility — Romina', brasil:'Hub Brasil — Lucía G.', desempeno:'Desempeño — Giselle' };
 const spinSteps = ['Analizando transcripción...','Identificando puntos de dolor...','Extrayendo próximos pasos...','Detectando riesgos...','Actualizando dashboard...'];
 
 async function ingestContent() {
