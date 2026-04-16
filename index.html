@@ -1710,6 +1710,204 @@ function renderTab(tab) {
 
 // ── CHANGE MGMT — HUB BRASIL ──
 function renderChangeMgmt() {
+  return `
+    <div style="margin-bottom:1.25rem;display:flex;gap:2px;border-bottom:0.5px solid var(--border);">
+      <button id="cm-tab-ideas" onclick="switchCMTab('ideas')" style="font-size:12px;padding:6px 14px;border-radius:6px 6px 0 0;cursor:pointer;color:var(--text);font-weight:500;background:var(--surface);border:0.5px solid var(--border-md);border-bottom:none;margin-bottom:-0.5px;font-family:inherit;">Ideas de despliegue</button>
+      <button id="cm-tab-calendario" onclick="switchCMTab('calendario')" style="font-size:12px;padding:6px 14px;border-radius:6px 6px 0 0;cursor:pointer;color:var(--text-2);background:transparent;border:0.5px solid transparent;border-bottom:none;font-family:inherit;">Calendario de lanzamiento</button>
+    </div>
+    <div id="cm-panel-ideas">${renderCMIdeas()}</div>
+    <div id="cm-panel-calendario" style="display:none;">${renderCMCalendario()}</div>`;
+}
+
+function switchCMTab(tab) {
+  document.getElementById('cm-panel-ideas').style.display = tab === 'ideas' ? '' : 'none';
+  document.getElementById('cm-panel-calendario').style.display = tab === 'calendario' ? '' : 'none';
+  ['ideas','calendario'].forEach(t => {
+    const btn = document.getElementById('cm-tab-' + t);
+    if (t === tab) {
+      btn.style.color = 'var(--text)'; btn.style.fontWeight = '500';
+      btn.style.background = 'var(--surface)'; btn.style.border = '0.5px solid var(--border-md)';
+      btn.style.borderBottom = 'none'; btn.style.marginBottom = '-0.5px';
+    } else {
+      btn.style.color = 'var(--text-2)'; btn.style.fontWeight = '400';
+      btn.style.background = 'transparent'; btn.style.border = '0.5px solid transparent';
+      btn.style.borderBottom = 'none'; btn.style.marginBottom = '0';
+    }
+  });
+}
+
+function renderCMCalendario() {
+  const phases = [
+    {
+      phase: 'Fase 1 · Alineación interna', dateRange: '14–25 de abril',
+      color: '#1B2A4A', pillColor: '#2BD6C8',
+      events: [
+        {
+          date: '16–18 abr', week: 'Sem. 1',
+          title: 'Sesión de roadmap y dependencias con Lucía',
+          tags: [['Reunión','#E6F1FB','#185FA5'],['Bloqueante','#FAEEDA','#854F0B']],
+          items: ['Mapear workstreams activos: Legal, Tecnología, RRHH, Compensaciones, Payroll','Identificar dependencias bloqueantes y responsable','Confirmar status subsidiaria en SAP/SIGA + accesos corporativos','Cerrar proveedor payroll — cuadro comparativo (Lu + +Partners)'],
+          stakes: ['Lucía Guelfo','Mara (+Partners)','Pablo (Credicorp)']
+        },
+        {
+          date: '18–25 abr', week: 'Sem. 1–2',
+          title: 'Validación con Lucho + Rosela — plan de change management',
+          tags: [['Reunión','#E6F1FB','#185FA5'],['Decisión requerida','#FBEAF0','#72243E']],
+          items: ['Presentar PPT de Change Management (ya elaborado)','Confirmar secuencia: 1:1 TOPS → Desayuno Yape','Definir fecha tentativa para el desayuno (~26 jun)','Alinear mensajes clave y tono narrativo con Álvaro'],
+          stakes: ['Lucho (sponsor)','Rosela','Pablo Silva','Lucía Guelfo']
+        }
+      ]
+    },
+    {
+      phase: 'Fase 2 · Preparación de materiales', dateRange: '28 abril – 23 mayo',
+      color: '#1B2A4A', pillColor: '#2BD6C8',
+      events: [
+        {
+          date: '28 abr – 9 may', week: 'Sem. 3–4',
+          title: 'Speech de Álvaro + Q&A anticipado',
+          tags: [['Entregable','#EAF3DE','#3B6D11']],
+          items: ['Redactar speech en portugués (3 mov.: Reconocer / Aclarar / Elevar)','Frase guía: "Lo único que cambia es el documento de pago" — en portugués, voz directa','Preparar Q&A con 15–20 preguntas más probables (USD→BRL, FGTS, INSS, LP 2028)','Revisión con Lucía y Pablo — ajuste de tono y terminología'],
+          stakes: ['+Partners','Lucía Guelfo','Álvaro (CEO Yape)']
+        },
+        {
+          date: '5–16 may', week: 'Sem. 4–5',
+          title: 'Materiales del despliegue',
+          tags: [['Entregable','#EAF3DE','#3B6D11']],
+          items: ['"Qué cambia / Qué no cambia" — doc final (Lu, borrador listo)','Mapa del equipo Brasil con nombres y frase concepto','Timeline 90 días post-lanzamiento (para mostrar en desayuno)','Agendas detalladas de cada reunión → enviar por mail (Mara)','Kit día uno: birome, cuaderno, nota de Álvaro — logística (Lu)'],
+          stakes: ['+Partners','Lucía Guelfo','Mara']
+        },
+        {
+          date: '12–23 may', week: 'Sem. 5–6',
+          title: 'Coordinación paquetes individuales TOPS',
+          tags: [['Entregable','#EAF3DE','#3B6D11'],['Decisión requerida','#FBEAF0','#72243E']],
+          items: ['Calcular conversión USD → BRL para los 4 TOPS (Andrés, Fernando, Giancarlo, Wellington)','Validar incentivos CP + LP 2028 bajo nuevo modelo CLT','Preparar materiales individuales para cada 1:1 con Nazaret','Confirmar fechas de las 4 reuniones individuales (Lu — urgente esta semana)'],
+          stakes: ['Nazaret (compensaciones)','Luis Ángel (Yape)','Lucía Guelfo']
+        }
+      ]
+    },
+    {
+      phase: 'Fase 3 · Ensayo y logística', dateRange: '26 mayo – 13 junio',
+      color: '#1B2A4A', pillColor: '#2BD6C8',
+      events: [
+        {
+          date: '26 may – 6 jun', week: 'Sem. 7–8',
+          title: 'Rehearsal con Álvaro + cierre de logística São Paulo',
+          tags: [['Reunión','#E6F1FB','#185FA5'],['Bloqueante','#FAEEDA','#854F0B']],
+          items: ['Ensayo completo del speech en portugués (Álvaro + Lucía + +Partners)','Confirmar venue y catering para el desayuno en São Paulo','Revisar minuto a minuto del desayuno (70 min)','Confirmar roles en el evento: Álvaro, Pablo/Lu, Lu, Luis Ángel, Elisa del Cardo'],
+          stakes: ['Álvaro (CEO Yape)','Pablo Silva','Lucía Guelfo','Elisa del Cardo']
+        },
+        {
+          date: '9–13 jun', week: 'Sem. 8–9',
+          title: 'Comunicación previa a los 33 colaboradores',
+          tags: [['Entregable','#EAF3DE','#3B6D11']],
+          items: ['Enviar invitación al desayuno — breve, sin anticipar cambios, voz de Álvaro','Activar canal asincrónico con análisis de sentimientos vía Copilot','Briefing a Elizabeth (referente en terreno Brasil) sobre su rol de monitoreo'],
+          stakes: ['Lucía Guelfo','Álvaro','Elizabeth (Brasil)']
+        }
+      ]
+    },
+    {
+      phase: 'Fase 4 · Lanzamiento', dateRange: '16–26 de junio',
+      color: '#1B2A4A', pillColor: '#C832A0',
+      events: [
+        {
+          date: '16–20 jun', week: 'Sem. 9',
+          title: 'Reuniones 1:1 con los 4 TOPS — ANTES del desayuno',
+          tags: [['Reunión','#E6F1FB','#185FA5']],
+          items: ['1. Andrés Recente — primero (jefe del equipo)','2. Fernando Madureira — reporta a Andrés','3. Giancarlo Bonanzea — reporta a Andrés','4. Wellington Santos — reunión individual','Temas: paquete USD→BRL, incentivos CP, LP 2028, FGTS/INSS, canal directo con Nazaret'],
+          stakes: ['Nazaret (compensaciones)','Lucía Guelfo','Pablo Silva']
+        },
+        {
+          date: '~26 jun', week: 'DEADLINE ✦',
+          title: 'Desayuno Yape Brasil — São Paulo · 70 minutos',
+          tags: [['Evento presencial','#FBEAF0','#72243E'],['Lanzamiento oficial','#EAF3DE','#3B6D11']],
+          items: ["10' · Bienvenida al Hub Brasil — Álvaro (en portugués)","10' · Por qué este cambio — Pablo / Lu","10' · Qué cambia / qué no cambia — Lu","10' · Compensaciones y beneficios — Luis Ángel (Yape)","5' · Especialistas disponibles — Elisa del Cardo","20' · Q&A abierto","5' · Cierre y próximos pasos — Álvaro"],
+          stakes: ['Álvaro (CEO Yape)','Pablo Silva','Lucía Guelfo','Luis Ángel','Elisa del Cardo','29 colaboradores'],
+          highlight: true
+        }
+      ]
+    },
+    {
+      phase: 'Fase 5 · Post-evento', dateRange: 'Desde 27 junio',
+      color: '#1B2A4A', pillColor: '#2BD6C8',
+      events: [
+        {
+          date: 'Post 27 jun', week: 'Sem. 10+',
+          title: 'Servicio post-venta — seguimiento y contención',
+          tags: [['Soporte continuo','#EAF3DE','#3B6D11']],
+          items: ['Canal directo TOPS: Nazaret (compensaciones) / Luis Ángel (Yape)','Bot FAQ completo — sin grises ni derivaciones','Sesiones individuales: Compensaciones / Beneficios (Elisa) / LP 2028','Elizabeth activa como "oídos en terreno" — monitoreo de sentimiento','Análisis vía Copilot (canal ya configurado, prompts listos)'],
+          stakes: ['Elizabeth (Brasil)','Nazaret','Luis Ángel','Elisa del Cardo']
+        }
+      ]
+    }
+  ];
+
+  let html = `
+    <div style="margin-bottom:1rem;padding:10px 14px;background:#FBEAF0;border-left:3px solid #C832A0;border-radius:0 6px 6px 0;">
+      <span style="font-size:13px;font-weight:500;color:#4B1528;">⚑ Deadline: ~26 de junio 2026 — Desayuno Yape São Paulo</span>
+      <span style="font-size:12px;color:#72243E;margin-left:8px;">~10 semanas · Lucía Guelfo · +Partners</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;">
+      <span style="background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Reunión</span>
+      <span style="background:#EAF3DE;color:#3B6D11;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Entregable</span>
+      <span style="background:#FAEEDA;color:#854F0B;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Bloqueante</span>
+      <span style="background:#FBEAF0;color:#72243E;font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;">Decisión requerida</span>
+    </div>`;
+
+  phases.forEach(ph => {
+    html += `
+      <div style="margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:${ph.color};border-radius:6px 6px 0 0;padding:8px 14px;margin-bottom:0;">
+          <span style="font-size:13px;font-weight:500;color:#fff;">${ph.phase}</span>
+          <span style="font-size:12px;color:${ph.pillColor};font-weight:500;">${ph.dateRange}</span>
+        </div>`;
+
+    ph.events.forEach(ev => {
+      const tagHtml = ev.tags.map(([label, bg, tc]) =>
+        `<span style="background:${bg};color:${tc};font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px;">${label}</span>`
+      ).join(' ');
+      const itemsHtml = ev.items.map(it =>
+        `<div style="display:flex;gap:7px;font-size:12px;color:var(--text-2);line-height:1.5;padding:2px 0;"><span style="color:var(--text-3);flex-shrink:0;">→</span>${it}</div>`
+      ).join('');
+      const stakesHtml = ev.stakes.map(s =>
+        `<span style="font-size:11px;padding:2px 9px;border-radius:99px;border:0.5px solid var(--border-md);color:var(--text-2);">${s}</span>`
+      ).join(' ');
+      const borderStyle = ev.highlight ? 'border:1.5px solid #C832A0;' : 'border:0.5px solid var(--border);border-top:none;';
+
+      html += `
+        <div style="${borderStyle}background:var(--surface);padding:12px 14px;last-of-type:border-radius:0 0 6px 6px;">
+          <div style="display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start;">
+            <div>
+              <div style="font-size:12px;font-weight:500;color:var(--text);">${ev.date}</div>
+              <div style="font-size:11px;color:var(--text-3);">${ev.week}</div>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;">${ev.title}</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;">${tagHtml}</div>
+              <div style="margin-bottom:8px;">${itemsHtml}</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;padding-top:6px;border-top:0.5px solid var(--border);">${stakesHtml}</div>
+            </div>
+          </div>
+        </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  html += `
+    <div style="border-left:3px solid #BA7517;background:#FAEEDA;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:0.5rem;">
+      <div style="font-size:12px;font-weight:500;color:#854F0B;margin-bottom:6px;">Alertas críticas — acción inmediata</div>
+      ${[
+        'Tecnología (SAP/SIGA): status subsidiaria sin confirmar. Bloquea payroll y beneficios.',
+        'Proveedor payroll: decisión urgente esta semana — cuadro comparativo pendiente.',
+        'Poderes societarios: confirmar con estudio legal en Brasil si ya están corregidos.',
+        'Kit día uno: confirmar quién coordina el envío físico a São Paulo.'
+      ].map(t => `<div style="display:flex;gap:7px;font-size:12px;color:#854F0B;padding:2px 0;"><span>→</span>${t}</div>`).join('')}
+    </div>`;
+
+  return html;
+}
+
+function renderCMIdeas() {
   const ideas = [
     {
       num: '01',
