@@ -817,17 +817,30 @@ const PROJECTS = {
     ]
   },
   brasil: {
-    name: "HUB Brasil / EVP", sub: "Benchmark competitividad São Paulo — talento digital",
-    avatar: "B", status: "En curso", lastMeeting: "25 mar 2026",
-    gantt: { start: '2025-12', end: '2026-07', phase: 'Benchmark activo' },
+    name: "Hub Brasil — Lanzamiento CLT", sub: "Change mgmt · Desayuno ~22 mayo · Deadline: 1/6 cambio nómina",
+    avatar: "B", status: "En curso", lastMeeting: "16 abr 2026",
+    gantt: { start: '2026-04', end: '2026-06', phase: 'Lanzamiento — ~5 semanas' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "" },
       { name: "Benchmark Mercado Libre", type: "📄", meta: "17 mar 2026", status: "done", statusLabel: "Completado", gdrive: "" },
       { name: "Benchmark Accenture", type: "📄", meta: "25 mar 2026", status: "done", statusLabel: "Completado", gdrive: "" },
       { name: "Heatmap brechas EVP", type: "🗺️", meta: "En construcción", status: "wip", statusLabel: "En progreso", gdrive: "" },
-      { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
+      { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" },
+      { name: "Calendario Lanzamiento Hub Brasil v2", type: "📅", meta: "Actualizado 16 abr 2026 · Deadline ~22 mayo", status: "done", statusLabel: "Actualizado", gdrive: "" },
+      { name: "Plan Lanzamiento Hub Brasil — PPT + Gantt", type: "📊", meta: "16 abr 2026 · 6 slides + cronograma visual", status: "done", statusLabel: "Completado", gdrive: "" }
     ],
     timeline: [
+      { date: "16 abr 2026", title: "Plan de lanzamiento Hub Brasil — calendario actualizado", type: "entregable", imp: true,
+        participants: ["Lucía Guelfo", "Mara (+Partners)"],
+        content: "Cambio crítico de plan: la comunicación se adelanta a la 2ª quincena de mayo. El 1/6 todos los colaboradores pasan a nómina CLT. Desayuno Yape São Paulo fijado para ~22 mayo.",
+        insights: ["Deadline adelantado ~4 semanas respecto al plan original (26 jun → 22 may)", "El 1 de junio es el cambio de nómina — la comunicación DEBE suceder antes", "5 fases activas: Alineación (ya en curso) → Materiales → Ensayo → Lanzamiento → Post", "4 alertas críticas activas: SAP/SIGA, proveedor payroll, poderes societarios, kit día uno", "Paquetes TOPS (Andrés, Fernando, Giancarlo, Wellington): fechas 1:1 deben confirmarse esta semana — URGENTE"],
+        actions: [
+          { text: "Confirmar fechas 1:1 TOPS para semana del 19 mayo", owner: "Lucía Guelfo", due: "Esta semana", status: "open" },
+          { text: "Cerrar decisión proveedor payroll — cuadro comparativo pendiente", owner: "Lu + +Partners", due: "Esta semana", status: "open" },
+          { text: "Confirmar status SAP/SIGA para subsidiaria Brasil", owner: "Pablo (Credicorp)", due: "Urgente", status: "open" },
+          { text: "Validar poderes societarios con estudio legal Brasil", owner: "Legal", due: "Urgente", status: "open" }
+        ]
+      },
       { date: "25 mar 2026", title: "Benchmark con Accenture", type: "benchmark", imp: true,
         participants: ["Lucía", "Referente Accenture SP"],
         content: "Sesión de benchmark sobre propuesta de valor para talento digital en São Paulo.",
@@ -848,17 +861,24 @@ const PROJECTS = {
       }
     ],
     tasks: [
-      { task: "Cerrar lista final empresas benchmark para SP", owner: "Mara / Equipo", priority: "Alta" },
-      { task: "Obtener oferta actual exacta de Credicorp para Hub Brasil", owner: "Romina / Sasan", priority: "Alta" },
-      { task: "Construir tabla comparativa y heatmap de brechas EVP", owner: "Lucía", priority: "Media" },
-      { task: "Analizar employer branding de referentes en SP", owner: "Equipo", priority: "Media" }
+      { task: "⚑ Confirmar fechas 1:1 TOPS (semana 19 may): Andrés → Fernando → Giancarlo → Wellington", owner: "Lucía Guelfo", priority: "Alta" },
+      { task: "⚑ Cerrar proveedor payroll — cuadro comparativo pendiente", owner: "Lu + +Partners", priority: "Alta" },
+      { task: "⚑ Confirmar status SAP/SIGA subsidiaria Brasil (bloquea payroll)", owner: "Pablo (Credicorp)", priority: "Alta" },
+      { task: "Validar poderes societarios con estudio legal Brasil", owner: "Legal", priority: "Alta" },
+      { task: "Redactar speech Álvaro en portugués (3 movimientos) + Q&A 15-20 preguntas", owner: "+Partners · Lucía", priority: "Alta" },
+      { task: "Preparar materiales despliegue: qué cambia/no, mapa equipo, timeline 90 días", owner: "Lucía + +Partners", priority: "Alta" },
+      { task: "Calcular paquetes individuales USD→BRL (4 TOPS) + LP 2028 bajo CLT", owner: "Nazaret · Lucía", priority: "Alta" },
+      { task: "Confirmar venue y catering desayuno São Paulo", owner: "Lucía", priority: "Media" },
+      { task: "Kit día uno: coordinar envío físico (cuaderno + birome + nota Álvaro)", owner: "Lucía", priority: "Media" }
     ],
     decisions: [
       { title: "Foco en talento digital y ejecutivo en São Paulo", date: "dic 2025", body: "El benchmark se concentra en perfiles ejecutivos y digitales en SP, no en Brasil en general.", owner: "Alineado con Credicorp" }
     ],
     openqs: [
-      { q: "¿Cuál es la oferta actual exacta de Credicorp para Hub Brasil?", ctx: "Sin este dato no podemos calcular la brecha real.", urgency: "Alta", owner: "Validar con Romina" },
-      { q: "¿Cuáles son los perfiles prioritarios que Credicorp necesita en SP?", ctx: "Los beneficios varían mucho según el perfil (tech lead vs C-suite).", urgency: "Alta", owner: "Credicorp" }
+      { q: "¿Está confirmada la fecha del desayuno (~22 mayo)?", ctx: "El 1/6 todos pasan a nueva nómina — la comunicación DEBE ser antes. Fecha del evento es el bloqueante principal.", urgency: "Alta", owner: "Lucía Guelfo" },
+      { q: "¿Se cerró el proveedor de payroll Brasil?", ctx: "Decisión urgente esta semana. El cuadro comparativo está pendiente (Lu + +Partners).", urgency: "Alta", owner: "Lu + +Partners" },
+      { q: "¿Está confirmado el status de la subsidiaria en SAP/SIGA?", ctx: "Sin confirmación no se puede procesar payroll ni beneficios desde el 1/6.", urgency: "Alta", owner: "Pablo (Credicorp)" },
+      { q: "¿Cuál es la oferta actual exacta de Credicorp para Hub Brasil?", ctx: "Sin este dato no podemos calcular la brecha real para los paquetes TOPS.", urgency: "Alta", owner: "Validar con Romina" }
     ]
   },
   desempeno: {
@@ -1210,7 +1230,7 @@ function addDecision(pid) {
 }
 
 // ── INGEST ──
-const pLabels = { alicia:'Alicia — Ops/HR Tech', romy:'Romy — Movilidad', brasil:'HUB Brasil / EVP', desempeno:'Desempeño' };
+const pLabels = { alicia:'Alicia — Ops/HR Tech', romy:'Romy — Movilidad', brasil:'Hub Brasil — Lanzamiento CLT', desempeno:'Desempeño' };
 const spinSteps = ['Analizando transcripción...','Identificando puntos de dolor...','Extrayendo próximos pasos...','Detectando riesgos...','Actualizando dashboard...'];
 
 async function ingestContent() {
