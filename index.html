@@ -1841,7 +1841,95 @@ function renderCMCalendario() {
     }
   ];
 
-  let html = `
+  // ── GANTT visual ──
+  // Timeline: Apr 14 → Jun 26 = 73 days total
+  const T_START = new Date('2026-04-14');
+  const T_END   = new Date('2026-06-27');
+  const totalDays = (T_END - T_START) / 86400000;
+
+  function pct(dateStr, endDateStr) {
+    const s = new Date(dateStr);
+    const e = endDateStr ? new Date(endDateStr) : new Date(dateStr.replace(/~/, '').trim());
+    const left = Math.max(0, (s - T_START) / 86400000 / totalDays * 100);
+    const width = Math.max(1.5, (e - s) / 86400000 / totalDays * 100);
+    return { left: left.toFixed(2), width: width.toFixed(2) };
+  }
+
+  const ganttRows = [
+    { label: 'F1 · Alineación', color: '#1B2A4A', textColor: '#fff', bars: [
+      { title: 'Roadmap Lu', ...pct('2026-04-16','2026-04-18'), tag: '#185FA5' },
+      { title: 'Validación Lucho+Rosela', ...pct('2026-04-18','2026-04-25'), tag: '#72243E' },
+    ]},
+    { label: 'F2 · Materiales', color: '#185FA5', textColor: '#fff', bars: [
+      { title: 'Speech Álvaro + Q&A', ...pct('2026-04-28','2026-05-09'), tag: '#3B6D11' },
+      { title: 'Docs despliegue', ...pct('2026-05-05','2026-05-16'), tag: '#3B6D11' },
+      { title: 'Paquetes TOPS', ...pct('2026-05-12','2026-05-23'), tag: '#72243E' },
+    ]},
+    { label: 'F3 · Ensayo', color: '#0F6E56', textColor: '#fff', bars: [
+      { title: 'Rehearsal + logística SP', ...pct('2026-05-26','2026-06-06'), tag: '#854F0B' },
+      { title: 'Comunicación 33 colab.', ...pct('2026-06-09','2026-06-13'), tag: '#3B6D11' },
+    ]},
+    { label: 'F4 · Lanzamiento', color: '#C832A0', textColor: '#fff', bars: [
+      { title: '1:1 TOPS', ...pct('2026-06-16','2026-06-20'), tag: '#185FA5' },
+      { title: 'Desayuno Yape SP ✦', ...pct('2026-06-25','2026-06-27'), tag: '#C832A0' },
+    ]},
+    { label: 'F5 · Post-evento', color: '#444441', textColor: '#fff', bars: [
+      { title: 'Follow-up continuo', ...pct('2026-06-27','2026-06-27'), tag: '#3B6D11' },
+    ]},
+  ];
+
+  // Month markers
+  const months = [
+    { label: 'Abril', date: '2026-04-14' },
+    { label: 'Mayo', date: '2026-05-01' },
+    { label: 'Junio', date: '2026-06-01' },
+  ];
+  const todayPct = Math.max(0, Math.min(100, (new Date() - T_START) / 86400000 / totalDays * 100)).toFixed(2);
+
+  const monthHeaderHtml = months.map(m => {
+    const left = Math.max(0, (new Date(m.date) - T_START) / 86400000 / totalDays * 100).toFixed(2);
+    return `<div style="position:absolute;left:${left}%;font-size:10px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">${m.label}</div>`;
+  }).join('');
+
+  const ganttRowsHtml = ganttRows.map(row => {
+    const barsHtml = row.bars.map(b => `
+      <div title="${b.title}" style="position:absolute;left:${b.left}%;width:${b.width}%;height:20px;background:${row.color};border-radius:3px;display:flex;align-items:center;overflow:hidden;cursor:default;" onmouseenter="this.style.opacity='.8'" onmouseleave="this.style.opacity='1'">
+        <span style="font-size:10px;color:${row.textColor};padding:0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${b.title}</span>
+      </div>`).join('');
+    return `
+      <div style="display:grid;grid-template-columns:120px 1fr;align-items:center;gap:8px;margin-bottom:6px;">
+        <div style="font-size:11px;color:var(--text-2);text-align:right;padding-right:8px;white-space:nowrap;">${row.label}</div>
+        <div style="position:relative;height:20px;">${barsHtml}</div>
+      </div>`;
+  }).join('');
+
+  const ganttHtml = `
+    <div style="border:0.5px solid var(--border);border-radius:8px;padding:14px 16px 16px;margin-bottom:1.5rem;background:var(--surface);">
+      <div style="font-size:11px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Cronograma visual · Abril – Junio 2026</div>
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:6px;">
+        <div></div>
+        <div style="position:relative;height:14px;">${monthHeaderHtml}</div>
+      </div>
+      ${ganttRowsHtml}
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-top:4px;">
+        <div></div>
+        <div style="position:relative;height:16px;">
+          <div style="position:absolute;left:${todayPct}%;top:0;bottom:0;width:1.5px;background:#C832A0;"></div>
+          <div style="position:absolute;left:${todayPct}%;top:0;font-size:9px;color:#C832A0;padding-left:3px;white-space:nowrap;">hoy</div>
+          <div style="position:absolute;left:${pct('2026-06-26','2026-06-26').left}%;top:0;bottom:0;width:1.5px;background:#C832A0;opacity:.4;border:none;border-left:1.5px dashed #C832A0;"></div>
+          <div style="position:absolute;left:${pct('2026-06-26','2026-06-26').left}%;top:0;font-size:9px;color:#C832A0;padding-left:3px;white-space:nowrap;opacity:.8;">26 jun ✦</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);"><div style="width:10px;height:10px;border-radius:2px;background:#C832A0;"></div>Lanzamiento / deadline</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);"><div style="width:10px;height:10px;border-radius:2px;background:#185FA5;"></div>Reunión / prep.</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);"><div style="width:10px;height:10px;border-radius:2px;background:#0F6E56;"></div>Ensayo / logística</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);"><div style="width:10px;height:10px;border-radius:2px;background:#444441;"></div>Post-evento</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);"><div style="width:1.5px;height:10px;background:#C832A0;"></div>Hoy</div>
+      </div>
+    </div>`;
+
+  let html = ganttHtml + `
     <div style="margin-bottom:1rem;padding:10px 14px;background:#FBEAF0;border-left:3px solid #C832A0;border-radius:0 6px 6px 0;">
       <span style="font-size:13px;font-weight:500;color:#4B1528;">⚑ Deadline: ~26 de junio 2026 — Desayuno Yape São Paulo</span>
       <span style="font-size:12px;color:#72243E;margin-left:8px;">~10 semanas · Lucía Guelfo · +Partners</span>
