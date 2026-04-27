@@ -923,10 +923,34 @@ const DRIVE_BASE = 'https://drive.google.com/drive/folders/';
 
 const PROJECTS = {
   alicia: {
-    name: "Alicia — Ops/HR Tech", sub: "Digitalización y automatización de procesos HR",
-    avatar: "A", status: "En curso", lastMeeting: "9 abr 2026",
-    gantt: { start: '2026-01', end: '2026-06', phase: 'Diagnóstico' },
+    name: "Alicia — Ops/HR Tech", sub: "Digitalización y automatización de procesos HR — Onboarding 8 empresas",
+    avatar: "A", status: "En curso", lastMeeting: "27 abr 2026",
+    gantt: { start: '2026-01', end: '2026-06', phase: 'Onboarding 8 empresas — diagnóstico + workshop' },
     timeline: [
+      { date: "27 abr 2026", title: "Kickoff Onboarding 8 empresas — diagnóstico + workshop con Pablo", type: "reunion", imp: true,
+        participants: ["Mara Schmitman", "Jorge Moreno", "Sasan Maniei", "Lucía Palomeque", "Juan Fornaguera"],
+        content: "Confirmado el scope del proyecto: estandarizar onboarding en las 8 empresas de Credicorp, desde aceptación de oferta hasta los primeros 90 días. Pablo rechazó introducir best practices (Nubank, etc.) en esta fase — primero entender el estado actual. Alicia operada de vesícula esta semana → Gabriela (su colega) será punto de contacto principal. Renovación de contrato: 31 de mayo es hard deadline.",
+        insights: [
+          "8 empresas Credicorp tienen arquitecturas de onboarding distintas; financieras y salud requieren procesos sustancialmente diferentes",
+          "Tool actual: 'Tu recibo' — considerada subóptima",
+          "Approach: diagnóstico primero (mapear estado actual con HR de cada empresa), luego documento unificado con gaps y modelo flexible",
+          "Pablo rechazó traer best practices de Nubank u otros en esta fase — entender estado actual primero",
+          "Alicia en licencia médica (cirugía vesícula); Gabriela coordinará las 8 reuniones de stakeholders",
+          "Call mensual con Pablo agendada ~18 de mayo (post sus vacaciones 4-13 abr) — checkpoint crítico",
+          "DEADLINE 31 mayo = renovación de contrato. Estrategia: trabajar hacia atrás desde la fecha — workshop con Pablo mid-to-late mayo",
+          "Las últimas 2 semanas de mayo deben mostrar el proyecto en pleno momentum — el valor percibido del último mes (no de los 7 anteriores) decide la renovación",
+          "Reuniones de stakeholders: 1 hora mínimo (no 30 min) — primer contacto + mapeo de procesos. 8 reuniones en 2 semanas (4 esta + 4 siguiente)",
+          "Doble dimensión de cada reunión: (1) mapeo de procesos, (2) oportunidad de venta — entender necesidades HR más amplias de Credicorp",
+          "Involucrar al equipo de PeopleSoft/Oracle temprano para asegurar que las propuestas sean técnicamente factibles"
+        ],
+        actions: [
+          { text: "Lucia: contactar a Gabriela esta semana e iniciar coordinación de 8 reuniones de stakeholders", owner: "Lucia Palomeque", due: "esta semana", status: "open" },
+          { text: "Completar 8 reuniones de stakeholders en 2 semanas (4 esta semana + 4 siguiente)", owner: "Equipo + Gabriela", due: "mid-may 2026", status: "open" },
+          { text: "Diseñar workshop con Pablo para mid-to-late mayo — presentar findings y modelo unificado", owner: "Mara / Equipo", due: "may 2026", status: "open" },
+          { text: "Mostrar dashboard del proyecto a Pablo en próxima sesión — herramienta de gestión interna", owner: "Mara", due: "may 2026", status: "open" },
+          { text: "Involucrar equipo PeopleSoft/Oracle en el proceso para validar factibilidad técnica", owner: "Sasan", due: "may 2026", status: "open" }
+        ]
+      },
       { date: "30 mar 2026", title: "Reunión interna de alineación", type: "reunion", imp: true,
         participants: ["Mara Schmitman", "Juan", "Lucía", "Sasan Maniei"],
         content: "Identificación de Alicia como contacto clave. Ventana limitada antes de 15 días de vacaciones. Restricción crítica: PeopleSoft en implementación.",
@@ -1076,8 +1100,8 @@ const PROJECTS = {
   },
   romy: {
     name: "Mobility — Romina", sub: "Responsable: Romina Mitidieri Villacorta · Programa de movilidad internacional LATAM",
-    avatar: "M", status: "En riesgo", lastMeeting: "10 abr 2026",
-    gantt: { start: '2025-12', end: '2026-07', phase: 'Cierre Benchmarks + Playbook' },
+    avatar: "M", status: "En curso", lastMeeting: "27 abr 2026",
+    gantt: { start: '2025-12', end: '2026-07', phase: 'Mobility 360 — nuevo modelo + sesión 29 abr' },
     docs: [
       { name: "Análisis Kickoff Movilidad Credicorp", type: "📄", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1tV6ZWZhLuQHdGL8--fkWwAOIlCRfoaeU2lc8cfxbff8/edit" },
       { name: "Sprint Roadmap Movilidad", type: "📊", meta: "feb 2026", status: "wip", statusLabel: "En revisión", gdrive: "https://docs.google.com/document/d/1n93kiYejsqy5OHFBZLUYAQGPPFu3MAYcguzVKzTyTMo/edit" },
@@ -1087,6 +1111,42 @@ const PROJECTS = {
       { name: "Playbook final + Agente IA", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
+      { date: "27 abr 2026", title: "Revisión interna — Mobility Talent Pool: principios, procesos y agenda mayo", type: "reunion", imp: true,
+        participants: ["Mara Schmitman", "Jorge Moreno", "Lucía Palomeque", "Sasan Maniei"],
+        content: "Revisión del estado del proyecto de Movilidad post Sesión Mobility 360 con Romy. Romy avanza con entregables incrementales sin objetivo de cierre claro. El equipo decide alinearse con la visión de Pablo (visibilizar la iniciativa) y escalar si los pedidos se desvían. Identificados deliverables clave para los próximos 15 días.",
+        insights: [
+          "Romy debe entregar 7 principios/lineamientos del employee journey — pendientes",
+          "3 procesos definidos; el tercero requiere validación de Pablo",
+          "Mara está armando documento de criterios de elegibilidad y formato PPT",
+          "Romy debe presentar modelo de compensación al equipo de Compensaciones (viernes)",
+          "Romy debe presentar criterios de elegibilidad a Rosela en la primera semana de mayo",
+          "Sesión de trabajo agendada 29 abr para finalizar materiales",
+          "Benchmark documentado: Boehringer, Mercado Libre, Natura, Nubank + posicionamiento contra Mercer 2025",
+          "Romy envió 'Filosofía de Movilidad Global' y 'Estrategia 2026-2028' con criterios (performance, trayectoria, antigüedad)",
+          "Documentos de Mobility y Benchmark deben pasarse a formato PPT para acompañar la presentación"
+        ],
+        actions: [
+          { text: "Romy: finalizar PPT y contactar a Guillermo de BCP para reunión de benchmark", owner: "Romy", due: "primeros días may", status: "open" },
+          { text: "Mara: cerrar documento de criterios de elegibilidad + PPT", owner: "Mara", due: "29 abr 2026", status: "open" },
+          { text: "Sesión de trabajo sincronizada — finalizar materiales antes de presentación de Romy", owner: "Equipo", due: "29 abr 2026", status: "open" },
+          { text: "Pasar Mobility doc + Benchmark a formato PPT", owner: "Lucía / Mara", due: "may 2026", status: "open" }
+        ]
+      },
+      { date: "20 abr 2026", title: "Sesión Mobility 360 con Romina — propuesta nuevo modelo", type: "reunion", imp: true,
+        participants: ["Romina Mitidieri (Credicorp)", "Mara Schmitman", "Lucía Palomeque", "Jorge Moreno"],
+        content: "Romina compartió la propuesta de los principios del nuevo modelo de Movilidad y la misión, objetivos e iniciativas de las 3 áreas clave del programa. Se trabajó sobre la estrategia 2026-2028 y los pilares definidos previamente con Pablo (Bridge con Talento, Benchmark, Comunicación, Agente IA).",
+        insights: [
+          "Romy entregó propuesta de principios del nuevo modelo de Movilidad",
+          "Definidos: misión, objetivos e iniciativas para las 3 áreas clave del programa",
+          "Trabajo alineado con la estrategia 2026-2028 entregada previamente",
+          "Pendiente: política formal de movilidad (Romy aún no la escribió) + presentación a Pablo y Rosela",
+          "Una vez aprobada la política, se activa el playbook completo y se presenta a Talento"
+        ],
+        actions: [
+          { text: "Romy: finalizar política formal de movilidad y agendar presentación con Pablo + Rosela", owner: "Romy", due: "abr-may 2026", status: "open" },
+          { text: "Activar playbook completo post aprobación de la política", owner: "Equipo", due: "may 2026", status: "open" }
+        ]
+      },
       { date: "9 mar 2026", title: "Reunión con Pablo — Movilidad: KPIs, benchmarks y estrategia con Desarrollo", type: "reunion", imp: true,
         participants: ["Pablo Silva (Credicorp)", "Jorge Moreno", "Juan Fornaguera", "Sasan Maniei"],
         content: "Jorge presentó el estado del proyecto de Movilidad. Solo 7 mobilities/año sobre 45.000 empleados. Benchmarks completados: Nua y Philips. En gestión: MeLi, Itaú, BBVA, Santander, Rappi, Grupo Banco Colombia, Falabella. Pablo advirtió que el equipo de Desarrollo es 'especial' — no convocarlos hasta tener el playbook sólido. Mercer ya trabajó una base.",
@@ -1167,8 +1227,8 @@ const PROJECTS = {
   },
   brasil: {
     name: "Hub Brasil — Lucía G.", sub: "Responsable: Lucia Guelfo · Go-live junio 2026 — nómina, change mgmt, EVP",
-    avatar: "B", status: "En curso", lastMeeting: "13 abr 2026",
-    gantt: { start: '2025-12', end: '2026-06', phase: 'Go-live Junio → Nómina + Change Mgmt' },
+    avatar: "B", status: "En curso", lastMeeting: "27 abr 2026",
+    gantt: { start: '2025-12', end: '2026-06', phase: 'Evaluación BPO (Auxadi/TMF/Grant Thornton) + Change Mgmt' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit" },
       { name: "Esqueleto Handbook Hub Brasil v2.0", type: "📄", meta: "ene 2026", status: "wip", statusLabel: "En revisión", gdrive: "https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit" },
@@ -1181,6 +1241,61 @@ const PROJECTS = {
       { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
+      { date: "27 abr 2026", title: "Grant Thornton entrega documentación para BPO Brasil + Auxadi en pausa", type: "reunion", imp: true,
+        participants: ["Lucila Guelfo (Credicorp)", "Lucia Palomeque", "Mara Schmitman", "Gabriel Pott (Grant Thornton)"],
+        content: "Grant Thornton entregó documentos solicitados (incluido Articles of Association) y la propuesta sigue en proceso interno de validación de Credicorp. En paralelo, Lucia P. envió follow-up urgente a Auxadi por información pendiente desde el 20 abr — sin esa documentación no se puede avanzar con la decisión de proveedor.",
+        insights: [
+          "Grant Thornton confirmado como uno de los proveedores en evaluación activa",
+          "Auxadi quedó en pausa esperando que Manrique (Auxadi) envíe documentación pedida el 20 abr",
+          "TMF Group también en evaluación — propuesta enviada con corrección de tarifas USD; pendiente info de entidad Brasil",
+          "Tres proveedores BPO compitiendo: Auxadi, TMF Group, Grant Thornton",
+          "Decisión bloqueada por documentación de cumplimiento interno Credicorp"
+        ],
+        actions: [
+          { text: "Recibir documentación pendiente de Auxadi (Manrique) — desbloquea evaluación", owner: "Auxadi → Lucia P.", due: "esta semana — URGENTE", status: "open" },
+          { text: "Cerrar shortlist BPO Brasil con Pablo: Auxadi vs TMF vs Grant Thornton", owner: "Mara / Lucia P.", due: "may 2026", status: "open" }
+        ]
+      },
+      { date: "23 abr 2026", title: "Grant Thornton entrega propuesta BPO Brasil", type: "reunion", imp: true,
+        participants: ["Gabriel Pott (Grant Thornton)", "Lucila Guelfo (Credicorp)", "Lucia Palomeque", "Mara Schmitman"],
+        content: "Grant Thornton (BR) envió propuesta formal de servicios BPO para Credi Corp Brasil Ltda. Lucila confirmó recepción y solicitó documentación adicional para iniciar el proceso de validación interna.",
+        insights: [
+          "Cuarto proveedor BPO ingresa al proceso (junto a Auxadi, TMF, LG)",
+          "Equipo de Grant Thornton involucrado en propuesta: D. Satolo, Claudia Rossi, Roberta Taconi, Reinaldo Teixeira, Camila Salcedo, Amanda Goncalves",
+          "Lucila pidió documentación de validación interna — proceso paralelo al de Auxadi y TMF"
+        ],
+        actions: [
+          { text: "Grant Thornton: enviar documentación adicional para validación interna", owner: "Gabriel Pott", due: "abr 2026", status: "done" },
+          { text: "Lucila: completar evaluación interna de cumplimiento", owner: "Lucila Guelfo", due: "may 2026", status: "open" }
+        ]
+      },
+      { date: "20 abr 2026", title: "Auxadi y TMF — solicitud de info de cumplimiento + corrección de tarifas", type: "reunion", imp: true,
+        participants: ["Lucila Guelfo (Credicorp)", "Sasan Maniei", "Lucia Palomeque", "Manrique Blen (Auxadi)", "Benito Juarez (TMF)"],
+        content: "Lucila envió a Auxadi y TMF los formularios de información que el área de cumplimiento interno de Credicorp requiere para evaluar las propuestas. TMF detectó error de tipeo en las tarifas USD y envió propuesta corregida. Auxadi confirmó que procederá a completar.",
+        insights: [
+          "Cumplimiento interno Credicorp es paso obligatorio antes de avanzar con cualquier BPO",
+          "TMF envió propuesta actualizada por error de tarifas USD",
+          "Auxadi tardó en confirmar recepción de propuesta original — Sasan y Lucia P. tuvieron que escalar",
+          "Plazo crítico: la información de cumplimiento debe completarse rápido para no atrasar go-live de junio"
+        ],
+        actions: [
+          { text: "Auxadi: completar formularios de cumplimiento interno Credicorp", owner: "Manrique / Auxadi", due: "abr 2026", status: "open" },
+          { text: "TMF: enviar info de entidad Brasil para evaluación", owner: "Benito Juarez / TMF", due: "abr 2026", status: "open" }
+        ]
+      },
+      { date: "14 abr 2026", title: "Contacto Auxadi por Hub Brasil — proveedor de nómina BPO", type: "reunion", imp: true,
+        participants: ["Manrique Blen (Auxadi)", "Jose Carlos Elena (Auxadi)", "Mara Schmitman", "Lucia Palomeque"],
+        content: "Reunión de contacto inicial con Auxadi para evaluar capacidades de payroll BPO en Brasil. Credicorp definido como Perú's largest financial group estableciendo operaciones en Brasil con ~35 empleados internacionales remotos. CNPJ en proceso de obtención.",
+        insights: [
+          "Credicorp está obteniendo CNPJ (Brazilian tax ID) para contratar bajo CLT",
+          "Auxadi seleccionado como uno de los top candidatos para BPO de nómina Brasil",
+          "Auxadi tiene presencia global y experiencia en payroll multi-país",
+          "~35 empleados a transicionar de TRI Brasil (international remote) a Finnova Serviços (CLT local)"
+        ],
+        actions: [
+          { text: "Auxadi: enviar propuesta formal de servicios BPO", owner: "Auxadi", due: "abr 2026", status: "done" }
+        ]
+      },
       { date: "13 abr 2026", title: "Levantamiento con LG (Brasil) — software HR + ruta a BPO", type: "reunion", imp: true,
         participants: ["Adassa Gomes (LG)", "Lucia Palomeque", "Lucila Guelfo (Credicorp)", "Mara Schmitman", "Equipo LG"],
         content: "Evaluación de la plataforma HR de LG (líder LATAM, +30 módulos, ISO 27001/27018, ISAE 3402 Type 2) para el hub de Brasil. Restricción crítica: implementación de ~40 días para cumplir primera nómina de junio. Hallazgo clave: LG provee solo el software, no BPO de nómina — Credicorp prefiere BPO de un solo proveedor, por lo que LG conectará con socios verificados.",
@@ -1338,17 +1453,18 @@ const PROJECTS = {
 
 // ── UPCOMING MEETINGS (futuras) ──
 const UPCOMING = [
-  { date: '2026-04-15', title: 'Benchmark Nestlé — Movilidad (confirmado hoy)', project: 'romy', type: 'future' },
-  { date: '2026-04-15', title: 'Revisión onboarding con Alicia — arranque workstream', project: 'alicia', type: 'future' },
-  { date: '2026-04-20', title: 'Benchmark Worley — Movilidad (confirmado)', project: 'romy', type: 'future' },
-  { date: '2026-04-21', title: 'Shortlist proveedores nómina Brasil → recomendación a Pablo (DEADLINE)', project: 'brasil', type: 'future' },
-  { date: '2026-04-25', title: 'Entrega informe cierre benchmarks Mobility a Pablo / Lucho', project: 'romy', type: 'future' },
-  { date: '2026-04-30', title: 'Armar plan change mgmt Hub Brasil (presencial SP + virtual)', project: 'brasil', type: 'future' },
-  { date: '2026-05-03', title: 'Viaje +Partners a Chile', project: 'romy', type: 'future' },
+  { date: '2026-04-29', title: 'Sesión de trabajo Mobility — finalizar materiales antes de presentación de Romy', project: 'romy', type: 'future' },
+  { date: '2026-05-01', title: 'Romy presenta criterios de elegibilidad a Rosela (1ra semana mayo)', project: 'romy', type: 'future' },
+  { date: '2026-05-04', title: 'Cerrar shortlist BPO Brasil (Auxadi vs TMF vs Grant Thornton) con Pablo', project: 'brasil', type: 'future' },
+  { date: '2026-05-08', title: 'Completar 4 primeras reuniones de stakeholders Onboarding (8 empresas)', project: 'alicia', type: 'future' },
   { date: '2026-05-15', title: 'Plan change mgmt Hub Brasil — presentaciones stakeholders SP', project: 'brasil', type: 'future' },
+  { date: '2026-05-15', title: 'Completar 4 reuniones siguientes Onboarding + iniciar análisis', project: 'alicia', type: 'future' },
+  { date: '2026-05-18', title: 'Call mensual con Pablo — checkpoint crítico Onboarding', project: 'alicia', type: 'future' },
+  { date: '2026-05-22', title: 'Workshop con Pablo — findings Onboarding + modelo unificado', project: 'alicia', type: 'future' },
   { date: '2026-05-31', title: 'DEADLINE: Renovación contrato Credicorp', project: 'alicia', type: 'future' },
-  { date: '2026-06-07', title: 'Viaje +Partners a Madrid', project: 'romy', type: 'future' },
-  { date: '2026-06-30', title: 'Go-live Hub Brasil — primer nómina', project: 'brasil', type: 'future' },
+  { date: '2026-06-01', title: 'Hub Brasil launch SP (escenario presencial change mgmt)', project: 'brasil', type: 'future' },
+  { date: '2026-06-07', title: 'Viaje +Partners a Madrid (Madrid Fintech Week 6-12 jun)', project: 'romy', type: 'future' },
+  { date: '2026-06-30', title: 'Go-live Hub Brasil — primer nómina con BPO Brasil', project: 'brasil', type: 'future' },
 ];
 
 // ── GANTT ──
