@@ -352,6 +352,20 @@ select.btn { cursor: pointer; }
 .team-role { font-size: 10px; color: var(--text-3); }
 @media (max-width: 900px) { .dash-two-col { grid-template-columns: 1fr; } .dash-right-panel { position: static; } }
 
+@media print {
+  body { background: #fff !important; }
+  .header, #btn-back, #btn-admin, #btn-timeline, #ingest-section, #readonly-banner, #modal-admin, .modal-overlay, .breadcrumb, .click-hint, .cal-nav, .ingest-box { display: none !important; }
+  .pablo-header button { display: none !important; }
+  .container { max-width: 100% !important; padding: 0 !important; }
+  .dash-two-col { display: block !important; }
+  .dash-left-col, .dash-right-panel { width: 100% !important; }
+  .project-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none !important; border: 1px solid #ccc !important; }
+  .section-hdr { page-break-after: avoid; }
+  .gantt-wrapper, .cal-wrapper { page-break-inside: avoid; }
+  h1 { font-size: 18pt !important; }
+  body, .pc-name, ul, li, p { font-size: 9.5pt !important; line-height: 1.4 !important; }
+  .pill { border: 1px solid #ccc !important; }
+}
 </style>
 </head>
 <body>
@@ -431,21 +445,22 @@ select.btn { cursor: pointer; }
     <!-- PABLO HEADER -->
     <div class="pablo-header" id="pablo-header-visible">
       <div class="pablo-header-left">
-        <h1>Credicorp — Proyecto de Consultoría</h1>
-        <p>Panel de seguimiento · Preparado por +Partners · Actualizado hoy</p>
+        <h1>Credicorp — Programa de transformación HR</h1>
+        <p>Panel de seguimiento · Preparado por +Partners · Actualizado al 15 de mayo 2026</p>
       </div>
       <div class="pablo-header-right">
         <div class="pablo-logo">+Partners</div>
         <div class="pablo-date" id="pablo-today-date"></div>
+        <button onclick="window.print()" style="margin-top:.5rem;padding:.5rem .9rem;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:.8rem;color:var(--text);display:inline-flex;align-items:center;gap:.4rem;" title="Imprimir o guardar como PDF para circular internamente">📄 Exportar bullets a PDF</button>
       </div>
     </div>
 
     <!-- METRICS -->
     <div class="summary-grid">
-      <div class="metric-card"><div class="metric-label">Proyectos</div><div class="metric-value">4</div></div>
-      <div class="metric-card"><div class="metric-label">En curso</div><div class="metric-value green" id="c-green">2</div></div>
-      <div class="metric-card"><div class="metric-label">En riesgo</div><div class="metric-value amber" id="c-amber">1</div></div>
-      <div class="metric-card"><div class="metric-label">Bloqueados</div><div class="metric-value red" id="c-red">1</div></div>
+      <div class="metric-card"><div class="metric-label">Frentes activos</div><div class="metric-value">4</div></div>
+      <div class="metric-card"><div class="metric-label">En ejecución</div><div class="metric-value green" id="c-green">3</div></div>
+      <div class="metric-card"><div class="metric-label">En riesgo</div><div class="metric-value amber" id="c-amber">0</div></div>
+      <div class="metric-card"><div class="metric-label">Bloqueado IT</div><div class="metric-value red" id="c-red">1</div></div>
     </div>
 
     <div class="dash-two-col"><div class="dash-left-col">
@@ -482,105 +497,244 @@ select.btn { cursor: pointer; }
     <div class="projects-grid">
       <div class="project-card" onclick="openProject('alicia')" id="card-alicia">
         <div class="pc-header">
-          <div><div class="pc-name">Alicia — Ops/HR Tech</div><div class="pc-sub">Digitalización y automatización de procesos HR</div></div>
-          <span class="pill pill-amber" id="pill-alicia"><span class="dot dot-amber"></span>En curso</span>
+          <div><div class="pc-name">Onboarding TOPS — Alicia</div><div class="pc-sub">Arquitectura unificada para 8 empresas del grupo · fase 1 relevamiento</div></div>
+          <span class="pill pill-green" id="pill-alicia"><span class="dot dot-green"></span>En ejecución</span>
         </div>
         <div class="meta-row">
-          <span class="meta-item"><strong>Última reunión:</strong> <span id="md-alicia">9 abr 2026 (con Pablo)</span></span>
-          <span class="meta-item"><strong>Prioridades:</strong> ILP + Onboarding</span>
+          <span class="meta-item"><strong>Última reunión:</strong> <span id="md-alicia">13 may 2026</span></span>
+          <span class="meta-item"><strong>Estado:</strong> 4/5 entrevistas agendadas</span>
         </div>
         <div class="divider"></div>
         <div class="label-xs">Próximos pasos</div>
         <ul class="mini-list" id="tasks-alicia">
-          <li>Arranque con Alicia — regresó el 13 abr</li>
-          <li>P1: Abrir workstream agente ILP/LTI (300 TOPs, target Q1 2027)</li>
-          <li>P2: Revisión de onboarding con Alicia post 13 abr</li>
+          <li>Entrevistas BCP/Grupo Crédito, Pacífico Seguros+Prima AFP, Mibanco, Credicorp Capital (12–22 may)</li>
+          <li>Confirmar agenda Pacífico Salud (única empresa pendiente)</li>
+          <li>Síntesis de hallazgos + mapa de brechas (semana del 26 may)</li>
+          <li>Workshop con Pablo para presentar arquitectura unificada</li>
         </ul>
         <div class="divider"></div>
         <div class="label-xs">Riesgos</div>
         <ul class="mini-list risk-list" id="risks-alicia">
-          <li>Agente ILP requiere autorizaciones de seguridad</li>
-          <li>Bono España descartado — solo 3 tops</li>
+          <li>Fase 2 (TRI + Asignación Internacional) recién después de fase 1 local (90%)</li>
         </ul>
         <div class="click-hint">Ver detalle completo →</div>
       </div>
 
       <div class="project-card" onclick="openProject('romy')" id="card-romy">
         <div class="pc-header">
-          <div><div class="pc-name">Romy — Movilidad</div><div class="pc-sub">Programa de movilidad internacional LATAM</div></div>
-          <span class="pill pill-amber" id="pill-romy"><span class="dot dot-amber"></span>Entregables listos</span>
+          <div><div class="pc-name">Mobility 360 — Romy</div><div class="pc-sub">De "centro de costo" a habilitador estratégico de OKRs</div></div>
+          <span class="pill pill-green" id="pill-romy"><span class="dot dot-green"></span>Caso estratégico armado</span>
         </div>
         <div class="meta-row">
-          <span class="meta-item"><strong>Última actividad:</strong> <span id="md-romy">9 abr 2026</span></span>
-          <span class="meta-item"><strong>Entregables:</strong> Diagnóstico HTML + 2 playbooks</span>
+          <span class="meta-item"><strong>Última actividad:</strong> <span id="md-romy">11 may 2026</span></span>
+          <span class="meta-item"><strong>Entregables:</strong> 5 benchmarks + 2 manuales + Mobile Talent Pool</span>
         </div>
         <div class="divider"></div>
         <div class="label-xs">Próximos pasos</div>
         <ul class="mini-list" id="tasks-romy">
-          <li>Presentar entregables a Romy y liderazgo</li>
-          <li>Agente Movilidad en pausa hasta desbloqueo de GISE GPT</li>
-          <li>Seguir presionando coordinación con equipo Talento</li>
+          <li>Iterar storytelling de manuales para presentación a Rosela</li>
+          <li>Cerrar definiciones de short-term assignments</li>
+          <li>Activación cross-area con Talent Development (clearance Ross + Pablo)</li>
+          <li>Plan de despliegue + comunicación nuevo modelo (deadline 26 sep)</li>
         </ul>
         <div class="divider"></div>
         <div class="label-xs">Riesgos</div>
         <ul class="mini-list risk-list" id="risks-romy">
-          <li>Agente Movilidad bloqueado por IT (dependencia Copilot)</li>
-          <li>Sin reuniones nuevas con Talento</li>
+          <li>Activación Mobile Talent Pool depende de clearance con Talent Development</li>
         </ul>
         <div class="click-hint">Ver detalle completo →</div>
       </div>
 
       <div class="project-card" onclick="openProject('brasil')" id="card-brasil">
         <div class="pc-header">
-          <div><div class="pc-name">HUB Brasil / EVP</div><div class="pc-sub">Hub tecnológico São Paulo — 30→200 empleados</div></div>
-          <span class="pill pill-green" id="pill-brasil"><span class="dot dot-green"></span>Activo · alta intensidad</span>
+          <div><div class="pc-name">Hub Brasil — Lucila Guelfo</div><div class="pc-sub">Formalización CLT de 33 colaboradores senior IT · São Paulo</div></div>
+          <span class="pill pill-green" id="pill-brasil"><span class="dot dot-green"></span>Tramo crítico · alta intensidad</span>
         </div>
         <div class="meta-row">
-          <span class="meta-item"><strong>Última reunión:</strong> <span id="md-brasil">13 abr 2026 (LG)</span></span>
-          <span class="meta-item"><strong>Deadline:</strong> 1ra nómina junio 2026</span>
+          <span class="meta-item"><strong>Última reunión:</strong> <span id="md-brasil">13 may 2026 (LG)</span></span>
+          <span class="meta-item"><strong>Launch:</strong> 26 jun 2026</span>
         </div>
         <div class="divider"></div>
         <div class="label-xs">Próximos pasos</div>
         <ul class="mini-list" id="tasks-brasil">
-          <li>LG conecta con Yusara (BPO partners) — 2-3 recomendaciones</li>
-          <li>Reunión Change Management con Pablo Silva (convocada por Lucila)</li>
-          <li>Call con Auxadi 14 abr + seguimiento Stone, Koin, ADP</li>
-          <li>Evaluar BPOs: implementación ≤40 días + controles ciberseguridad</li>
+          <li>Cerrar proveedor nómina · 4 propuestas en mesa: Auxadi, TMF, ADP, TOTVS + Grant Thornton</li>
+          <li>Validar poderes apostillados (Grupo Crédito empujando tiempos)</li>
+          <li>Confirmar logística São Paulo + 1:1 con los 4 TOPS (Andrés, Fernando, Giancarlo, Wellington)</li>
+          <li>Despliegue plan change management · mayo + 1ra quincena junio</li>
         </ul>
         <div class="divider"></div>
         <div class="label-xs">Riesgos</div>
         <ul class="mini-list risk-list" id="risks-brasil">
-          <li>Ventana crítica: CNPJ fin abr → nómina junio = ~40 días</li>
-          <li>LG solo provee software; BPO de nómina es contrato separado</li>
-          <li>Aprobación requiere Finanzas + Ciberseguridad de Credicorp</li>
+          <li>1ra nómina junio · ventana ajustada para CNPJ + selección payroll</li>
+          <li>Aprobación requiere Finanzas + Ciberseguridad Credicorp</li>
         </ul>
         <div class="click-hint">Ver detalle completo →</div>
       </div>
 
       <div class="project-card" onclick="openProject('desempeno')" id="card-desempeno">
         <div class="pc-header">
-          <div><div class="pc-name">Desempeño</div><div class="pc-sub">Performance, feedback y OKRs</div></div>
-          <span class="pill pill-amber" id="pill-desempeno"><span class="dot dot-amber"></span>Stand-by</span>
+          <div><div class="pc-name">Desempeño / GiseGPT — Giselle</div><div class="pc-sub">Agente conversacional para objetivos · validado funcionalmente</div></div>
+          <span class="pill pill-red" id="pill-desempeno"><span class="dot dot-red"></span>Bloqueado IT · agente validado</span>
         </div>
         <div class="meta-row">
-          <span class="meta-item"><strong>Última actividad:</strong> <span id="md-desempeno">dic 2025</span></span>
-          <span class="meta-item"><strong>Fase:</strong> Diagnóstico inicial</span>
+          <span class="meta-item"><strong>Estado:</strong> <span id="md-desempeno">MVP listo · esperando IT</span></span>
+          <span class="meta-item"><strong>Pablo escala:</strong> Estela / Antonio</span>
         </div>
         <div class="divider"></div>
         <div class="label-xs">Próximos pasos</div>
         <ul class="mini-list" id="tasks-desempeno">
-          <li>Confirmar alcance con Credicorp — sin avances en 4+ meses</li>
-          <li>Mapear proceso actual de evaluación</li>
-          <li>Identificar conexión con compensación</li>
+          <li>Destrabar conversación con IT (compromiso Pablo del 9 abr)</li>
+          <li>Migración Copilot Studio → Copilot 365 (Studio se discontinúa)</li>
+          <li>Activación productiva con Giselle y equipo</li>
+          <li>Replicar mismo riel técnico en Onboarding, Mobility, Hub Brasil</li>
         </ul>
         <div class="divider"></div>
         <div class="label-xs">Riesgos</div>
         <ul class="mini-list risk-list" id="risks-desempeno">
-          <li>Sin reuniones desde dic 2025 — proyecto dormido</li>
+          <li>Bloqueado en IT desde 5 mar · sin respuesta — desbloqueo es interno tuyo</li>
         </ul>
         <div class="click-hint">Ver detalle completo →</div>
       </div>
     </div>
+
+    <!-- PROGRAMA EN EL MES 7 -->
+    <div class="section-hdr"><span class="section-label-lg">El programa en el mes 7</span></div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--r-md);padding:1.5rem;margin-bottom:1.25rem;">
+      <p style="margin:0 0 1rem 0;font-size:.95rem;line-height:1.6;color:var(--text);">Siete meses, cuatro frentes activos en paralelo, cero proyectos abandonados. <strong>Los seis proyectos elegidos al inicio tienen avance directo o derivado, y el universo del backlog macro se viene cubriendo más allá de esa selección inicial.</strong></p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin-top:1rem;">
+        <div style="background:#f7fbf3;border:1px solid #c9e3ad;border-radius:8px;padding:.9rem;">
+          <div style="font-size:1.6rem;font-weight:700;color:#639922;line-height:1;">6 / 6</div>
+          <div style="font-size:.78rem;color:#4a5b1e;margin-top:.4rem;line-height:1.3;">proyectos iniciales con avance directo o derivado</div>
+        </div>
+        <div style="background:#fef9ed;border:1px solid #f4d484;border-radius:8px;padding:.9rem;">
+          <div style="font-size:1.6rem;font-weight:700;color:#b8860b;line-height:1;">~12 / 40</div>
+          <div style="font-size:.78rem;color:#7c5e0a;margin-top:.4rem;line-height:1.3;">iniciativas del backlog macro tocadas directa o tangencialmente</div>
+        </div>
+        <div style="background:#eff6ff;border:1px solid #aacbf2;border-radius:8px;padding:.9rem;">
+          <div style="font-size:1.6rem;font-weight:700;color:#1e6fc7;line-height:1;">+3</div>
+          <div style="font-size:.78rem;color:#1a4a8a;margin-top:.4rem;line-height:1.3;">frentes nuevos del backlog macro que aparecieron y tomamos</div>
+        </div>
+        <div style="background:#f5f3ff;border:1px solid #cec9f6;border-radius:8px;padding:.9rem;">
+          <div style="font-size:1.6rem;font-weight:700;color:#5b4ad6;line-height:1;">~360 h</div>
+          <div style="font-size:.78rem;color:#3a2e8a;margin-top:.4rem;line-height:1.3;">horas estimadas invertidas (cliente + interna +Partners)</div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px dashed var(--border);">
+        <div class="label-xs" style="margin-bottom:.6rem;">Distribución estimada por frente</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem;font-size:.82rem;">
+          <div style="background:#f9f9f9;border-radius:6px;padding:.6rem .8rem;"><strong>Hub Brasil:</strong> ~140 h</div>
+          <div style="background:#f9f9f9;border-radius:6px;padding:.6rem .8rem;"><strong>Mobility 360:</strong> ~110 h</div>
+          <div style="background:#f9f9f9;border-radius:6px;padding:.6rem .8rem;"><strong>GiseGPT:</strong> ~65 h</div>
+          <div style="background:#f9f9f9;border-radius:6px;padding:.6rem .8rem;"><strong>Onboarding TOPS:</strong> ~35 h</div>
+          <div style="background:#f9f9f9;border-radius:6px;padding:.6rem .8rem;color:#666;"><em>Interna +Partners: ~30 h</em></div>
+        </div>
+        <p style="margin:.75rem 0 0 0;font-size:.72rem;color:#888;font-style:italic;">Estimación basada en cantidad de reuniones, sesiones de trabajo internas y entregables producidos por workstream. Ajuste fino disponible bajo pedido.</p>
+      </div>
+    </div>
+
+    <!-- 6 LÍNEAS DE VALOR TRANSVERSALES -->
+    <div class="section-hdr"><span class="section-label-lg">Seis líneas de valor que cruzan los cuatro frentes</span></div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--r-md);padding:1.5rem;margin-bottom:1.25rem;">
+      <p style="margin:0 0 1rem 0;font-size:.85rem;color:#666;font-style:italic;">Estas seis dimensiones aplican transversalmente a los cuatro proyectos activos. Son la forma en que el programa entrega valor más allá del entregable puntual de cada workstream.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.85rem;">
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">1 · Research externo</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">Heads of HR de empresas referentes a la mesa: Nubank, Mercado Libre, Philips, Accenture, Boehringer, ADP, Auxadi, TMF, TOTVS, Edenred, Wellhub, Caju, Adidas Brasil, Clara, Stone, Apdata.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">2 · Mapeo de dependencias internas</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">Qué piezas se mueven cuando se mueve algo. En Hub: SAP/SIGA + poderes + IT antiguo + nómina están acopladas. En Mobility: Mobile Talent Pool depende de Talent Development.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">3 · Conocimiento de la organización</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">Timing interno, vínculos con reportes directos, áreas con las que hay que hablar. Lu, Romy, Giselle, Alicia y Gabriela ya saben cómo trabajamos.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">4 · Soporte del equipo</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">Cadena de seguimientos con Gabriela durante licencia de Alicia. Cierre de proveedores cuando Lu estaba con stakeholders. Tu equipo conserva su foco.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">5 · Velocidad</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">4 semanas para short-list de proveedores Brasil. 5 semanas de Onboarding TOPS de idea a entrevistas. 60 km/h en una empresa que estructuralmente va a 20.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:8px;padding:.9rem 1rem;">
+          <div style="font-weight:600;font-size:.9rem;color:#2a2450;margin-bottom:.4rem;">6 · Aprendizaje acumulado</div>
+          <div style="font-size:.8rem;line-height:1.5;color:#444;">Con GiseGPT aprendimos que IT había que sumarlo el día uno. Con Romy sumamos a Talent día uno. Con Alicia entramos con guía estructurada en la primera sesión.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKLOG MACRO -->
+    <div class="section-hdr">
+      <span class="section-label-lg">Backlog vivo — cobertura del plan original</span>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--r-md);padding:1.5rem;margin-bottom:1.25rem;">
+      <p style="margin:0 0 1rem 0;font-size:.85rem;color:#666;font-style:italic;">El programa arrancó con cuatro ejes estratégicos y 40 iniciativas. Los seis proyectos elegidos para los primeros seis meses están abajo, más los frentes que aparecieron en el camino y los próximos lógicos del backlog macro.</p>
+
+      <div class="label-xs" style="margin:.5rem 0;">Selección original · 6 proyectos elegidos para los primeros 6 meses</div>
+      <div style="display:grid;gap:.6rem;margin-bottom:1.25rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#f7fbf3;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>1.</strong> Creación Hub BR y Arg / Benchmark Hub Brasil</span>
+          <span style="color:#639922;font-weight:600;font-size:.75rem;">✓ Overdelivered</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fef9ed;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>2.</strong> Global Talent Cloud</span>
+          <span style="color:#b8860b;font-weight:600;font-size:.75rem;">◐ Parcial · Mobile Talent Pool</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#eff6ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>3.</strong> Modelo de Desempeño en Yape</span>
+          <span style="color:#1e6fc7;font-weight:600;font-size:.75rem;">⟶ Puente abierto · Lu con Álvaro</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#eff6ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>4.</strong> Chat ILP GV</span>
+          <span style="color:#1e6fc7;font-weight:600;font-size:.75rem;">⟶ Riel listo · target Q1 2027</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#f9f9f9;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>5.</strong> Modelo de Desempeño en Krealo</span>
+          <span style="color:#888;font-weight:600;font-size:.75rem;">○ No iniciado</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fef9ed;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <span><strong>6.</strong> Agente IA Ejecutivo</span>
+          <span style="color:#b8860b;font-weight:600;font-size:.75rem;">◐ Parcial · Copilots por proyecto</span>
+        </div>
+      </div>
+
+      <div class="label-xs" style="margin:.5rem 0;">Frentes nuevos del backlog macro tomados en el camino</div>
+      <div style="display:grid;gap:.6rem;margin-bottom:1.25rem;">
+        <div style="background:#f7fbf3;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Onboarding TOPS</strong> <span style="color:#888;">— iniciativa 35.</span> Activado por Pablo el 9 abr. Entrevistas arrancan esta semana.
+        </div>
+        <div style="background:#f7fbf3;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>GiseGPT / Bot de objetivos</strong> <span style="color:#888;">— iniciativa 24.</span> Construido, probado y validado. Bloqueado esperando IT.
+        </div>
+        <div style="background:#f7fbf3;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Mobility 360 ampliado</strong> <span style="color:#888;">— iniciativas 4, 5, 31, 32, 33.</span> Cinco iniciativas convergieron en el trabajo con Romy.
+        </div>
+      </div>
+
+      <div class="label-xs" style="margin:.5rem 0;">Próximos lógicos · iniciativas con puente construido</div>
+      <div style="display:grid;gap:.6rem;">
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Chat ILP GV</strong> <span style="color:#888;">(28)</span> — riel hecho con GiseGPT, Pablo lo trajo el 9 abr.
+        </div>
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Offboarding ejecutivo</strong> <span style="color:#888;">(36)</span> — espejo natural del Onboarding TOPS.
+        </div>
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Agentes IA Ejecutivo y EdP</strong> <span style="color:#888;">(37, 39)</span> — Copilots actuales son fase uno del concepto.
+        </div>
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Dashboards Desempeño y Mobility</strong> <span style="color:#888;">(27, 31)</span> — el tablero del programa es prueba de concepto.
+        </div>
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Modelo Desempeño Yape</strong> <span style="color:#888;">(16)</span> — Lu ya tiene vínculo directo con Álvaro.
+        </div>
+        <div style="background:#f5f3ff;border-radius:6px;padding:.55rem .85rem;font-size:.82rem;">
+          <strong>Mobility Experience + Capacitaciones</strong> <span style="color:#888;">(32, 33)</span> — manuales con Romy son input directo.
+        </div>
+      </div>
+    </div>
+
     </div><!-- end dash-left-col -->
 
     <!-- COLUMNA DERECHA: Scope + Equipo + Contactos -->
@@ -1473,7 +1627,7 @@ const UPCOMING = [
 function renderGantt() {
   const months = ['Dic 25','Ene 26','Feb 26','Mar 26','Abr 26','May 26','Jun 26','Jul 26','Ago 26'];
   const monthKeys = ['2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08'];
-  const todayKey = '2026-04';
+  const todayKey = '2026-05';
   const todayIdx = monthKeys.indexOf(todayKey);
 
   const barStyles = { 'En curso': 'bar-active', 'En riesgo': 'bar-risk', 'Bloqueado': 'bar-blocked' };
