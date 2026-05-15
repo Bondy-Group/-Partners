@@ -1,0 +1,113 @@
+{
+  "last_updated": "2026-05-15T11:45:00-03:00",
+  "source": "manual + Gmail seguimiento Credicorp",
+  "meetings": [
+    {
+      "date": "2026-05-15",
+      "time": "11:30",
+      "tz": "ART",
+      "title": "Hub Brasil — seguimiento",
+      "project": "brasil",
+      "participants": ["Lucila Guelfo", "Lucía Palomeque", "Mara Schmitman"],
+      "platform": "MS Teams",
+      "status": "confirmada",
+      "source_email_id": null
+    },
+    {
+      "date": "2026-05-18",
+      "time": "10:30",
+      "tz": "ART",
+      "title": "Reunión mensual con Pablo — seguimiento + decisión renovación contrato",
+      "project": "general",
+      "participants": ["Pablo Silva", "Mara Schmitman", "Jorge Moreno", "Sasan Maniei", "Juan Fornaguera", "Lucía Palomeque"],
+      "platform": "MS Teams",
+      "status": "confirmada",
+      "critical": true,
+      "notes": "Decisión renovación de contrato (vence 31 may)"
+    },
+    {
+      "date": "2026-05-19",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Entrevista Onboarding TOPS — BCP / Grupo Crédito",
+      "project": "alicia",
+      "participants": ["Gabriela Aguilar (BCP)", "Alicia Rivera", "Mara Schmitman", "Lucía Palomeque", "Juan Fornaguera"],
+      "platform": "TBD",
+      "status": "agendada"
+    },
+    {
+      "date": "2026-05-20",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Entrevista Onboarding TOPS — Pacífico Seguros + Prima AFP",
+      "project": "alicia",
+      "participants": ["Victor Garron (Pacífico)", "Gabriela Aguilar", "Alicia Rivera", "Mara Schmitman", "Lucía Palomeque"],
+      "platform": "TBD",
+      "status": "agendada"
+    },
+    {
+      "date": "2026-05-21",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Entrevista Onboarding TOPS — Credicorp Capital",
+      "project": "alicia",
+      "participants": ["Daniela Durand (Credicorp Capital)", "Gabriela Aguilar", "Alicia Rivera", "Mara Schmitman", "Lucía Palomeque"],
+      "platform": "TBD",
+      "status": "agendada"
+    },
+    {
+      "date": "2026-05-22",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Entrevista Onboarding TOPS — Mibanco (Perú)",
+      "project": "alicia",
+      "participants": ["Freddy Collao (Mibanco)", "Pier Preciado (Mibanco)", "Gabriela Aguilar", "Alicia Rivera", "Mara Schmitman", "Lucía Palomeque"],
+      "platform": "TBD",
+      "status": "agendada"
+    },
+    {
+      "date": "2026-05-26",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Síntesis hallazgos Onboarding + workshop interno",
+      "project": "alicia",
+      "participants": ["Equipo +Partners"],
+      "platform": "Interno",
+      "status": "proyectada"
+    },
+    {
+      "date": "2026-05-27",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Hub Brasil — definición proveedor payroll",
+      "project": "brasil",
+      "participants": ["Lucila Guelfo", "Equipo +Partners"],
+      "platform": "TBD",
+      "status": "proyectada",
+      "critical": true,
+      "notes": "Decisión Auxadi / TMF / ADP / TOTVS / Grant Thornton"
+    },
+    {
+      "date": "2026-05-30",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "Romy presenta caso estratégico a Rosela",
+      "project": "romy",
+      "participants": ["Romina Mitidieri", "Rosela", "(apoyo +Partners)"],
+      "platform": "TBD",
+      "status": "proyectada"
+    },
+    {
+      "date": "2026-06-26",
+      "time": "08:30",
+      "tz": "BRT",
+      "title": "🇧🇷 LAUNCH BREAKFAST Hub Brasil",
+      "project": "brasil",
+      "participants": ["Álvaro (CEO Yape)", "33 colaboradores São Paulo", "Lucila Guelfo", "Equipo +Partners"],
+      "platform": "Presencial São Paulo",
+      "status": "agendada",
+      "critical": true,
+      "notes": "Launch oficial · formalización CLT 33 senior IT"
+    }
+  ]
+}
