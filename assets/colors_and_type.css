@@ -1,0 +1,192 @@
+/* =============================================================
+   Credicorp × +Partners — Colors & Type
+   Source of truth: uploads/credicorp-design-tokens.json (v1.0.0)
+   ============================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* ---------- Brand ---------- */
+  --brand-pink:     #C832A0;   /* primary accent / CTAs / highlights */
+  --brand-teal:     #2BD6C8;   /* secondary / data viz / positive */
+  --brand-navy:     #1B2A4A;   /* headlines / dark surfaces */
+  --brand-navy-alt: #2A2560;   /* dashboard variant */
+
+  /* ---------- Neutrals ---------- */
+  --ink:     #0F1419;
+  --slate:   #475569;
+  --mute:    #94A3B8;
+  --line:    #E2E8F0;
+  --surface: #F8FAFC;
+  --bg:      #FFFFFF;
+
+  /* ---------- Semantic ---------- */
+  --success: var(--brand-teal);
+  --warning: #F59E0B;
+  --danger:  #E11D48;
+  --info:    var(--brand-navy);
+
+  /* ---------- Text ---------- */
+  --fg-1: var(--ink);     /* primary */
+  --fg-2: var(--slate);   /* secondary */
+  --fg-3: var(--mute);    /* tertiary */
+  --fg-on-dark: #FFFFFF;
+  --fg-accent:  var(--brand-pink);
+
+  /* ---------- Surfaces ---------- */
+  --bg-base:     var(--bg);
+  --bg-muted:    var(--surface);
+  --bg-inverted: var(--brand-navy);
+
+  /* ---------- Borders ---------- */
+  --border:        var(--line);
+  --border-strong: var(--slate);
+  --border-accent: var(--brand-pink);
+
+  /* ---------- Type families ---------- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---------- Weights ---------- */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ---------- Sizes ---------- */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1rem;
+  --fs-lg:   1.125rem;
+  --fs-xl:   1.25rem;
+  --fs-2xl:  1.5rem;
+  --fs-3xl:  1.875rem;
+  --fs-4xl:  2.25rem;
+  --fs-5xl:  3rem;
+
+  /* ---------- Line heights / tracking ---------- */
+  --lh-tight:   1.15;
+  --lh-snug:    1.35;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.7;
+  --tr-tight:   -0.02em;
+  --tr-normal:  0;
+  --tr-wide:    0.04em;
+
+  /* ---------- Spacing ---------- */
+  --sp-0:  0;
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-24: 96px;
+
+  /* ---------- Radii ---------- */
+  --r-none: 0;
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-full: 9999px;
+
+  /* ---------- Shadows ---------- */
+  --sh-sm: 0 1px 2px rgba(15, 20, 25, 0.06);
+  --sh-md: 0 4px 12px rgba(15, 20, 25, 0.08);
+  --sh-lg: 0 12px 32px rgba(27, 42, 74, 0.12);
+
+  /* ---------- +Partners house brand ----------
+     These are NOT the engagement palette — they're the +Partners firm's own marks.
+     Use them for +Partners-signed surfaces (cover slides, email sigs, "About" pages,
+     internal HR materials). Do not mix into Credicorp-engagement deliverables. */
+  --pp-blue-1:  #B8C5DD;   /* gradient start, light lavender-blue */
+  --pp-blue-2:  #7E96BD;
+  --pp-blue-3:  #2F5A93;
+  --pp-blue-4:  #0E3B7C;   /* gradient end, deep navy */
+  --pp-green:   #0F8E3F;   /* practice-area accent — Digital | Estrategia | Finanzas | GRC | RSE */
+  --pp-ink:     #0E3B7C;   /* primary text in HR/contact contexts */
+  --pp-grad:    linear-gradient(90deg, var(--pp-blue-1) 0%, var(--pp-blue-2) 35%, var(--pp-blue-3) 70%, var(--pp-blue-4) 100%);
+
+  /* ---------- Semantic typography (compiled from typography.* tokens) ---------- */
+}
+
+/* =============================================================
+   Semantic type roles — use these in product code.
+   ============================================================= */
+
+.t-display {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-5xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+}
+.t-h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-4xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+}
+.t-h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-snug);
+}
+.t-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-snug);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+.t-body-sm {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+}
+.t-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+}
+
+/* =============================================================
+   Element defaults — opt-in via a wrapper class .ds.
+   ============================================================= */
+
+.ds {
+  color: var(--fg-1);
+  background: var(--bg-base);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.ds h1 { all: unset; display: block; }
+.ds h1, .ds .h1 { font: var(--fw-bold) var(--fs-4xl)/var(--lh-tight) var(--font-sans); letter-spacing: var(--tr-tight); color: var(--fg-1); }
+.ds h2, .ds .h2 { font: var(--fw-semibold) var(--fs-3xl)/var(--lh-snug) var(--font-sans); color: var(--fg-1); }
+.ds h3, .ds .h3 { font: var(--fw-semibold) var(--fs-2xl)/var(--lh-snug) var(--font-sans); color: var(--fg-1); }
+.ds p { color: var(--fg-2); }
+.ds code, .ds kbd, .ds pre { font-family: var(--font-mono); font-size: 0.95em; }
+.ds a { color: var(--brand-pink); text-decoration: none; }
+.ds a:hover { text-decoration: underline; }
