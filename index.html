@@ -875,7 +875,8 @@ select.btn { cursor: pointer; }
     </div>
 
     <div class="tabs" id="project-tabs">
-      <button class="tab active" onclick="switchTab('timeline')">Reuniones</button>
+      <button class="tab active" onclick="switchTab('resumen')">📋 Resumen</button>
+      <button class="tab" onclick="switchTab('timeline')">Reuniones</button>
       <button class="tab" onclick="switchTab('tasks')">Tareas</button>
       <button class="tab admin-only" onclick="switchTab('transcripts')" id="tab-btn-transcripts" style="display:none;">🎙️ Transcripts</button>
       <button class="tab" onclick="switchTab('docs')">Documentos</button>
@@ -884,7 +885,8 @@ select.btn { cursor: pointer; }
 
     </div>
 
-    <div class="panel active panel-card" id="tab-timeline"></div>
+    <div class="panel active panel-card" id="tab-resumen"></div>
+    <div class="panel panel-card" id="tab-timeline"></div>
     <div class="panel panel-card" id="tab-tasks"></div>
     <div class="panel" id="tab-transcripts"></div>
     <div class="panel" id="tab-docs"></div>
@@ -1077,10 +1079,32 @@ const DRIVE_BASE = 'https://drive.google.com/drive/folders/';
 
 const PROJECTS = {
   alicia: {
-    name: "Alicia — Ops/HR Tech", sub: "Digitalización y automatización de procesos HR — Onboarding 8 empresas",
-    avatar: "A", status: "En curso", lastMeeting: "27 abr 2026",
-    gantt: { start: '2026-01', end: '2026-06', phase: 'Onboarding 8 empresas — diagnóstico + workshop' },
+    name: "Onboarding TOPS — Alicia", sub: "Arquitectura unificada de onboarding para 8 empresas del grupo · fase 1 relevamiento",
+    avatar: "A", status: "En curso", lastMeeting: "13 may 2026",
+    gantt: { start: '2026-01', end: '2026-08', phase: 'Onboarding 8 empresas — entrevistas + workshop' },
     timeline: [
+      { date: "13 may 2026", title: "Alicia activa coordinación de 4 entrevistas de relevamiento", type: "reunion", imp: true,
+        participants: ["Alicia Rivera (Credicorp)", "Gabriela Aguilar (BCP)", "Mara Schmitman", "Lucía Palomeque", "Juan Fornaguera"],
+        content: "Tras la licencia médica, Alicia retomó y en 48 horas formalizó por mail las 4 reuniones de relevamiento: BCP/Grupo Crédito (Gaby Aguilar), Pacífico Seguros + Prima AFP (Victor Garron), Mibanco Perú (Freddy Collao + Pier Preciado) y Credicorp Capital (Daniela Durand). Agustín Terrones (BCP) se sumó al equipo como punto de coordinación. Pacífico Salud pendiente de confirmar agenda.",
+        insights: [
+          "Bloqueador del 11 may resuelto el 13 may: Alicia respondió y movió 4 entrevistas en 48hs",
+          "Agustín Terrones suma capacidad de coordinación operativa del lado de Credicorp",
+          "5/6 empresas del grupo agendadas; falta solo Pacífico Salud",
+          "Foco fase 1 confirmado: modalidad local (90% del volumen); TRI y Asignación Internacional para fase 2"
+        ],
+        actions: [
+          { text: "Liderar las 4 entrevistas de relevamiento entre 14 y 22 may", owner: "Mara / Lucía", due: "22 may 2026", status: "open" },
+          { text: "Confirmar agenda con Pacífico Salud", owner: "Alicia / Agustín", due: "esta semana", status: "open" },
+          { text: "Síntesis de hallazgos + mapa de brechas", owner: "Equipo +Partners", due: "26 may 2026", status: "open" },
+          { text: "Workshop con Pablo para presentar arquitectura unificada", owner: "Mara", due: "mid-late may 2026", status: "open" }
+        ]
+      },
+      { date: "11 may 2026", title: "Alicia retoma post-licencia médica", type: "reunion", imp: false,
+        participants: ["Alicia Rivera (Credicorp)", "Juan Fornaguera", "Pablo Silva (Credicorp)"],
+        content: "Juan escaló por mail con copia a Pablo. Alicia respondió confirmando regreso y se comprometió a destrabar las 8 reuniones de relevamiento de stakeholders.",
+        insights: ["Mail de escalamiento generó respuesta en 24 horas", "Pablo en copia funcionó como respaldo institucional sin tener que intervenir directamente"],
+        actions: [{ text: "Esperar coordinación efectiva de Alicia y Gabriela", owner: "Alicia / Gaby", due: "esta semana", status: "done" }]
+      },
       { date: "27 abr 2026", title: "Kickoff Onboarding 8 empresas — diagnóstico + workshop con Pablo", type: "reunion", imp: true,
         participants: ["Mara Schmitman", "Jorge Moreno", "Sasan Maniei", "Lucía Palomeque", "Juan Fornaguera"],
         content: "Confirmado el scope del proyecto: estandarizar onboarding en las 8 empresas de Credicorp, desde aceptación de oferta hasta los primeros 90 días. Pablo rechazó introducir best practices (Nubank, etc.) en esta fase — primero entender el estado actual. Alicia operada de vesícula esta semana → Gabriela (su colega) será punto de contacto principal. Renovación de contrato: 31 de mayo es hard deadline.",
@@ -1251,7 +1275,30 @@ const PROJECTS = {
       { q: "¿Cuál es el roadmap exacto de implementación de PeopleSoft?", ctx: "Necesitamos saber qué módulos están activos para no proponer algo ya en el plan.", urgency: "Alta", owner: "Validar con Alicia" },
       { q: "¿Quiénes son los decisores formales del proyecto HR Tech?", ctx: "Identificar sponsors ejecutivos más allá de Alicia.", urgency: "Alta", owner: "Sasan / Pablo" },
       { q: "¿Existe presupuesto asignado para herramientas de automatización?", ctx: "Condiciona el tipo de soluciones a proponer.", urgency: "Media", owner: "Reunión con Alicia" }
-    ]
+    ],
+    pilares: {
+      research: [
+        "Backlog macro Credicorp (40 iniciativas) — identificación de Onboarding TOPS como bandera para Pablo",
+        "Best practices de onboarding tech: Nubank One Platform, modelos self-service para C-level",
+        "Conocimiento de arquitectura Oracle PeopleSoft HCM (destino post-blueprint)",
+        "Mapeo de los stakeholders en 5 de las 6 empresas del grupo (Pacífico Salud pendiente)"
+      ],
+      hitos: [
+        "30 mar · Identificación de Alicia como contacto clave",
+        "27 abr · Kickoff con Pablo: scope acotado a 8 empresas, fase 1 local (90%), fase 2 TRI + AI",
+        "11 may · Alicia retoma tras licencia médica y confirma compromiso",
+        "12–13 may · Agendadas 4 entrevistas de relevamiento (BCP, Pacífico Seguros+Prima AFP, Mibanco, Credicorp Capital)",
+        "13 may · Agustín Terrones (BCP) sumado al equipo como punto de coordinación"
+      ],
+      logros: "Pablo plantó Onboarding TOPS como bandera para mostrar a la organización qué significa unificar onboarding en 8 empresas del grupo. En menos de un mes acotamos el scope a algo accionable (modalidad local 90% en fase 1, mapeo de stakeholders, deadline de blueprint para migración HCM). Lo que faltaba era que la puerta se abriera del lado de Credicorp. Esta semana arrancan las entrevistas, con Alicia retomando y Agustín Terrones sumado al equipo.",
+      proximos: [
+        "Completar 4 entrevistas agendadas (12–22 may) + cerrar Pacífico Salud",
+        "Síntesis de hallazgos + mapa de brechas (semana del 26 may)",
+        "Workshop con Pablo: presentar arquitectura unificada propuesta",
+        "Fase 2 post-blueprint: incorporar TRI y Asignación Internacional",
+        "Conexión con equipo PeopleSoft/Oracle para validar factibilidad técnica"
+      ]
+    }
   },
   romy: {
     name: "Mobility — Romina", sub: "Responsable: Romina Mitidieri Villacorta · Programa de movilidad internacional LATAM",
@@ -1378,12 +1425,36 @@ const PROJECTS = {
       { q: "¿Por qué Romy no coordinó las reuniones con Talento?", ctx: "Pablo dice que Gestión y Desarrollo son 'especiales' — hay que llegar con playbook sólido antes de convocarlos.", urgency: "Alta", owner: "Pablo / Romy" },
       { q: "¿Cuál es la nueva fecha de go-live del playbook de Movilidad?", ctx: "El roadmap original era Feb-Abril. Está retrasado. Pablo pidió definir fechas con Romy.", urgency: "Alta", owner: "Jorge / Romy" },
       { q: "¿Cuántos movimientos internacionales maneja Credicorp por año?", ctx: "Dato clave para dimensionar el modelo.", urgency: "Media", owner: "Por indagar" }
-    ]
+    ],
+    pilares: {
+      research: [
+        "5 benchmarks profundos: Nubank, Philips, Mercado Libre, Accenture, Boehringer",
+        "Mercer 2025 Strategic Mobility Management Survey + Permanent Moves Market Practice",
+        "Heatmap comparativo + tabla de modelos publicada en GitHub Pages",
+        "Plantilla de business case con 5 KPIs post-movimiento (logros del rol, permanencia, movimiento posterior estratégico, actual vs. budget, satisfacción asignado+familia)"
+      ],
+      hitos: [
+        "10 feb · Kickoff con Romy: ausencia de modelo estructurado",
+        "Feb–mar · Manual Mobility v1 + análisis comparativo entregados",
+        "Mar–abr · Filosofía, objetivos y 3–4 modalidades de contratación definidas con Romy",
+        "Abr · Talent Mobility Pool + criterios de selección entregados",
+        "May · Reframing estratégico: de centro de costo a habilitador de OKRs del banco",
+        "11 may · Romy con todo el material listo para presentación a Rosela"
+      ],
+      logros: "Romy llegó pidiendo un business case clásico para defender presupuesto de Mobility. Le devolvimos otra cosa: una propuesta de valor que conecta Mobility con los OKRs del banco. Mobility deja de ser un centro de costo y se convierte en habilitador para desarrollar líderes y retener talento. Ese reframing es lo que va a hacer que Rosela compre el proyecto. Y ya está toda la munición lista — 5 benchmarks, plantilla, KPIs, criterios, Mobile Talent Pool — para que Romy la presente.",
+      proximos: [
+        "Iterar storytelling de manuales para presentación de Romy a Rosela",
+        "Cerrar definiciones de short-term assignments (último gap)",
+        "Activación cross-area con Talent Development (clearance Ross + Pablo)",
+        "Plan de despliegue + comunicación nuevo modelo (deadline 26 sep)",
+        "Activación Mobile Talent Pool post-clearance"
+      ]
+    }
   },
   brasil: {
-    name: "Hub Brasil — Lucía G.", sub: "Responsable: Lucia Guelfo · Go-live junio 2026 — nómina, change mgmt, EVP",
-    avatar: "B", status: "En curso", lastMeeting: "27 abr 2026",
-    gantt: { start: '2025-12', end: '2026-06', phase: 'Evaluación BPO (Auxadi/TMF/Grant Thornton) + Change Mgmt' },
+    name: "Hub Brasil — Lucila Guelfo", sub: "Formalización CLT de 33 colaboradores senior IT · São Paulo · launch 26 jun",
+    avatar: "B", status: "En curso", lastMeeting: "13 may 2026",
+    gantt: { start: '2025-12', end: '2026-08', phase: 'Hub Brasil — change mgmt + payroll selection' },
     docs: [
       { name: "Piso de EVP en Brasil — Tech Hub", type: "📊", meta: "feb 2026", status: "done", statusLabel: "Completado", gdrive: "https://docs.google.com/document/d/1pdIGe_hrbfieGq7uEm8FnyiGkvax7ajEk7jJ3_Neves/edit" },
       { name: "Esqueleto Handbook Hub Brasil v2.0", type: "📄", meta: "ene 2026", status: "wip", statusLabel: "En revisión", gdrive: "https://docs.google.com/document/d/1GFLLyCGylkGdqbPcAmaLB3Tj-wk6Ji5RLkENK_6QkKA/edit" },
@@ -1396,6 +1467,21 @@ const PROJECTS = {
       { name: "Informe ejecutivo final", type: "🎯", meta: "Pendiente", status: "pending", statusLabel: "Pendiente", gdrive: "" }
     ],
     timeline: [
+      { date: "13 may 2026", title: "Seguimiento Hub Brasil con LG · 4 propuestas payroll en mesa", type: "reunion", imp: true,
+        participants: ["Lucila Guelfo (Credicorp)", "Lucía Palomeque", "Mara Schmitman"],
+        content: "Reunión de seguimiento convocada por Lucila. Estado de proveedores: 4 propuestas formales recibidas (Auxadi, TMF, ADP Brasil, TOTVS) más Grant Thornton evaluando. Grupo Crédito presiona tiempos para validez de poderes apostillados. Foco las próximas 6 semanas en la convergencia operativa para launch del 26 jun.",
+        insights: [
+          "4 propuestas formales en mesa de evaluación: Auxadi, TMF, ADP Brasil, TOTVS · Grant Thornton también activo",
+          "Poderes apostillados son cuello de botella legal — Grupo Crédito empujando timeline",
+          "Launch 26 jun como deadline duro: kit Día 1 + 1:1s con TOPS + ceremonia con Álvaro",
+          "Sasan compartió Backlog Pablo S. xlsx como referencia transversal"
+        ],
+        actions: [
+          { text: "Cerrar proveedor nómina antes del primer payroll de junio", owner: "Lucila / Equipo", due: "fin may 2026", status: "open" },
+          { text: "Confirmar poderes apostillados", owner: "Grupo Crédito Legal", due: "may 2026", status: "open" },
+          { text: "Agendar 1:1 pre-launch con los 4 TOPS (Andrés, Fernando, Giancarlo, Wellington)", owner: "Lucía / Lucila", due: "jun 2026", status: "open" }
+        ]
+      },
       { date: "27 abr 2026", title: "Grant Thornton entrega documentación para BPO Brasil + Auxadi en pausa", type: "reunion", imp: true,
         participants: ["Lucila Guelfo (Credicorp)", "Lucia Palomeque", "Mara Schmitman", "Gabriel Pott (Grant Thornton)"],
         content: "Grant Thornton entregó documentos solicitados (incluido Articles of Association) y la propuesta sigue en proceso interno de validación de Credicorp. En paralelo, Lucia P. envió follow-up urgente a Auxadi por información pendiente desde el 20 abr — sin esa documentación no se puede avanzar con la decisión de proveedor.",
@@ -1549,7 +1635,34 @@ const PROJECTS = {
       { q: "¿Cuál es la nueva fecha de go-live del Hub Brasil?", ctx: "La fecha de abril no aplica. Pablo no sabe si es mayo o junio. Hay que mapear workstreams/fechas con Lu.", urgency: "Alta", owner: "Juan — definir con Lu" },
       { q: "¿Cuáles son los 6-7 frentes del Hub Brasil y quién es el owner de cada uno?", ctx: "Pablo pidió explícitamente mapear: legal, tech (subsidiaria en sistemas), comp, RRHH, relaciones laborales, etc.", urgency: "Alta", owner: "Juan — hacer con Lu" },
       { q: "¿Revisó Pablo el informe preliminar de 15 páginas?", ctx: "Pablo reconoció que no lo leyó. Hay que enviárselo con resumen ejecutivo.", urgency: "Media", owner: "Juan" }
-    ]
+    ],
+    pilares: {
+      research: [
+        "Cámara de Software Brasil — análisis de mercado y prácticas",
+        "4 propuestas formales de payroll: Auxadi, TMF, ADP Brasil, TOTVS · más Grant Thornton",
+        "Benchmark de modelos CLT vs PJ para senior IT en hubs tecnológicos São Paulo",
+        "Conexión con LG, Yusara (BPO partners) y stack de proveedores brasileños"
+      ],
+      hitos: [
+        "16 dic · Arranque proyecto con Lucila Guelfo",
+        "13 ene · Cámara Software Brasil + propuesta diagnóstico",
+        "Feb–mar · Manual de vocero para Álvaro (CEO Yape) + frases guía / arco narrativo",
+        "Abr · Mails de invitación 1:1 en portugués para los 4 TOPS (Andrés, Fernando, Giancarlo, Wellington)",
+        "Abr · Concepto Kit Día 1 + mapa de equipo Brasil (SVG) + calendario fasado en GitHub Pages",
+        "Abr · Arquitectura canal de sentimiento Copilot Studio",
+        "May · 4 propuestas payroll en mesa de evaluación · poderes apostillados en curso",
+        "13 may · Reunión de seguimiento Hub Brasil con LG"
+      ],
+      logros: "En 6 semanas armamos toda la arquitectura de change management para formalizar a 33 colaboradores senior IT en São Paulo bajo Finnova. No es solo papeleo: es la voz del CEO, las cartas individuales a los TOPS, el kit que reciben en mano el día uno, y un canal automatizado para escuchar cómo se sienten. Cuando llegue el 26 de junio, Álvaro va a tener guion, los TOPS van a tener contexto, y el día 1 no va a ser un tira-y-afloje administrativo.",
+      proximos: [
+        "Cerrar proveedor nómina (Auxadi / TMF / ADP / TOTVS / Grant Thornton)",
+        "Validar poderes apostillados (Grupo Crédito empujando tiempos)",
+        "Confirmar logística São Paulo + agendar 1:1 con los 4 TOPS pre-launch",
+        "Despliegue plan change management · resto de mayo + 1ra quincena junio",
+        "Launch breakfast: 26 jun 2026 · Álvaro como vocero",
+        "Activar canal de sentimiento post-launch para iterar"
+      ]
+    }
   },
   desempeno: {
     name: "Desempeño — Giselle", sub: "Responsable: Giselle Ripamonti · Agente GiseGPT para TOPs Credicorp",
@@ -1603,7 +1716,31 @@ const PROJECTS = {
       { q: "¿José Gomer puede asignar un DevSecOps interno para corporativizar GiseGPT en Copilot Studio?", ctx: "Sin alguien interno con credenciales, el agente no puede ir a producción para los 300 TOPs.", urgency: "Alta", owner: "Juan / Sasan — escalar a Pablo si no responde" },
       { q: "¿Cuál es la fecha objetivo para el siguiente ciclo de objetivos de los TOPs?", ctx: "Pablo y Gisse mencionaron julio como fecha ideal para tener el agente corporativo listo.", urgency: "Alta", owner: "Gisselle" },
       { q: "¿El módulo de desempeño de PeopleSoft/Oracle convive con GiseGPT o lo reemplaza?", ctx: "Pablo mencionó que PeopleSoft tiene módulo de gestión de desempeño incluido.", urgency: "Media", owner: "Sasan / Gisselle" }
-    ]
+    ],
+    pilares: {
+      research: [
+        "Benchmark de agentes IA en HR Tech (Copilot Studio, Copilot 365)",
+        "Human (proveedor long-term) — Serie A USD 66M, la ronda más grande de LATAM en HR Tech",
+        "Análisis de convivencia con módulo de desempeño de Oracle/PeopleSoft",
+        "Mapeo de la arquitectura DevSecOps interna requerida por Credicorp"
+      ],
+      hitos: [
+        "Dic 2025 · Arranque del frente",
+        "Ene 2026 · GiseGPT v1 entrenado y desplegado en entorno M365 personal de Gisse",
+        "Ene 2026 · Manual de uso del agente entregado",
+        "9 mar · Validación en vivo con Pablo: el agente funciona, Gisse lo compró",
+        "Abr · Decisión de migrar de Copilot 365 a Copilot Studio (365 se discontinúa)",
+        "9 abr · Pablo se compromete a escribir personalmente a Estela/Antonio para destrabar IT"
+      ],
+      logros: "El agente existe, funciona, y Gise lo validó en su entorno M365 con Pablo presente. Lo aprendido acá nos sirvió para no equivocarnos en Mobility y Hub Brasil: levantar tecnología desde el día 1 y traer talento al circuito desde el principio. Hoy el bloqueo no es de proyecto, es de tecnología corporativa — y Pablo lo está empujando personalmente desde el 9 de abril.",
+      proximos: [
+        "Destrabar conversación con IT/DevSecOps (compromiso Pablo · Estela y Antonio)",
+        "Migración Copilot Studio → Copilot 365 (Studio se discontinúa)",
+        "Activación productiva con Giselle y los 300 TOPs (target julio · próximo ciclo de objetivos)",
+        "Evaluar Human como proveedor long-term de performance management",
+        "Replicar mismo riel técnico en Onboarding, Mobility, Hub Brasil"
+      ]
+    }
   }
 };
 
@@ -1727,7 +1864,7 @@ function openProject(id) {
   const sm = { 'En curso':'pill-green','En riesgo':'pill-amber','Bloqueado':'pill-red' };
   const dm = { 'En curso':'dot-green','En riesgo':'dot-amber','Bloqueado':'dot-red' };
   document.getElementById('d-status').innerHTML = `<span class="pill ${sm[p.status]}"><span class="dot ${dm[p.status]}"></span>${p.status}</span>`;
-  switchTab('timeline');
+  switchTab('resumen');
   window.scrollTo(0,0);
 }
 
@@ -1740,10 +1877,10 @@ function showDash() {
 }
 
 function switchTab(tab) {
-  // Si no es admin y trata de abrir transcripts, redirigir a timeline
-  if (tab === 'transcripts' && !isAdmin) tab = 'timeline';
+  // Si no es admin y trata de abrir transcripts, redirigir a resumen
+  if (tab === 'transcripts' && !isAdmin) tab = 'resumen';
   currentTab = tab;
-  const tabNames = ['timeline','tasks','transcripts','docs','decisions','changemgmt'];
+  const tabNames = ['resumen','timeline','tasks','transcripts','docs','decisions','changemgmt'];
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', tabNames[i] === tab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
@@ -1761,6 +1898,51 @@ const tagLabel = { reunion:'Reunión', benchmark:'Benchmark', entregable:'Entreg
 function renderTab(tab) {
   const p = PROJECTS[currentProject];
   const el = document.getElementById('tab-' + tab);
+
+  if (tab === 'resumen') {
+    const pil = p.pilares;
+    if (!pil) { el.innerHTML = '<p style="padding:1.5rem;color:#888;">Resumen no disponible para este proyecto.</p>'; return; }
+    el.innerHTML = `
+      <div style="padding:1.5rem;">
+        <div style="background:linear-gradient(135deg,#f5f3ff 0%,#eff6ff 100%);border-radius:10px;padding:1.5rem;margin-bottom:1.5rem;border:1px solid #cec9f6;">
+          <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#5b4ad6;font-weight:600;margin-bottom:.6rem;">Narrativa de valor</div>
+          <p style="margin:0;font-size:1.02rem;line-height:1.65;color:#2a2450;">${pil.logros}</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;">
+          <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;">
+              <span style="background:#f7fbf3;color:#639922;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;">1</span>
+              <div style="font-weight:600;font-size:.92rem;color:#2a2450;">Research / conexiones</div>
+            </div>
+            <ul style="margin:0;padding-left:1.2rem;font-size:.82rem;line-height:1.55;color:#444;">
+              ${pil.research.map(r => `<li style="margin-bottom:.35rem;">${r}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;">
+              <span style="background:#fef9ed;color:#b8860b;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;">2</span>
+              <div style="font-weight:600;font-size:.92rem;color:#2a2450;">Hitos y milestones</div>
+            </div>
+            <ul style="margin:0;padding-left:0;list-style:none;font-size:.82rem;line-height:1.55;color:#444;">
+              ${pil.hitos.map(h => `<li style="margin-bottom:.5rem;padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#b8860b;">▸</span>${h}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;">
+              <span style="background:#eff6ff;color:#1e6fc7;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;">3</span>
+              <div style="font-weight:600;font-size:.92rem;color:#2a2450;">Próximos pasos</div>
+            </div>
+            <ul style="margin:0;padding-left:0;list-style:none;font-size:.82rem;line-height:1.55;color:#444;">
+              ${pil.proximos.map(n => `<li style="margin-bottom:.5rem;padding-left:1rem;position:relative;"><span style="position:absolute;left:0;color:#1e6fc7;">→</span>${n}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
 
   if (tab === 'timeline') {
     const tlHtml = p.timeline.map(item => {
