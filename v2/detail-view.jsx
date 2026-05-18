@@ -30,9 +30,32 @@ const STATUS_HERO_COLOR = {
 function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
   const { t } = useTweaks();
   const accent = accentColor(t.accent);
+  const [shared, setShared] = React.useState(false);
+  const [showNewDec, setShowNewDec] = React.useState(false);
+  const [localDecs, setLocalDecs] = React.useState(() => {
+    try { return loadLocalDecisions(projectId); } catch (e) { return []; }
+  });
   const p = PROJECTS.find((x) => x.id === projectId);
   const data = DETAIL_DATA[projectId];
   if (!p || !data) return <div style={{ padding: 32 }}>Proyecto no encontrado</div>;
+
+  const shareWithPablo = () => {
+    const url = publicUrl(`#/frente/${projectId}`);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+    setShared(true);
+    window.setTimeout(() => setShared(false), 2400);
+    window.open(url, '_blank', 'noopener');
+  };
+
+  const saveDecision = (dec) => {
+    addLocalDecision(projectId, dec);
+    setLocalDecs((prev) => [{ ...dec, local: true }, ...prev]);
+    setShowNewDec(false);
+  };
+
+  const allDecisions = [...localDecs, ...data.decisions];
 
   const heroColor = STATUS_HERO_COLOR[p.status] || accent;
 
@@ -71,12 +94,14 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <button style={{
-            background: 'transparent', border: `1px solid ${D_LINE}`,
+          <button onClick={shareWithPablo} style={{
+            background: shared ? '#2BD6C8' : 'transparent',
+            border: `1px solid ${shared ? '#2BD6C8' : D_LINE}`,
             padding: '6px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
-            color: D_SLATE, cursor: 'pointer', fontFamily: 'inherit',
-          }}>Compartir con Pablo</button>
-          <button style={{
+            color: shared ? '#0F1419' : D_SLATE, cursor: 'pointer', fontFamily: 'inherit',
+            transition: 'all .15s',
+          }}>{shared ? '✓ Link copiado' : 'Compartir con Pablo'}</button>
+          <button onClick={() => setShowNewDec(true)} style={{
             background: D_NAVY, color: '#fff', border: 'none',
             padding: '6px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
             cursor: 'pointer', fontFamily: 'inherit',
@@ -202,7 +227,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 20, marginTop: 28 }}>
             <FadeIn delay={300}>
               <DSection label="Decisions log" title="Lo que ya decidimos" tight>
-                <DDecisions decisions={data.decisions} accent={accent} />
+                <DDecisions decisions={allDecisions} accent={accent} />
               </DSection>
             </FadeIn>
             <FadeIn delay={380}>
@@ -223,7 +248,11 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
     </>
   );
 
-  if (embedded) return body;
+  const modal = showNewDec
+    ? <NewDecisionModal onClose={() => setShowNewDec(false)} onSave={saveDecision} accent={accent} />
+    : null;
+
+  if (embedded) return <>{body}{modal}</>;
 
   return (
     <div style={{
@@ -232,6 +261,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
       overflow: 'hidden', display: 'flex', flexDirection: 'column',
     }}>
       {body}
+      {modal}
     </div>
   );
 }
@@ -439,6 +469,10 @@ function DDecisions({ decisions, accent }) {
                   fontSize: 9, color: D_MUTE, fontWeight: 700, letterSpacing: 0.6, textTransform: 'uppercase',
                   padding: '2px 6px', background: D_SURFACE, borderRadius: 4,
                 }}>{d.tag}</span>
+                {d.local && <span style={{
+                  fontSize: 9, color: '#B45309', fontWeight: 700, letterSpacing: 0.6, textTransform: 'uppercase',
+                  padding: '2px 6px', background: 'rgba(245,158,11,.14)', borderRadius: 4,
+                }}>Local · sin sincronizar</span>}
               </div>
               <div style={{ fontSize: 14, fontWeight: 700, color: D_INK, marginTop: 4 }}>{d.title}</div>
               <div style={{ fontSize: 12, color: D_SLATE, lineHeight: 1.5, marginTop: 4 }}>{d.body}</div>
@@ -499,18 +533,82 @@ function DRoster({ title, subtitle, people, side }) {
             padding: '10px 0', borderTop: i ? `1px solid ${D_LINE}` : 'none',
           }}>
             <Avatar initials={p.i} size={32}
-              bg={p.flag ? '#FEE2E2' : side === 'p' ? D_NAVY : '#fff'}
-              fg={p.flag ? '#BE123C' : side === 'p' ? '#fff' : D_NAVY} />
+              bg={(p.flag && IS_ADMIN) ? '#FEE2E2' : side === 'p' ? D_NAVY : '#fff'}
+              fg={(p.flag && IS_ADMIN) ? '#BE123C' : side === 'p' ? '#fff' : D_NAVY} />
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: D_INK, display: 'flex', alignItems: 'center', gap: 8 }}>
                 {p.n}
                 {p.isNew && <span style={{ fontSize: 9, color: '#C832A0', fontWeight: 700, letterSpacing: 0.4, padding: '2px 5px', border: '1px solid #C832A0', borderRadius: 3 }}>NUEVA</span>}
-                {p.flag && <span style={{ fontSize: 9, color: '#BE123C', fontWeight: 700, letterSpacing: 0.4, padding: '2px 5px', background: '#FEE2E2', borderRadius: 3 }}>SIN RESPUESTA</span>}
+                {p.flag && IS_ADMIN && <span style={{ fontSize: 9, color: '#BE123C', fontWeight: 700, letterSpacing: 0.4, padding: '2px 5px', background: '#FEE2E2', borderRadius: 3 }}>SIN RESPUESTA</span>}
               </div>
-              <div style={{ fontSize: 11.5, color: D_SLATE, marginTop: 2 }}>{p.r}</div>
+              <div style={{ fontSize: 11.5, color: D_SLATE, marginTop: 2 }}>{(p.flag && !IS_ADMIN) ? p.r.replace(/ — sin respuesta.*$/i, '') : p.r}</div>
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Modal · Nueva decisión ─────────────────────────────────────
+function NewDecisionModal({ onClose, onSave, accent }) {
+  const [title, setTitle] = React.useState('');
+  const [body, setBody] = React.useState('');
+  const [tag, setTag] = React.useState('PROCESO');
+  const [who, setWho] = React.useState('');
+  const today = (() => {
+    const M = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    const d = new Date();
+    return `${d.getDate()} ${M[d.getMonth()]}`;
+  })();
+  const field = {
+    width: '100%', padding: '9px 12px', borderRadius: 8,
+    border: `1px solid ${D_LINE}`, fontSize: 13, fontFamily: 'inherit',
+    color: D_INK, outline: 'none', background: '#fff',
+  };
+  return (
+    <div onClick={onClose} style={{
+      position: 'absolute', inset: 0, zIndex: 60,
+      background: 'rgba(15,20,25,.55)', backdropFilter: 'blur(6px)',
+      display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '48px 24px',
+    }}>
+      <div onClick={(e) => e.stopPropagation()} style={{
+        width: '100%', maxWidth: 520, background: '#fff', borderRadius: 16,
+        boxShadow: '0 24px 80px rgba(15,20,25,.28)', overflow: 'hidden',
+      }}>
+        <div style={{ padding: '20px 24px 16px', borderBottom: `1px solid ${D_LINE}` }}>
+          <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: D_INK }}>Nueva decisión</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 12, color: D_MUTE }}>
+            Se guarda localmente en este navegador hasta sincronizar con el Sheet.
+          </p>
+        </div>
+        <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título de la decisión" style={field} />
+          <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Contexto / detalle" rows={3} style={{ ...field, resize: 'vertical' }} />
+          <div style={{ display: 'flex', gap: 12 }}>
+            <select value={tag} onChange={(e) => setTag(e.target.value)} style={{ ...field, flex: 1 }}>
+              {['PROCESO', 'DEADLINE', 'ESTRUCTURA', 'PLAN', 'PIVOT', 'SCOPE', 'BLOQUEO'].map((x) => <option key={x} value={x}>{x}</option>)}
+            </select>
+            <input value={who} onChange={(e) => setWho(e.target.value)} placeholder="Responsable" style={{ ...field, flex: 1 }} />
+          </div>
+        </div>
+        <div style={{
+          padding: '14px 24px', background: D_SURFACE, borderTop: `1px solid ${D_LINE}`,
+          display: 'flex', justifyContent: 'flex-end', gap: 10,
+        }}>
+          <button onClick={onClose} style={{
+            background: 'transparent', border: `1px solid ${D_LINE}`, padding: '8px 14px',
+            borderRadius: 8, fontSize: 13, fontWeight: 600, color: D_SLATE, cursor: 'pointer', fontFamily: 'inherit',
+          }}>Cancelar</button>
+          <button
+            disabled={!title.trim()}
+            onClick={() => onSave({ date: today, who: who.trim() || '+Partners', tag, title: title.trim(), body: body.trim() })}
+            style={{
+              background: title.trim() ? accent : D_LINE, color: '#fff', border: 'none',
+              padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
+              cursor: title.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit',
+            }}>Guardar decisión</button>
+        </div>
       </div>
     </div>
   );
