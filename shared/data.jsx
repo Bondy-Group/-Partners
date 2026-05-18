@@ -34,8 +34,8 @@ const PROJECTS = [
   },
   {
     id: 'alicia',
-    title: 'Alicia — Ops/HR Tech',
-    subtitle: 'Digitalización y automatización de procesos HR',
+    title: 'Alicia — Onboarding TOPS',
+    subtitle: 'Arquitectura de onboarding ejecutivo · 8 empresas del grupo',
     status: 'active',
     statusLabel: 'En curso',
     intensity: 'media',
@@ -144,7 +144,7 @@ const TIMELINE = [
 // Gantt rows — start week / end week (0-indexed from "this week")
 const GANTT = [
   { id: 'hub-brasil', label: 'HUB Brasil / EVP', start: 0,  end: 7,  status: 'risk',     milestones: [{ w: 2, label: 'CNPJ' }, { w: 7, label: 'Nómina' }] },
-  { id: 'alicia',     label: 'Alicia · Ops/HR Tech', start: 1, end: 9, status: 'active', milestones: [{ w: 4, label: 'ILP kickoff' }] },
+  { id: 'alicia',     label: 'Alicia · Onboarding TOPS', start: 1, end: 9, status: 'active', milestones: [{ w: 4, label: 'ILP kickoff' }] },
   { id: 'romy',       label: 'Romy · Movilidad', start: 0, end: 4,    status: 'delivery', milestones: [{ w: 1, label: 'Entrega' }] },
   { id: 'desempeno',  label: 'Desempeño',     start: 5, end: 9,       status: 'standby',  milestones: [] },
 ];
