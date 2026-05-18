@@ -3,19 +3,21 @@
 // Hash routing: `#/` (or empty) → dashboard, `#/frente/<id>` → detail page.
 // The internal page state inside AtrevidaV2 also reflects to the URL hash.
 
-const VALID_PAGES = new Set(['dashboard', 'hub-brasil', 'alicia', 'romy', 'desempeno']);
+const VALID_PAGES = new Set(['dashboard', 'iniciativas', 'hub-brasil', 'alicia', 'romy', 'desempeno']);
 
 function pageFromHash() {
   const h = (window.location.hash || '').replace(/^#\/?/, '');
   if (!h || h === 'dashboard') return 'dashboard';
   const seg = h.split('/').filter(Boolean);
-  // accept #/frente/<id> and #/<id>
+  // accept #/frente/<id>, #/<id> and #/iniciativas
   const id = seg[0] === 'frente' ? seg[1] : seg[0];
   return VALID_PAGES.has(id) ? id : 'dashboard';
 }
 
 function hashFromPage(page) {
-  return page === 'dashboard' ? '#/' : `#/frente/${page}`;
+  if (page === 'dashboard') return '#/';
+  if (page === 'iniciativas') return '#/iniciativas';
+  return `#/frente/${page}`;
 }
 
 function RoutedAtrevida() {
