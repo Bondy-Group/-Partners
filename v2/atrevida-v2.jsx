@@ -41,7 +41,9 @@ function AtrevidaV2({ initialPage = 'dashboard', onPageChange }) {
     <DashboardShell page={page} setPage={setPage}>
       {page === 'dashboard'
         ? <DashboardBody setPage={setPage} />
-        : <DetailView projectId={page} embedded />}
+        : page === 'iniciativas'
+          ? <IniciativasView />
+          : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
     </DashboardShell>
   );
 }
@@ -55,7 +57,9 @@ function ProjectPage({ projectId }) {
     <DashboardShell page={page} setPage={setPage}>
       {page === 'dashboard'
         ? <DashboardBody setPage={setPage} />
-        : <DetailView projectId={page} embedded />}
+        : page === 'iniciativas'
+          ? <IniciativasView />
+          : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
     </DashboardShell>
   );
 }
@@ -86,6 +90,19 @@ function DashboardBody({ setPage }) {
   const [sort, setSort] = React.useState('risk');
   const dense = t.density !== 'comfy';
 
+  const enCurso = PROJECTS.filter((p) => p.status === 'active').length;
+  const riskProjects = PROJECTS.filter((p) => p.status === 'risk');
+  const enRiesgo = riskProjects.length;
+  const riskSub = riskProjects[0]
+    ? `${riskProjects[0].title.split('—')[0].split('/')[0].trim()}${riskProjects[0].daysToDeadline ? ` — ${riskProjects[0].daysToDeadline}d` : ''}`
+    : 'sin riesgos';
+  const backlogPct = (() => {
+    try {
+      const ov = loadBacklogOverrides();
+      return (ov.metrics && ov.metrics.pct) || '25%';
+    } catch (e) { return '25%'; }
+  })();
+
   const filtered = PROJECTS
     .filter((p) => filter === 'all' || p.status === filter)
     .filter((p) => !search || (p.title + p.subtitle + p.streams + p.tag).toLowerCase().includes(search.toLowerCase()));
@@ -103,10 +120,10 @@ function DashboardBody({ setPage }) {
 
           {/* Stat row — 4 small, no alarmist big one */}
           <Stagger step={70} start={80} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginTop: 16 }}>
-            <V2Stat label="Proyectos" value="4" trend="—"   sub="Activos" />
-            <V2Stat label="En curso"  value="2" trend="+1" sub="vs marzo" tone="teal" />
-            <V2Stat label="En riesgo" value="1" trend="="  sub="HUB Brasil — 13d" tone="warn" accent={accent} />
-            <V2Stat label="Reuniones / sem" value="12" trend="+4" sub="esta semana" />
+            <V2Stat label="Proyectos" value={String(PROJECTS.length)} trend="—" sub="Frentes activos" />
+            <V2Stat label="En curso" value={String(enCurso)} trend="+1" sub="vs marzo" tone="teal" />
+            <V2Stat label="En riesgo" value={String(enRiesgo)} trend="=" sub={riskSub} tone="warn" accent={accent} />
+            <V2Stat label="Backlog abordado" value={backlogPct} trend="↑" sub="42 iniciativas Credicorp" />
           </Stagger>
 
           {/* Gantt */}
@@ -121,6 +138,7 @@ function DashboardBody({ setPage }) {
                 filter={filter} setFilter={setFilter}
                 sort={sort} setSort={setSort}
                 count={filtered.length} total={PROJECTS.length}
+                projects={filtered}
                 accent={accent}
               />
             </FadeIn>
@@ -132,7 +150,7 @@ function DashboardBody({ setPage }) {
 
           {/* Team + Admin */}
           <FadeIn delay={720} style={{ marginTop: 24 }}>
-            <V2TeamAdmin showAdmin={t.showAdmin} accent={accent} />
+            <V2TeamAdmin isAdmin={!!IS_ADMIN} accent={accent} />
           </FadeIn>
         </div>
     </>
@@ -153,13 +171,14 @@ function V2Sidebar({ page, setPage }) {
 
       <div>
         <V2SideLabel>Engagement</V2SideLabel>
-        <V2SideItem l="Resumen"      sel={page === 'dashboard'} onClick={() => setPage && setPage('dashboard')} />
-        <V2SideItem l="Frentes"      n="4"  onClick={() => setPage && setPage('dashboard')} />
-        <V2SideItem l="Timeline" />
-        <V2SideItem l="Reuniones"    n="12" />
-        <V2SideItem l="Entregables"  n="7" />
-        <V2SideItem l="Decisiones"   n="14" />
-        <V2SideItem l="Riesgos"      n="4" />
+        <V2SideItem l="Resumen"     sel={page === 'dashboard'} onClick={() => setPage && setPage('dashboard')} />
+        <V2SideItem l="Frentes"     n="4"  onClick={() => setPage && setPage('dashboard')} />
+        <V2SideItem l="Iniciativas" sel={page === 'iniciativas'} onClick={() => setPage && setPage('iniciativas')} />
+        <V2SideItem l="Timeline"    disabled />
+        <V2SideItem l="Reuniones"   disabled />
+        <V2SideItem l="Entregables" disabled />
+        <V2SideItem l="Decisiones"  disabled />
+        <V2SideItem l="Riesgos"     disabled />
       </div>
 
       <div>
@@ -216,22 +235,28 @@ function V2SideLabel({ children }) {
     </div>
   );
 }
-function V2SideItem({ l, n, sel, onClick }) {
-  const interactive = !!onClick;
+function V2SideItem({ l, n, sel, onClick, disabled }) {
+  const interactive = !!onClick && !disabled;
   return (
-    <div onClick={onClick}
+    <div onClick={interactive ? onClick : undefined}
+      title={disabled ? 'Próximamente' : undefined}
       onMouseEnter={(e) => { if (!sel && interactive) e.currentTarget.style.background = 'rgba(255,255,255,.04)'; }}
       onMouseLeave={(e) => { if (!sel && interactive) e.currentTarget.style.background = 'transparent'; }}
       style={{
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '8px 10px', borderRadius: 6, cursor: interactive ? 'pointer' : 'default',
+        padding: '8px 10px', borderRadius: 6,
+        cursor: interactive ? 'pointer' : 'default',
         background: sel ? 'rgba(255,255,255,.10)' : 'transparent',
         fontSize: 13, fontWeight: sel ? 600 : 500,
-        color: sel ? '#fff' : interactive ? 'rgba(255,255,255,.85)' : 'rgba(255,255,255,.5)',
+        color: sel ? '#fff'
+             : disabled ? 'rgba(255,255,255,.45)'
+             : interactive ? 'rgba(255,255,255,.85)' : 'rgba(255,255,255,.5)',
+        opacity: disabled ? 0.7 : 1,
         marginBottom: 1, transition: 'background .15s',
+        userSelect: 'none',
       }}>
       <span>{l}</span>
-      {n && <span style={{ fontSize: 10, color: 'rgba(255,255,255,.45)', fontFamily: 'JetBrains Mono, monospace' }}>{n}</span>}
+      {n && !disabled && <span style={{ fontSize: 10, color: 'rgba(255,255,255,.45)', fontFamily: 'JetBrains Mono, monospace' }}>{n}</span>}
     </div>
   );
 }
@@ -294,7 +319,7 @@ function V2Topbar({ search, setSearch, accent }) {
           fontSize: 12, color: V2_SLATE, border: `1px solid ${V2_LINE}`,
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2BD6C8' }} />
-          Sincronizado · hace 4 min
+          Sincronizado · {lastSyncLabel()}
         </div>
         <button style={{
           background: V2_NAVY, color: '#fff', border: 'none', padding: '7px 12px',
@@ -311,7 +336,30 @@ function V2Topbar({ search, setSearch, accent }) {
 }
 
 // ─── Info-strip · semana en curso (reemplaza el hero alarmista) ─
+function currentWeekLabel() {
+  const M = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const d = new Date();
+  const day = d.getDay();
+  const monday = new Date(d);
+  monday.setDate(d.getDate() + ((day === 0 ? -6 : 1) - day));
+  return `Semana del ${monday.getDate()} de ${M[monday.getMonth()]}`;
+}
+
 function V2InfoStrip({ accent }) {
+  const [cal, setCal] = React.useState(null);
+  React.useEffect(() => {
+    let live = true;
+    fetchCalendarCount().then((r) => { if (live) setCal(r); });
+    return () => { live = false; };
+  }, []);
+
+  const riskP = PROJECTS.find((p) => p.status === 'risk');
+  const activeN = PROJECTS.filter((p) => p.status === 'active').length;
+  const headline = riskP
+    ? `${riskP.title.split('—')[0].split('/')[0].trim()} en ventana crítica · ${activeN} frentes en curso`
+    : `${activeN} frentes en curso`;
+  const reun = cal ? cal.count : '·';
+
   return (
     <div style={{
       display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 28, alignItems: 'center',
@@ -320,23 +368,25 @@ function V2InfoStrip({ accent }) {
     }}>
       <div>
         <div style={{ fontSize: 10, color: V2_MUTE, fontWeight: 700, letterSpacing: 0.6, textTransform: 'uppercase' }}>
-          Semana del 14 de abril
+          {currentWeekLabel()}
         </div>
         <div style={{ fontSize: 20, fontWeight: 700, color: V2_INK, letterSpacing: -0.3, marginTop: 4 }}>
-          Movilidad entrega · ILP arranca · CNPJ a 13 días
+          {headline}
         </div>
       </div>
       <div style={{ display: 'flex', gap: 24, paddingLeft: 28, borderLeft: `1px solid ${V2_LINE}` }}>
-        <V2InfoCell n="12" l="reuniones" sub="6 +Partners · 6 mixtas" />
-        <V2InfoCell n="3"  l="entregables" sub="próximos 7 días" />
-        <V2InfoCell n="1"  l="hito crítico" sub="28 abr · CNPJ" accent={accent} warn />
+        <V2InfoCell n={String(reun)} l="reuniones" sub={cal && cal.source === 'calendar' ? 'esta semana · Calendar' : 'esta semana'} />
+        <V2InfoCell n={String(PROJECTS.filter((p) => p.status === 'delivery').length || PROJECTS.length)} l="entregables" sub="en curso" />
+        <V2InfoCell n={String(PROJECTS.filter((p) => p.status === 'risk').length)} l="hito crítico" sub="frente en riesgo" accent={accent} warn />
       </div>
-      <button style={{
-        background: 'transparent', border: `1px solid ${V2_LINE}`,
-        padding: '9px 14px', borderRadius: 8, fontSize: 12, fontWeight: 600,
-        color: V2_INK, cursor: 'pointer', fontFamily: 'inherit',
-        display: 'inline-flex', alignItems: 'center', gap: 6,
-      }}>
+      <button
+        onClick={() => window.open('https://calendar.google.com', '_blank', 'noopener')}
+        style={{
+          background: 'transparent', border: `1px solid ${V2_LINE}`,
+          padding: '9px 14px', borderRadius: 8, fontSize: 12, fontWeight: 600,
+          color: V2_INK, cursor: 'pointer', fontFamily: 'inherit',
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+        }}>
         Ver agenda <span style={{ fontFamily: 'JetBrains Mono, monospace', color: V2_MUTE }}>→</span>
       </button>
     </div>
@@ -381,9 +431,11 @@ function V2Stat({ label, value, trend, sub, tone, accent }) {
   );
 }
 
-// ─── Gantt (lifted from v1) ─────────────────────────────────────
+// ─── Gantt (semanas dinámicas desde new Date()) ────────────────
 function V2Gantt({ accent }) {
-  const totalWeeks = WEEKS.length;
+  const { weeks } = computeGanttWeeks(10);
+  const totalWeeks = weeks.length;
+  const colTemplate = `160px repeat(${totalWeeks}, 1fr)`;
   return (
     <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '18px 0 6px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0 20px 14px' }}>
@@ -398,17 +450,25 @@ function V2Gantt({ accent }) {
           ))}
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: `160px repeat(${totalWeeks}, 1fr)`, borderTop: `1px solid ${V2_LINE}`, borderBottom: `1px solid ${V2_LINE}` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: colTemplate, borderTop: `1px solid ${V2_LINE}`, borderBottom: `1px solid ${V2_LINE}` }}>
         <div style={{ padding: '8px 12px 8px 20px', fontSize: 10, color: V2_MUTE, fontWeight: 600, letterSpacing: 0.5, textTransform: 'uppercase' }}>Frente</div>
-        {WEEKS.map((w, i) => (
-          <div key={w} style={{ padding: '8px 4px', fontSize: 10, color: V2_MUTE, fontWeight: 600, fontFamily: 'JetBrains Mono, monospace', borderLeft: i ? `1px solid ${V2_LINE}` : 'none', textAlign: 'center' }}>{w}</div>
+        {weeks.map((w, i) => (
+          <div key={i} style={{
+            padding: '8px 4px', fontSize: 10,
+            color: w.isCurrent ? V2_NAVY : V2_MUTE,
+            fontWeight: w.isCurrent ? 700 : 600,
+            fontFamily: 'JetBrains Mono, monospace',
+            borderLeft: i ? `1px solid ${V2_LINE}` : 'none',
+            background: w.isCurrent ? 'rgba(43,214,200,0.10)' : 'transparent',
+            textAlign: 'center',
+          }}>{w.label}{w.isCurrent && <span style={{ display: 'block', fontSize: 8, color: '#0F8E3F', letterSpacing: 0.4 }}>HOY</span>}</div>
         ))}
       </div>
       {GANTT.map((row, i) => {
         const c = row.status === 'risk' ? accent : row.status === 'active' ? '#2BD6C8' : row.status === 'delivery' ? V2_NAVY : V2_MUTE;
         return (
           <div key={row.id} style={{
-            display: 'grid', gridTemplateColumns: `160px repeat(${totalWeeks}, 1fr)`,
+            display: 'grid', gridTemplateColumns: colTemplate,
             alignItems: 'center', borderBottom: i < GANTT.length - 1 ? `1px solid ${V2_LINE}` : 'none',
             height: 44, position: 'relative',
           }}>
@@ -416,8 +476,11 @@ function V2Gantt({ accent }) {
               <StatusDot status={row.status} size={7} />
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.label}</span>
             </div>
-            {WEEKS.map((_, w) => (
-              <div key={w} style={{ borderLeft: w ? `1px solid ${V2_LINE}` : 'none', height: '100%' }} />
+            {weeks.map((w, wi) => (
+              <div key={wi} style={{
+                borderLeft: wi ? `1px solid ${V2_LINE}` : 'none', height: '100%',
+                background: w.isCurrent ? 'rgba(43,214,200,0.06)' : 'transparent',
+              }} />
             ))}
             <div style={{
               position: 'absolute', top: 12, height: 20, borderRadius: 4,
@@ -432,15 +495,30 @@ function V2Gantt({ accent }) {
             }}>
               {row.label.split(' ')[0]}
             </div>
-            {row.milestones.map((m, mi) => (
-              <div key={mi} title={m.label} style={{
-                position: 'absolute', top: 10,
-                left: `calc(160px + (100% - 160px) * ${m.w} / ${totalWeeks} - 7px)`,
-                width: 14, height: 14, background: '#fff',
-                border: `2px solid ${V2_NAVY}`, transform: 'rotate(45deg)',
-                zIndex: 2,
-              }} />
-            ))}
+            {row.milestones.map((m, mi) => {
+              const past = isMilestonePast(m.w);
+              const isBench = m.kind === 'benchmark';
+              return (
+                <div key={mi} title={`${m.label}${past ? ' · completado' : ''}`} style={{
+                  position: 'absolute', top: isBench ? 14 : 10,
+                  left: `calc(160px + (100% - 160px) * ${m.w} / ${totalWeeks} - ${isBench ? 6 : 8}px)`,
+                  zIndex: 2,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  width: isBench ? 12 : 16, height: isBench ? 12 : 16,
+                  color: past ? V2_MUTE : V2_NAVY,
+                }}>
+                  {past ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="9" /><path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                    </svg>
+                  ) : isBench ? (
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="6" /></svg>
+                  ) : (
+                    <span style={{ width: 12, height: 12, background: '#fff', border: `2px solid ${V2_NAVY}`, transform: 'rotate(45deg)', display: 'block' }} />
+                  )}
+                </div>
+              );
+            })}
           </div>
         );
       })}
@@ -449,7 +527,16 @@ function V2Gantt({ accent }) {
 }
 
 // ─── Sticky filter bar ──────────────────────────────────────────
-function V2FilterBar({ filter, setFilter, sort, setSort, count, total, accent }) {
+function V2FilterBar({ filter, setFilter, sort, setSort, count, total, projects, accent }) {
+  const exportCSV = React.useCallback(() => {
+    const rows = [['Frente', 'Subtítulo', 'Estado', 'Avance %', 'Última actividad', 'Workstreams', 'Lead']];
+    (projects || []).forEach((p) => rows.push([
+      p.title, p.subtitle, p.statusLabel, p.progress,
+      p.lastMeeting || p.lastActivity || '', p.streams || '', (p.leads || []).join(' / '),
+    ]));
+    const today = new Date().toISOString().slice(0, 10);
+    downloadCSV(`frentes-credicorp-${today}.csv`, rows);
+  }, [projects]);
   return (
     <div style={{
       position: 'sticky', top: 0, zIndex: 5,
@@ -479,7 +566,7 @@ function V2FilterBar({ filter, setFilter, sort, setSort, count, total, accent })
             <option value="avance">Avance</option>
           </select>
         </div>
-        <button style={{
+        <button onClick={exportCSV} style={{
           background: 'transparent', border: `1px solid ${V2_LINE}`,
           padding: '6px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600,
           color: V2_SLATE, cursor: 'pointer', fontFamily: 'inherit',
@@ -576,28 +663,29 @@ function V2Table({ projects, onOpen, accent, dense }) {
 }
 
 // ─── Team + Admin row ───────────────────────────────────────────
-function V2TeamAdmin({ showAdmin, accent }) {
+function V2TeamAdmin({ isAdmin, accent }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: showAdmin ? '1.4fr 1fr' : '1fr', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isAdmin ? '1.4fr 1fr' : '1fr', gap: 16 }}>
       <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '18px 20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}>
           <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: V2_INK }}>Equipo · 5 +Partners · 7 contactos Credicorp</h3>
-          <a style={{ fontSize: 12, color: V2_NAVY, fontWeight: 600, cursor: 'pointer', textDecoration: 'none' }}>Ver todos →</a>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
-          {[...TEAM_PARTNERS.map((p) => ({ ...p, side: 'p' })), ...TEAM_CREDICORP.map((p) => ({ ...p, side: 'c' }))].map((p) => (
+          {[...TEAM_PARTNERS.map((p) => ({ ...p, side: 'p' })), ...TEAM_CREDICORP.map((p) => ({ ...p, side: 'c' }))].map((p) => {
+            const showFlag = p.flag && isAdmin;
+            return (
             <div key={p.initials + p.side} style={{
               display: 'flex', alignItems: 'center', gap: 10,
               padding: '10px 12px', background: V2_SURFACE, borderRadius: 8,
-              border: p.flag ? '1px solid #FECDD3' : '1px solid transparent',
+              border: showFlag ? '1px solid #FECDD3' : '1px solid transparent',
               transition: 'background .15s, border-color .15s',
               cursor: 'pointer',
             }}
               onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
               onMouseLeave={(e) => e.currentTarget.style.background = V2_SURFACE}>
               <Avatar initials={p.initials} size={28}
-                bg={p.side === 'p' ? V2_NAVY : p.flag ? '#FEE2E2' : '#fff'}
-                fg={p.flag ? '#BE123C' : p.side === 'p' ? '#fff' : V2_NAVY} />
+                bg={p.side === 'p' ? V2_NAVY : showFlag ? '#FEE2E2' : '#fff'}
+                fg={showFlag ? '#BE123C' : p.side === 'p' ? '#fff' : V2_NAVY} />
               <div style={{ minWidth: 0, flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: V2_INK, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 5 }}>
                   {p.name}
@@ -606,15 +694,15 @@ function V2TeamAdmin({ showAdmin, accent }) {
                 <div style={{ fontSize: 10, color: V2_MUTE, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   <span style={{ color: p.side === 'p' ? '#0F8E3F' : V2_MUTE, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.4 }}>
                     {p.side === 'p' ? '+P' : 'CC'}
-                  </span> · {p.role}
+                  </span> · {showFlag ? p.role : p.role.replace(/ — sin respuesta.*$/i, '')}
                 </div>
               </div>
             </div>
-          ))}
+          ); })}
         </div>
       </div>
 
-      {showAdmin && (
+      {isAdmin && (
         <div style={{ background: V2_NAVY, color: '#fff', borderRadius: 12, padding: '18px 20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
             <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700 }}>Admin · Ingestar</h3>
