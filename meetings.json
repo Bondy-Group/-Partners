@@ -1,184 +1,138 @@
 {
-  "last_updated": "2026-05-15T09:58:46.380231-03:00",
-  "source": "iCal export mara@maspartners.com.ar + items proyectados",
+  "last_updated": "2026-07-02T12:00:00-03:00",
+  "source": "Historial consolidado Reuniones Credicorp (may-jun 2026) + próximos hitos",
   "meetings": [
     {
-      "date": "2026-05-15",
-      "time": "09:00",
+      "date": "2026-06-19",
+      "time": "13:30",
       "tz": "ART",
-      "title": "Preparación Presentación para Credicorp",
-      "project": "general",
-      "participants": [
-        "jorge@maspartners.com.ar",
-        "sasan@maspartners.com.ar",
-        "mara@maspartners.com.ar",
-        "lucia@maspartners.com.ar",
-        "juan"
-      ],
-      "platform": "Google Meet",
-      "status": "confirmada",
-      "critical": false
-    },
-    {
-      "date": "2026-05-15",
-      "time": "11:30",
-      "tz": "ART",
-      "title": "Hub Brasil - seguimiento",
+      "title": "TMF Group — Servicios de Nómina",
       "project": "brasil",
       "participants": [
-        "Lucia Palomeque",
-        "juan",
-        "Lucila Guelfo"
+        "Lucila Guelfo",
+        "Benito Juárez (TMF)",
+        "Mara",
+        "Lucía Palomeque",
+        "Danilo Primo"
       ],
       "platform": "MS Teams",
-      "status": "confirmada",
+      "status": "realizada",
       "critical": false
     },
     {
-      "date": "2026-05-15",
-      "time": "12:00",
+      "date": "2026-06-22",
+      "time": "12:30",
       "tz": "ART",
-      "title": "Onboarding Tops Mibanco (Perú)",
+      "title": "Hub Brasil — Plan de Change",
+      "project": "brasil",
+      "participants": [
+        "Lucila Guelfo",
+        "Mara",
+        "Sasan",
+        "Pablo Silva"
+      ],
+      "platform": "MS Teams",
+      "status": "realizada",
+      "critical": false
+    },
+    {
+      "date": "2026-06-24",
+      "time": "11:00",
+      "tz": "ART",
+      "title": "Bench Onboarding — Banco Santander",
       "project": "alicia",
       "participants": [
-        "Lucia Palomeque",
-        "juan",
-        "Alicia Rivera Rodriguez",
-        "Freddy Alonso Collao Salmon",
-        "Gabriela Aguilar Rosas",
-        "Pier Preciado Carrasco"
+        "Agustín Rojas (Santander)",
+        "Mara",
+        "Credicorp",
+        "BCP"
       ],
-      "platform": "MS Teams",
-      "status": "confirmada",
+      "platform": "Google Meet",
+      "status": "realizada",
       "critical": false
     },
     {
-      "date": "2026-05-18",
-      "time": "10:30",
+      "date": "2026-06-29",
+      "time": "12:15",
       "tz": "ART",
-      "title": "Seguimiento proyectos HR Sprints",
+      "title": "BCP y Mara — catchup",
       "project": "general",
       "participants": [
-        "jorge@maspartners.com.ar",
-        "sasan@maspartners.com.ar",
-        "juan",
-        "lucia@maspartners.com.ar",
-        "mara@maspartners.com.ar",
-        "pablosilva@credicorpperu.com"
+        "Sasan",
+        "Mara",
+        "Jorge",
+        "Juan"
+      ],
+      "platform": "Google Meet",
+      "status": "realizada",
+      "critical": false
+    },
+    {
+      "date": "2026-07-02",
+      "time": "12:00",
+      "tz": "ART",
+      "title": "Status de proyectos con Pablo Silva",
+      "project": "general",
+      "participants": [
+        "Pablo Silva",
+        "Mara",
+        "equipo +Partners"
       ],
       "platform": "MS Teams",
-      "status": "confirmada",
+      "status": "realizada",
       "critical": true
     },
     {
-      "date": "2026-05-18",
-      "time": "12:00",
-      "tz": "ART",
-      "title": "Onboarding Tops BCP y Grupo Crédito",
-      "project": "alicia",
-      "participants": [
-        "Lucia Palomeque",
-        "juan",
-        "Alicia Rivera Rodriguez",
-        "Gabriela Aguilar Rosas"
-      ],
-      "platform": "MS Teams",
-      "status": "confirmada",
-      "critical": false
-    },
-    {
-      "date": "2026-05-19",
-      "time": "11:30",
-      "tz": "ART",
-      "title": "Onboarding Tops Credicorp Capital",
-      "project": "alicia",
-      "participants": [
-        "Lucia Palomeque",
-        "juan",
-        "Alicia Rivera Rodriguez",
-        "Daniela Durand Diaz",
-        "Gabriela Aguilar Rosas"
-      ],
-      "platform": "MS Teams",
-      "status": "confirmada",
-      "critical": false
-    },
-    {
-      "date": "2026-05-23",
+      "date": "2026-07-06",
       "time": "TBD",
       "tz": "ART",
-      "title": "Entrevista Onboarding TOPS — Pacífico Salud",
+      "title": "Sesión armado forms con Alicia (semana del 6-jul)",
       "project": "alicia",
       "participants": [
-        "Pacífico Salud (TBD)",
         "Alicia Rivera",
-        "Gabriela Aguilar",
-        "Equipo +Partners"
+        "Mara",
+        "equipo +Partners"
       ],
-      "platform": "TBD",
-      "status": "por agendar",
-      "critical": false,
-      "notes": "Última empresa pendiente para completar relevamiento 6/6"
-    },
-    {
-      "date": "2026-05-26",
-      "time": "TBD",
-      "tz": "ART",
-      "title": "Síntesis hallazgos Onboarding + workshop interno",
-      "project": "alicia",
-      "participants": [
-        "Equipo +Partners"
-      ],
-      "platform": "Interno",
-      "status": "proyectada",
+      "platform": "MS Teams",
+      "status": "a confirmar",
       "critical": false
     },
     {
-      "date": "2026-05-27",
+      "date": "2026-07-15",
       "time": "TBD",
       "tz": "ART",
-      "title": "Hub Brasil — definición proveedor payroll",
+      "title": "Decisión nómina Auxadi vs TMF — deadline interno",
       "project": "brasil",
       "participants": [
-        "Lucila Guelfo",
-        "Equipo +Partners"
+        "Lu",
+        "Alicia",
+        "+Partners"
       ],
-      "platform": "TBD",
-      "status": "proyectada",
-      "critical": true,
-      "notes": "Decisión Auxadi / TMF / ADP / TOTVS / Grant Thornton"
+      "platform": "—",
+      "status": "hito",
+      "critical": true
     },
     {
-      "date": "2026-05-30",
+      "date": "2026-08-01",
       "time": "TBD",
       "tz": "ART",
-      "title": "Romy presenta caso estratégico a Rosela",
-      "project": "romy",
-      "participants": [
-        "Romina Mitidieri",
-        "Rosela",
-        "apoyo +Partners"
-      ],
-      "platform": "TBD",
-      "status": "proyectada",
+      "title": "Go-Live Hub Brasil — hito temprano (buffer)",
+      "project": "brasil",
+      "participants": [],
+      "platform": "—",
+      "status": "hito",
       "critical": false
     },
     {
-      "date": "2026-06-26",
-      "time": "08:30",
-      "tz": "BRT",
-      "title": "🇧🇷 LAUNCH BREAKFAST Hub Brasil",
+      "date": "2026-10-01",
+      "time": "TBD",
+      "tz": "ART",
+      "title": "GO-LIVE Hub Brasil",
       "project": "brasil",
-      "participants": [
-        "Álvaro (CEO Yape)",
-        "33 colaboradores São Paulo",
-        "Lucila Guelfo",
-        "Equipo +Partners"
-      ],
-      "platform": "Presencial São Paulo",
-      "status": "agendada",
-      "critical": true,
-      "notes": "Launch oficial · formalización CLT 33 senior IT"
+      "participants": [],
+      "platform": "—",
+      "status": "hito",
+      "critical": true
     }
   ]
 }
