@@ -99,8 +99,8 @@ function DashboardBody({ setPage }) {
   const backlogPct = (() => {
     try {
       const ov = loadBacklogOverrides();
-      return (ov.metrics && ov.metrics.pct) || '25%';
-    } catch (e) { return '25%'; }
+      return (ov.metrics && ov.metrics.pct) || '35%';
+    } catch (e) { return '35%'; }
   })();
 
   const filtered = PROJECTS
