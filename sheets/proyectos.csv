@@ -1,5 +1,5 @@
 id,nombre,nombre_display,subtitulo,avatar,estado,ultima_reunion,gantt_inicio,gantt_fin,gantt_fase
-alicia,Alicia — Ops/HR Tech,Alicia — Ops/HR Tech,Digitalización y automatización de procesos HR,A,En riesgo,30 Mar 2026,2026-01,2026-06,Diagnóstico
-romy,Romy — Movilidad,Romy — Movilidad,Programa de movilidad internacional LATAM,R,Bloqueado,3 Mar 2026,2025-12,2026-05,Diagnóstico + Entregables
-brasil,HUB Brasil / EVP,HUB Brasil / EVP,Benchmark competitividad São Paulo — talento digital,B,En curso,25 Mar 2026,2025-12,2026-07,Benchmark activo
-desempeno,Desempeño,Desempeño,Performance feedback y OKRs,D,En curso,dic 2025,2025-12,2026-08,Diagnóstico inicial
+alicia,Alicia — Onboarding TOPS,Alicia — Onboarding TOPS,Onboarding ejecutivo · bench externo + forms,A,En ejecución,24 Jun 2026,2026-01,2026-09,Forms + journey
+romy,Romy — Mobility 360,Romy — Mobility 360,Programa de movilidad internacional LATAM,R,Standby acordado,21 May 2026,2025-12,2026-09,Entregables listos
+brasil,HUB Brasil / EVP,HUB Brasil / EVP,Creación operativa del Hub São Paulo — Go-Live 1-oct,B,Fase final,24 Jun 2026,2025-12,2026-10,Ejecución hacia Go-Live
+desempeno,Desempeño / GiseGPT,Desempeño / GiseGPT,GiseGPT construido y validado · espera IT,D,Bloqueado por IT,9 Abr 2026,2025-12,2026-08,Espera aprobación IT

@@ -1,16 +1,15 @@
 proyecto_id,tarea,responsable,prioridad,estado
-alicia,Coordinar reunión discovery con Alicia antes de vacaciones,Juan / Lucía / Sasan,Alta,open
-alicia,Investigar PeopleSign (firma electrónica nativa PeopleSoft),Equipo,Alta,open
-alicia,Mapear proceso de cálculo bonus para España,Lucía,Media,open
-alicia,Diseñar propuesta portal autoservicio stock options,Equipo,Media,open
-alicia,Documentar proceso onboarding/offboarding actual,Por asignar,Baja,open
-romy,Solicitar entregable formal a Romy para presentar a liderazgo,Juan / Lucía / Sasan,Alta,open
-romy,Coordinar reuniones interdepartamentales con equipo Talento,Romy (presionar),Alta,open
-romy,Definir formato entregable final: deck memo o informe,Equipo consultoría,Media,open
-brasil,Cerrar lista final empresas benchmark para SP,Mara / Equipo,Alta,open
-brasil,Obtener oferta actual exacta de Credicorp para Hub Brasil,Romina / Sasan,Alta,open
-brasil,Construir tabla comparativa y heatmap de brechas EVP,Lucía,Media,open
-brasil,Analizar employer branding de referentes en SP,Equipo,Media,open
-desempeno,Confirmar alcance exacto del diagnóstico con Credicorp,Sasan / Mara,Alta,open
-desempeno,Mapear proceso actual de evaluación de desempeño,Por asignar,Media,open
-desempeno,Identificar conexión performance-compensación-carrera,Por asignar,Media,open
+brasil,Decisión de nómina Auxadi vs TMF (≤2 semanas — protege testing de julio),Lu / Alicia / +Partners,Alta,open
+brasil,Validar jurisdicción Madrid (Auxadi) con Legal,Lu / Legal CCP,Alta,open
+brasil,Pedir propuestas SST a Care Plus / Grupo Mednet / SESI,+Partners → Lu,Alta,open
+brasil,Confirmar nº de colaboradores por estado (define cobertura SST),Lu / Alicia,Alta,open
+brasil,Armar mini-matriz de evaluación SST con propuestas comparables,+Partners,Media,open
+brasil,Definir modelo de ergonomía: kits vs reembolso,Pablo / Lu,Media,open
+brasil,Cerrar plan médico Bradesco,Pablo,Alta,open
+brasil,CNPJ activo → abrir cuenta bancaria y contratos CLT,Lu,Alta,open
+alicia,Sesión de armado del forms con Alicia (sem 6-jul),Equipo + Alicia,Alta,open
+alicia,Follow-up People Ops Banco Galicia,Equipo,Media,open
+alicia,Consolidar aprendizajes bench Nubank / Galicia / Santander,Equipo,Media,open
+desempeno,Empuje de Pablo a IT (Ysela / Antonio) por GiseGPT / Copilot 365,Pablo Silva,Alta,open
+romy,Retomar playbook cuando Romy lo pida,Lucía,Baja,open
+romy,Despliegue Mobility Experience (target 26-sep),Equipo + Romy,Media,open
