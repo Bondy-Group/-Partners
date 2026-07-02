@@ -103,8 +103,8 @@ const SHEETS_CONFIG = {
 const CALENDAR_ENDPOINT = ''; // ej: https://script.google.com/macros/s/XXX/exec
 
 // Conteo de reuniones de la semana. Si el endpoint está configurado lo
-// consulta; si no, devuelve el fallback del seed (dato real al 15/5).
-const CALENDAR_FALLBACK = { count: 6, source: 'seed' };
+// consulta; si no, devuelve el fallback del seed (dato real al 2/7).
+const CALENDAR_FALLBACK = { count: 2, source: 'seed' };
 function fetchCalendarCount() {
   if (!CALENDAR_ENDPOINT) return Promise.resolve(CALENDAR_FALLBACK);
   return fetch(CALENDAR_ENDPOINT)
@@ -130,13 +130,13 @@ const INITIATIVE_BLOCKS = [
     title: 'Talento y movilidad',
     frame: 'Movilidad internacional LATAM',
     items: [
-      { id: 'b1-1', name: 'Creación Hub Brasil + benchmark', state: 'entregado' },
+      { id: 'b1-1', name: 'Creación Hub Brasil + benchmark', state: 'in_progress', note: 'Overdelivered: creación operativa del Hub completo · Go-Live 1-oct' },
       { id: 'b1-2', name: 'Propuesta de valor competitiva', state: 'entregado' },
       { id: 'b1-3', name: 'Políticas de movilidad internacional', state: 'entregado' },
       { id: 'b1-4', name: 'Playbook de movilidad internacional', state: 'entregado' },
       { id: 'b1-5', name: 'Modelo de postventa', state: 'parcial', note: 'Plan armado, no implementado' },
       { id: 'b1-6', name: 'Conectar movilidad con desarrollo de carrera', state: 'parcial' },
-      { id: 'b1-7', name: 'Pasar nómina Colombia/Chile de TRI a local', state: 'planeo' },
+      { id: 'b1-7', name: 'Pasar nómina Colombia/Chile de TRI a local', state: 'parcial', note: 'Matriz de nómina Hub Brasil = primer caso del protocolo regional (inic. 34)' },
       { id: 'b1-8', name: 'Global Talent Cloud', state: 'planeo' },
       { id: 'b1-9', name: 'NextGen Mobility (TBD)', state: 'planeo' },
     ],
@@ -147,7 +147,7 @@ const INITIATIVE_BLOCKS = [
     frame: 'Productividad y alto desempeño',
     items: [
       { id: 'b2-1', name: 'Alineamiento estratégico / cascadeo de objetivos', state: 'entregado', note: 'Fue el benchmark' },
-      { id: 'b2-2', name: 'Bot establecimiento de objetivos (GiseGPT)', state: 'in_progress', note: 'Construido, bloqueado por IT' },
+      { id: 'b2-2', name: 'Bot establecimiento de objetivos (GiseGPT)', state: 'in_progress', note: 'Construido y validado; bloqueado por IT desde marzo' },
       { id: 'b2-3', name: 'Diagnóstico desempeño segmento colaborador', state: 'parcial' },
       { id: 'b2-4', name: 'Implementación modelo Krealo', state: 'parcial', note: 'Solo relevamiento de criterios' },
       { id: 'b2-5', name: 'Implementación modelo Yape', state: 'parcial', note: 'Solo relevamiento de criterios' },
@@ -165,7 +165,7 @@ const INITIATIVE_BLOCKS = [
     frame: 'Productividad y alto desempeño',
     items: [
       { id: 'b3-1', name: 'Chat ILP GV', state: 'in_progress', note: 'Propuesta entregada, hold por IT' },
-      { id: 'b3-2', name: 'Dashboard KPIs Mobility', state: 'in_progress', note: 'Modelos relevados en benchmarks' },
+      { id: 'b3-2', name: 'Dashboard KPIs Mobility', state: 'in_progress', note: 'Tablero del programa en producción como prueba de concepto' },
     ],
   },
   {
@@ -173,28 +173,30 @@ const INITIATIVE_BLOCKS = [
     title: 'Gestión ejecutiva',
     frame: 'Arquitectura de onboarding ejecutivo',
     items: [
-      { id: 'b4-1', name: 'Onboarding ejecutivo (Alicia)', state: 'in_progress', note: 'Dedicación full, entrevistas esta semana' },
+      { id: 'b4-1', name: 'Onboarding ejecutivo (Alicia)', state: 'in_progress', note: 'Bench Nubank · Galicia · Santander cerrado; forms con Alicia sem 6-jul' },
       { id: 'b4-2', name: 'Agente IA Ejecutivo', state: 'in_progress', note: 'Propuesta realizada, hold por IT' },
     ],
   },
 ];
 
-// Métricas editables — valores iniciales del brief (15/5).
+// Métricas editables — actualizadas al 2/7 (cruce backlog × ejecutado).
 const BACKLOG_METRICS_DEFAULT = [
-  { id: 'pct',        label: '% del backlog abordado', value: '25%' },
-  { id: 'realizadas', label: 'Iniciativas realizadas', value: '13' },
-  { id: 'benchmarks', label: 'Benchmarks realizados', value: '12' },
-  { id: 'extras',     label: 'Pedidos extra', value: '4' },
-  { id: 'horas',      label: 'Horas trabajadas', value: '360' },
+  { id: 'pct',        label: '% del backlog abordado', value: '35%' },
+  { id: 'realizadas', label: 'Iniciativas tocadas', value: '14' },
+  { id: 'benchmarks', label: 'Benchmarks realizados', value: '15' },
+  { id: 'extras',     label: 'Pedidos extra', value: '5' },
+  { id: 'horas',      label: 'Reuniones documentadas', value: '~90' },
   { id: 'horas_bench',label: 'Horas de benchmarks', value: '80' },
 ];
 
 // Empresas de research externo (benchmark). No hay assets de logo en el
 // repo para estas → se renderizan como wordmarks monocromáticos.
 const RESEARCH_COMPANIES = [
-  'Philips', 'Mercado Libre', 'Accenture', 'Boehringer Ingelheim',
-  'Nubank', 'Stone', 'C6 Bank', 'Naranja X / Acelera',
-  'Banco Galicia', 'Human', 'Adidas', 'SulAmérica',
+  'Nubank', 'Mercado Libre', 'Amazon', 'Santander', 'Banco Galicia',
+  'Philips', 'Accenture', 'Boehringer Ingelheim', 'Adidas', 'Stone',
+  'C6 Bank', 'Koin', 'Caju', 'Clara', 'Wellhub', 'Edenred',
+  'SulAmérica', 'Mercer', 'TMF', 'Auxadi', 'ADP', 'Grant Thornton',
+  'LG', 'Sólides', 'Apdata',
 ];
 
 // Horas por frente — solo admin (brief).
