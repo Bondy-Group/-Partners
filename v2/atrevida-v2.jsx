@@ -43,7 +43,9 @@ function AtrevidaV2({ initialPage = 'dashboard', onPageChange }) {
         ? <DashboardBody setPage={setPage} />
         : page === 'iniciativas'
           ? <IniciativasView />
-          : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
+          : page === 'reuniones'
+            ? <ReunionesView />
+            : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
     </DashboardShell>
   );
 }
@@ -59,7 +61,9 @@ function ProjectPage({ projectId }) {
         ? <DashboardBody setPage={setPage} />
         : page === 'iniciativas'
           ? <IniciativasView />
-          : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
+          : page === 'reuniones'
+            ? <ReunionesView />
+            : <DetailView projectId={page} embedded onBack={() => setPage('dashboard')} />}
     </DashboardShell>
   );
 }
@@ -175,7 +179,7 @@ function V2Sidebar({ page, setPage }) {
         <V2SideItem l="Frentes"     n="4"  onClick={() => setPage && setPage('dashboard')} />
         <V2SideItem l="Iniciativas" sel={page === 'iniciativas'} onClick={() => setPage && setPage('iniciativas')} />
         <V2SideItem l="Timeline"    disabled />
-        <V2SideItem l="Reuniones"   disabled />
+        <V2SideItem l="Reuniones"   sel={page === 'reuniones'} onClick={() => setPage && setPage('reuniones')} />
         <V2SideItem l="Entregables" disabled />
         <V2SideItem l="Decisiones"  disabled />
         <V2SideItem l="Riesgos"     disabled />
