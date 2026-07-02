@@ -102,6 +102,7 @@ function ReunionesView() {
   const maxPerson = Math.max(1, ...(stats.topPeople.map((e) => e[1])));
 
   return (
+    <div data-app-scroll style={{ overflowY: 'auto', flex: 1, minHeight: 0 }}>
     <div style={{ padding: '28px 32px', maxWidth: 1180, margin: '0 auto', fontFamily: 'Inter, system-ui, sans-serif' }}>
       <FadeIn>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
@@ -229,6 +230,7 @@ function ReunionesView() {
           <div style={{ padding: 40, textAlign: 'center', color: R_MUTE, fontSize: 13 }}>Sin resultados para ese filtro.</div>
         )}
       </div>
+    </div>
     </div>
   );
 }
