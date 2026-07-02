@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────
 // Pantalla · Reuniones — historial consolidado del programa.
 // Fuente: MEETINGS_HISTORY (v2/meetings-data.jsx).
-// Stats de participación + filtros + resumen liviano por reunión.
+// Stats de participación + filtros + resumen liviano por reunión. (v2)
 // ─────────────────────────────────────────────────────────────
 
 const R_NAVY = '#1B2A4A';
