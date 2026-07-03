@@ -83,7 +83,9 @@ const MEETINGS_HISTORY = [
   { f: "2026-05-28", t: "Hub Brasil — seguimiento", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía","Juan","Jorge","Sasan"], r: "Seguimiento del frente Hub Brasil." },
   { f: "2026-05-29", t: "Onboarding TOPS — sesión de trabajo", p: "alicia", who: ["Mara","Pablo Silva","Alicia Rivera"], r: "Sesión de trabajo del frente Onboarding TOPS." },
   { f: "2026-06-01", t: "Catchup Credicorp", p: "partners", who: ["Jorge","Sasan","Mara","Lucía"], r: "Catchup interno de los frentes." },
-  { f: "2026-06-03", t: "Onboarding Nubank", p: "alicia", who: ["Mara","Equipo +Partners","Credicorp"], ext: "Nubank", r: "Benchmark de onboarding ejecutivo con Nubank." },
+  { f: "2026-06-03", t: "Onboarding Nubank", p: "alicia", who: ["Mara","Equipo +Partners","Credicorp"], ext: "Nubank", r: "Benchmark de onboarding ejecutivo con Nubank.", a: [
+    { text: "Documentar aprendizajes del benchmark", owner: "Lucía", done: true },
+  ] },
   { f: "2026-06-04", t: "Onboarding Credicorp", p: "alicia", who: ["Alicia Rivera","Mara","Equipo +Partners","BCP"], r: "Sesión de trabajo de onboarding con Alicia." },
   { f: "2026-06-05", t: "Hub Brasil — revisión y avances", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía","Juan"], r: "Revisión de avances del Hub." },
   { f: "2026-06-08", t: "Hub Brasil — estructura de reuniones", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía","Juan"], r: "Definición de la estructura de seguimiento del Hub." },
@@ -92,14 +94,35 @@ const MEETINGS_HISTORY = [
   { f: "2026-06-16", t: "Catchup con Mara y Lu", p: "hub-brasil", who: ["Mara","Jorge","Sasan","Lucía","Juan"], r: "Catchup del frente Hub Brasil." },
   { f: "2026-06-16", t: "Onboarding Credicorp", p: "alicia", who: ["Alicia Rivera","Mara","Equipo +Partners","BCP"], r: "Sesión de trabajo de onboarding con Alicia." },
   { f: "2026-06-17", t: "Catchup Mara y Lu", p: "hub-brasil", who: ["Lucila Guelfo","Lucía","Mara"], r: "Coordinación semanal con Lu." },
-  { f: "2026-06-18", t: "Onboarding Banco Galicia", p: "alicia", who: ["Mara","Credicorp","BCP"], ext: "Banco Galicia", r: "Benchmark de onboarding ejecutivo con Banco Galicia." },
-  { f: "2026-06-19", t: "TMF Group — servicios de nómina", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía"], ext: "TMF", r: "Presentación de datos y condiciones de TMF para la nómina." },
+  { f: "2026-06-18", t: "Onboarding Banco Galicia", p: "alicia", who: ["Mara","Credicorp","BCP"], ext: "Banco Galicia", r: "Benchmark de onboarding ejecutivo con Banco Galicia.", a: [
+    { text: "Follow-up con People Ops de Galicia", owner: "Equipo", done: false },
+  ] },
+  { f: "2026-06-19", t: "TMF Group — servicios de nómina", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía"], ext: "TMF", r: "Presentación de datos y condiciones de TMF para la nómina.", a: [
+    { text: "Firmar KYC de TMF", owner: "Lu", done: true },
+    { text: "Completar precios del contrato + aprobación Compliance", owner: "Lu / TMF", done: false },
+  ] },
   { f: "2026-06-22", t: "HUB BR — Change Management", p: "hub-brasil", who: ["Jorge","Sasan","Mara","Lucía","Lucila Guelfo"], r: "Sesión de trabajo del plan de change." },
-  { f: "2026-06-22", t: "Hub Brasil — Plan de Change (con Pablo)", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Sasan","Pablo Silva"], r: "Presentación del plan de change al sponsor." },
-  { f: "2026-06-24", t: "Onboarding Banco Santander", p: "alicia", who: ["Mara","Credicorp","BCP"], ext: "Santander", r: "Benchmark de onboarding ejecutivo con Santander." },
+  { f: "2026-06-22", t: "Hub Brasil — Plan de Change (con Pablo)", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Sasan","Pablo Silva"], r: "Presentación del plan de change al sponsor.", a: [
+    { text: "Handbook de qué cambia / qué no + FAQ", owner: "+Partners", done: false },
+    { text: "Comunicación adelantada + 1:1 TOPS", owner: "Equipo", done: false },
+  ] },
+  { f: "2026-06-24", t: "Onboarding Banco Santander", p: "alicia", who: ["Mara","Credicorp","BCP"], ext: "Santander", r: "Benchmark de onboarding ejecutivo con Santander.", a: [
+    { text: "Consolidar aprendizajes del bench en el journey", owner: "Equipo", done: false },
+  ] },
   { f: "2026-06-29", t: "BCP y Mara — catchup", p: "partners", who: ["Sasan","Mara","Jorge","Juan"], r: "Catchup breve del equipo." },
-  { f: "2026-07-02", t: "Preparación Pablo (interna)", p: "partners", who: ["Mara","Sasan","Jorge","Juan","Lucía"], link: "https://fathom.video/calls/731790008", r: "Preparación del status: narrativa por frente y próximos pasos." },
-  { f: "2026-07-02", t: "Status de proyectos con Pablo Silva", p: "partners", who: ["Pablo Silva","Mara","Equipo +Partners"], r: "Repaso de los 4 frentes a 8 meses de programa; prioridad Hub Brasil." },
+  { f: "2026-07-02", t: "Preparación Pablo (interna)", p: "partners", who: ["Mara","Sasan","Jorge","Juan","Lucía"], link: "https://fathom.video/calls/731790008", r: "Preparación del status: narrativa por frente y próximos pasos.", a: [
+    { text: "Proponer cadencia mensual de check-in con Pablo", owner: "Juan", done: true },
+  ] },
+  { f: "2026-07-02", t: "Status de proyectos con Pablo Silva", p: "partners", who: ["Pablo Silva","Mara","Equipo +Partners"], r: "Repaso de los 4 frentes a 8 meses de programa; prioridad Hub Brasil.", a: [
+    { text: "Cerrar decisión de nómina (Auxadi vs TMF) en ≤2 semanas", owner: "Lu / Alicia", done: false },
+    { text: "Empujar respuesta de IT por GiseGPT", owner: "Pablo Silva", done: false },
+    { text: "Enviar narrativa por frente y próximos pasos", owner: "Mara", done: false },
+  ] },
 ];
+
+MEETINGS_HISTORY.push(
+  { f: "2026-07-06", t: "Sesión armado forms con Alicia", p: "alicia", who: ["Alicia Rivera","Mara","Equipo +Partners"], s: "agendada",
+    r: "Armado conjunto del forms de onboarding (documentos guía ya en Drive).", a: [] }
+);
 
 window.MEETINGS_HISTORY = MEETINGS_HISTORY;
