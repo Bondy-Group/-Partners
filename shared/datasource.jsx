@@ -104,7 +104,7 @@ const CALENDAR_ENDPOINT = ''; // ej: https://script.google.com/macros/s/XXX/exec
 
 // Conteo de reuniones de la semana. Si el endpoint está configurado lo
 // consulta; si no, devuelve el fallback del seed (dato real al 2/7).
-const CALENDAR_FALLBACK = { count: 2, source: 'seed' };
+const CALENDAR_FALLBACK = { count: 2, source: 'seed' }; // sem 14/9: bench Santander + check-in Pablo
 function fetchCalendarCount() {
   if (!CALENDAR_ENDPOINT) return Promise.resolve(CALENDAR_FALLBACK);
   return fetch(CALENDAR_ENDPOINT)
@@ -130,7 +130,7 @@ const INITIATIVE_BLOCKS = [
     title: 'Talento y movilidad',
     frame: 'Movilidad internacional LATAM',
     items: [
-      { id: 'b1-1', name: 'Creación Hub Brasil + benchmark', state: 'in_progress', note: 'Overdelivered: creación operativa del Hub completo · Go-Live 1-oct' },
+      { id: 'b1-1', name: 'Creación Hub Brasil + benchmark', state: 'in_progress', note: 'Creación operativa del Hub · nómina TMF · lanzamiento pospuesto a oct/nov · continuidad en riesgo' },
       { id: 'b1-2', name: 'Propuesta de valor competitiva', state: 'entregado' },
       { id: 'b1-3', name: 'Políticas de movilidad internacional', state: 'entregado' },
       { id: 'b1-4', name: 'Playbook de movilidad internacional', state: 'entregado' },
@@ -147,13 +147,15 @@ const INITIATIVE_BLOCKS = [
     frame: 'Productividad y alto desempeño',
     items: [
       { id: 'b2-1', name: 'Alineamiento estratégico / cascadeo de objetivos', state: 'entregado', note: 'Fue el benchmark' },
-      { id: 'b2-2', name: 'Bot establecimiento de objetivos (GiseGPT)', state: 'in_progress', note: 'Construido y validado; bloqueado por IT desde marzo' },
+      { id: 'b2-2', name: 'Bot establecimiento de objetivos (GiseGPT)', state: 'in_progress', note: 'Construido y validado; bloqueado por IT desde marzo · propuesta de cierre si no se destraba en sep' },
+      { id: 'b2-12', name: 'Nine Box + modelo Qué × Cómo (mandos medios)', state: 'in_progress', note: 'Con Vania · 4 benchs cerrados (Philips, Adidas, Visa, Santander) · lanzamiento ene-feb 2027' },
+      { id: 'b2-13', name: 'Leadership Index (reemplazo Lib 360)', state: 'planeo', note: 'Gisselle lidera · origen reunión 23/07 con Pablo' },
       { id: 'b2-3', name: 'Diagnóstico desempeño segmento colaborador', state: 'parcial' },
       { id: 'b2-4', name: 'Implementación modelo Krealo', state: 'parcial', note: 'Solo relevamiento de criterios' },
       { id: 'b2-5', name: 'Implementación modelo Yape', state: 'parcial', note: 'Solo relevamiento de criterios' },
       { id: 'b2-6', name: 'Ejecución estrategia segmento colaborador', state: 'planeo' },
       { id: 'b2-7', name: 'Nuevo modelo desempeño prestadoras de salud', state: 'planeo' },
-      { id: 'b2-8', name: 'Optimización escalas', state: 'planeo' },
+      { id: 'b2-8', name: 'Optimización escalas', state: 'in_progress', note: 'Credicorp pasa de 5 a 3 niveles (dicho en sala 14/09)' },
       { id: 'b2-9', name: 'Lineamientos T2B', state: 'planeo' },
       { id: 'b2-10', name: 'Gestión de consecuencias playbook', state: 'planeo' },
       { id: 'b2-11', name: 'Lead 360 TOPS', state: 'planeo' },
@@ -173,20 +175,22 @@ const INITIATIVE_BLOCKS = [
     title: 'Gestión ejecutiva',
     frame: 'Arquitectura de onboarding ejecutivo',
     items: [
-      { id: 'b4-1', name: 'Onboarding ejecutivo (Alicia)', state: 'in_progress', note: 'Bench Nubank · Galicia · Santander cerrado; forms con Alicia sem 6-jul' },
+      { id: 'b4-1', name: 'Onboarding ejecutivo (Alicia)', state: 'in_progress', note: 'Forms listo en pruebas (4/08) · Tu Recibo con licencia recibida · status con Alicia sin fecha' },
+      { id: 'b4-3', name: 'Programa IA para líderes', state: 'planeo', note: 'Propuesta enviada a Pablo el 27/08 (4 semanas asincrónicas) · sin respuesta formal' },
+      { id: 'b4-4', name: 'Biblioteca de Benchmarks', state: 'in_progress', note: 'Pedido de Sasan · v1 web publicada 15/09 · chat con API de Claude pendiente de publicación' },
       { id: 'b4-2', name: 'Agente IA Ejecutivo', state: 'in_progress', note: 'Propuesta realizada, hold por IT' },
     ],
   },
 ];
 
-// Métricas editables — actualizadas al 2/7 (cruce backlog × ejecutado).
+// Métricas editables — actualizadas al 16/9 (cruce backlog × ejecutado).
 const BACKLOG_METRICS_DEFAULT = [
-  { id: 'pct',        label: '% del backlog abordado', value: '35%' },
-  { id: 'realizadas', label: 'Iniciativas tocadas', value: '14' },
-  { id: 'benchmarks', label: 'Benchmarks realizados', value: '15' },
-  { id: 'extras',     label: 'Pedidos extra', value: '5' },
-  { id: 'horas',      label: 'Reuniones documentadas', value: '~90' },
-  { id: 'horas_bench',label: 'Horas de benchmarks', value: '80' },
+  { id: 'pct',        label: '% del backlog abordado', value: '40%' },
+  { id: 'realizadas', label: 'Iniciativas tocadas', value: '17' },
+  { id: 'benchmarks', label: 'Benchmarks realizados', value: '19' },
+  { id: 'extras',     label: 'Pedidos extra', value: '7' },
+  { id: 'horas',      label: 'Reuniones documentadas', value: '131' },
+  { id: 'horas_bench',label: 'Horas de benchmarks', value: '~90' },
 ];
 
 // Empresas de research externo (benchmark). No hay assets de logo en el
@@ -196,15 +200,15 @@ const RESEARCH_COMPANIES = [
   'Philips', 'Accenture', 'Boehringer Ingelheim', 'Adidas', 'Stone',
   'C6 Bank', 'Koin', 'Caju', 'Clara', 'Wellhub', 'Edenred',
   'SulAmérica', 'Mercer', 'TMF', 'Auxadi', 'ADP', 'Grant Thornton',
-  'LG', 'Sólides', 'Apdata',
+  'LG', 'Sólides', 'Apdata', 'Visa', 'BUK', 'Mandú (Visma)', 'Natura', 'Telefónica',
 ];
 
 // Horas por frente — solo admin (brief).
 const HOURS_BY_FRONT = [
-  { front: 'HUB Brasil', hours: 140 },
+  { front: 'HUB Brasil', hours: 160 },
   { front: 'Mobility', hours: 110 },
-  { front: 'GiseGPT / Desempeño', hours: 65 },
-  { front: 'Onboarding TOPS', hours: 35 },
+  { front: 'Desempeño / NineBox', hours: 110 },
+  { front: 'Onboarding TOPS', hours: 60 },
 ];
 
 // ===== Persistencia local del backlog ====================================

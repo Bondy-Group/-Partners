@@ -156,7 +156,7 @@ function ReunionesView() {
         <FadeIn>
           <div>
             <h2 style={{ margin: 0, fontSize: 34, fontWeight: 700, letterSpacing: '-0.02em', color: R_INK }}>Reuniones del programa</h2>
-            <div style={{ fontSize: 16, color: R_SLATE, marginTop: 4 }}>Historial consolidado dic-2025 → jul-2026</div>
+            <div style={{ fontSize: 16, color: R_SLATE, marginTop: 4 }}>Historial consolidado dic-2025 → sep-2026</div>
           </div>
         </FadeIn>
 
@@ -237,7 +237,7 @@ function ReunionesView() {
             <div style={{ borderRight: `1px solid ${R_LINE}`, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
               <div style={{ padding: '20px 22px 14px', borderBottom: `1px solid ${R_LINE}` }}>
                 <div style={{ fontSize: 20, fontWeight: 700, color: R_INK }}>Reuniones</div>
-                <div style={{ fontSize: 13, color: R_MUTE, marginTop: 2 }}>{filtered.length} documentadas · dic 25 → jul 26</div>
+                <div style={{ fontSize: 13, color: R_MUTE, marginTop: 2 }}>{filtered.length} documentadas · dic 25 → sep 26</div>
                 <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 8, background: R_SURFACE, border: `1px solid ${R_LINE}`, borderRadius: 10, padding: '9px 12px' }}>
                   <RIcoSearch />
                   <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar reunión, persona, empresa…"

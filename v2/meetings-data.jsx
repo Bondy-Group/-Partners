@@ -1,6 +1,6 @@
 /* global React */
-// Historial consolidado de reuniones Credicorp × +Partners (dic-2025 → jul-2026).
-// Fuente: Historial Consolidado Reuniones Credicorp 2025-2026 (Sheet) + continuación may-jun + match de transcripts.
+// Historial consolidado de reuniones Credicorp × +Partners (dic-2025 → sep-2026).
+// Fuente: Historial Consolidado Reuniones Credicorp 2025-2026 (Sheet) + continuación may-sep + índices KB jul y ago-sep 2026 + match de transcripts.
 // Resúmenes livianos: tema en 1 línea, sin detalle interno.
 // p: hub-brasil | alicia | romy | desempeno | partners
 
@@ -120,9 +120,59 @@ const MEETINGS_HISTORY = [
   ] },
 ];
 
+
+// ── Julio → septiembre 2026 (fuente: índices KB + Sheet historial, filas 123–132) ──
 MEETINGS_HISTORY.push(
-  { f: "2026-07-06", t: "Sesión armado forms con Alicia", p: "alicia", who: ["Alicia Rivera","Mara","Equipo +Partners"], s: "agendada",
-    r: "Armado conjunto del forms de onboarding (documentos guía ya en Drive).", a: [] }
+  { f: "2026-07-06", t: "Sesión armado forms con Alicia", p: "alicia", who: ["Alicia Rivera","Mara","Equipo +Partners"], r: "Arranque del armado del forms de onboarding con Alicia y César." },
+  { f: "2026-07-08", t: "Hub Brasil — plan de comunicación / change mgmt", p: "hub-brasil", who: ["Mara","Sasan","Jorge","Lucía","Juan"], link: "https://fathom.video/calls/739614911", r: "Dos carriles de comunicación (TOPS y colaboradores Yape); métricas de estado simplificadas." },
+  { f: "2026-07-08", t: "Ops — estrategia y formulario de activación (To-Be 7 pasos)", p: "alicia", who: ["César Chung","Gabriela Aguilar","Juan","Mara"], link: "https://fathom.video/calls/739719675", r: "Proceso To-Be de 7 etapas; Capa 1 corporativa + Capa 2 local." },
+  { f: "2026-07-13", t: "Presentación PPT change mgmt con Lu y Pablo", p: "hub-brasil", who: ["Pablo Silva","Lucila Guelfo","Mara","Sasan"], link: "https://fathom.video/calls/745074432", r: "Validación del plan de change; TMF elegido para nómina; TI como bloqueo crítico.", a: [
+    { text: "Definiciones de Compensaciones, Beneficios y RR.LL. (deadline 31/07)", owner: "Credicorp", done: false },
+  ] },
+  { f: "2026-07-16", t: "Onboarding TOPS — Day One Ready", p: "alicia", who: ["Juan","Mara","César Chung"], link: "https://fathom.video/calls/749881962", r: "Fases, herramientas y KPIs 30/60/90; time-to-productivity como KPI estrella." },
+  { f: "2026-07-17", t: "Pre-vacaciones de Lucila — estado y dependencias", p: "hub-brasil", who: ["Lucila Guelfo","Mara","Lucía"], link: "https://fathom.video/calls/751615049", r: "Estado del Hub antes de las vacaciones de Lu; +Partners avanza handbook y speeches.", a: [
+    { text: "Esqueleto del handbook + dos versiones de speech", owner: "+Partners", done: true },
+  ] },
+  { f: "2026-07-21", t: "Catchup Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/753896580", r: "Contrato renovado hasta fin de año (Jorge). Nuevo pedido de Pablo: acompañar a Alicia en procesos core del HCM." },
+  { f: "2026-07-22", t: "Catchup previo (prep reunión Alicia)", p: "partners", who: ["Mara","Juan","Lucía"], link: "https://fathom.video/calls/756858934", r: "Preparación de la reunión de estandarización con el equipo de Alicia." },
+  { f: "2026-07-22", t: "Estandarización documentación segmento TOP", p: "alicia", who: ["Alicia Rivera","César Chung","Gabriela Aguilar","Mara","Juan"], r: "Paquete documental corporativo obligatorio y árbol documental." },
+  { f: "2026-07-23", t: "Alineación modelos de desempeño y transformación HCM (con Pablo)", p: "desempeno", who: ["Pablo Silva","Mara","Jorge"], r: "Retomar Nine Box + Leadership Index; PeopleSoft como catalizador de un Centro de Servicios Compartidos.", a: [
+    { text: "Market research + benchmark de liderazgo en agosto", owner: "+Partners", done: true },
+  ] },
+  { f: "2026-07-24", t: "Onboarding — sesión MS Forms", p: "alicia", who: ["César Chung","Gabriela Aguilar","Juan","Mara"], r: "Armado de los dos forms (selección + compensaciones confidencial)." },
+  { f: "2026-07-27", t: "Revisión Forms Final (prueba piloto)", p: "alicia", who: ["César Chung","Gabriela Aguilar","Juan"], r: "Prueba piloto del forms; pendiente validación de Alicia." },
+  { f: "2026-07-28", t: "Repaso temas Pablo (interno)", p: "partners", who: ["Equipo +Partners"], r: "Repaso interno de los temas abiertos con Pablo." },
+  { f: "2026-08-03", t: "Catchup con Mara y Lu (interno)", p: "partners", who: ["Mara","Lucía","Jorge","Sasan","Juan"], link: "https://fathom.video/calls/770412224", r: "Research Nine Box enviado a Pablo." },
+  { f: "2026-08-03", t: "Reunión BUK — módulo Onboarding", p: "alicia", who: ["Juan","Mara"], ext: "BUK", r: "Demo del módulo de onboarding de BUK." },
+  { f: "2026-08-04", t: "Status forms con César", p: "alicia", who: ["César Chung","Juan"], r: "Formulario de activación listo, en pruebas; árbol documental avanzado." },
+  { f: "2026-08-07", t: "Benchmark de Desempeño y Potencial", p: "desempeno", who: ["Vania Guerrero","Gisselle","Pablo Silva","Mara","Juan"], r: "Arranque del frente NineBox con Vania; research qué vs. cómo." },
+  { f: "2026-08-07", t: "Status Hub Brasil", p: "hub-brasil", who: ["Lucila Guelfo","Lucía","Mara"], link: "https://fathom.video/calls/774881522", r: "Lanzamiento pospuesto a oct/nov; requisitos de cuenta bancaria Finnova.", a: [
+    { text: "Cuenta bancaria Finnova (Banco do Rendimento)", owner: "Sasan / Lu", done: false },
+  ] },
+  { f: "2026-08-10", t: "Catchup Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/778918563", r: "Seguimiento interno de los frentes." },
+  { f: "2026-08-18", t: "Organización semanal Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/789011935", r: "Mini market research NineBox a Vania." },
+  { f: "2026-08-18", t: "Tu Recibo — demo CS Mandú", p: "alicia", who: ["Gustavo Miranda","Juan","Gabriela Aguilar"], ext: "Mandú (Visma)", link: "https://fathom.video/share/1nAu_j7zKzW6CELa76v7_1sbfGB3jcb_", r: "Demo de Tu Recibo; licencia USD 400 + IGV (400 usuarios) y respaldo MINTRA recibidos el 24/08.", a: [
+    { text: "Revisar licencia y respaldo legal de firma electrónica", owner: "Juan", done: false },
+  ] },
+  { f: "2026-08-24", t: "Catchup Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/796202103", r: "Propuesta de capacitación NineBox de 3 sesiones; doc Fase2_Metodologia_NineBox; WhatsApp con Pablo." },
+  { f: "2026-08-24", t: "Status Hub Brasil (Teams)", p: "hub-brasil", who: ["Lucila Guelfo","Lucía"], r: "Sin grabación — confirmar asistencia con el equipo." },
+  { f: "2026-08-26", t: "Bench desempeño — Philips", p: "desempeno", who: ["María Pía Logiovane","Mara","Juan","Vania Guerrero"], ext: "Philips", link: "https://fathom.video/calls/800023972", r: "Qué y Cómo separados → matriz; calibración solo sobre discrepancias; talent reviews desacopladas." },
+  { f: "2026-09-01", t: "Reu Mara & Lu (1:1)", p: "hub-brasil", who: ["Lucila Guelfo","Mara"], r: "1:1 con Lucila; continuidad del frente." },
+  { f: "2026-09-01", t: "Catchup Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/806863986", r: "Diagnóstico de baja adopción; nuevo modelo: workshops semanales de 30 min, one-pager semanal y check-in mensual con Pablo.", a: [
+    { text: "Sesión de documentación con Lucila (plan de continuidad)", owner: "Mara", done: false },
+  ] },
+  { f: "2026-09-03", t: "Tu Recibo — capacitación (Mandú)", p: "alicia", who: ["Gabriela Aguilar","Mandú"], ext: "Mandú (Visma)", r: "Capacitación en Teams; asistencia de +Partners sin confirmar.", a: [
+    { text: "Fecha para status con Alicia, César y Gaby", owner: "Juan", done: false },
+  ] },
+  { f: "2026-09-04", t: "Bench desempeño — Adidas", p: "desempeno", who: ["Silene Rodrigues","Mara","Juan","Vania Guerrero"], ext: "Adidas", link: "https://fathom.video/calls/809335977", r: "On Track / Off Track; desempeño desacoplado del bono; potencial evaluado aparte (mayo–julio)." },
+  { f: "2026-09-07", t: "Catchup Credicorp (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], link: "https://fathom.video/calls/813567060", r: "Pivot a iniciativas proactivas: newsletter semanal, biblioteca de benchmarks con LLM, propuesta H1/H2/H3." },
+  { f: "2026-09-10", t: "Bench desempeño — Visa", p: "desempeno", who: ["Catalina Rueda","Mara","Juan","Vania Guerrero"], ext: "Visa", link: "https://fathom.video/calls/816112457", r: "Qué 50% / Cómo 50%; calibración en dos niveles; marco 3A; agentes Copilot." },
+  { f: "2026-09-14", t: "Bench desempeño — Santander", p: "desempeno", who: ["Jaime Alija","Cristina Masgordoa","Valeria Heide","Mara","Juan","Vania Guerrero"], ext: "Santander", link: "https://fathom.video/share/jCtxNp1-G3Co_jPxht5Ldi9eGTnpVCwF", r: "OKRs 100% + Cómo y Riesgo ±0,25; escala 4→3; potencial dentro de la evaluación anual.", a: [
+    { text: "Resumen escrito del bench Visa para Vania", owner: "Mara / Juan", done: false },
+    { text: "Cuadro comparativo de los 4 benchs", owner: "Mara", done: false },
+  ] },
+  { f: "2026-09-15", t: "Preparación reu con Pablo (interno)", p: "partners", who: ["Mara","Jorge","Sasan","Juan","Lucía"], r: "Triaje de frentes, one-pager y recomendación de cierre por frente." },
+  { f: "2026-09-16", t: "Check-in con Pablo Silva", p: "partners", who: ["Pablo Silva","Mara","Equipo +Partners"], s: "agendada", r: "Check-in mensual: backlog priorizado, reencuadre de Movilidad y Copilot, biblioteca de benchmarks.", a: [] }
 );
 
 window.MEETINGS_HISTORY = MEETINGS_HISTORY;
