@@ -106,6 +106,8 @@ function ReunionesView() {
 
   const [selectedId, setSelectedId] = React.useState(meetings.length ? meetings[0].id : null);
   const [search, setSearch] = React.useState('');
+  const mobile = useIsMobile();
+  const [showDetail, setShowDetail] = React.useState(false);
 
   const filtered = meetings.filter((m) => {
     if (!search) return true;
@@ -142,7 +144,7 @@ function ReunionesView() {
   const maxFrente = Math.max(1, ...stats.frentes.map(f => f.value));
 
   const kpis = [
-    { label: 'Reuniones', value: String(stats.total), sub: 'documentadas en 8 meses', color: R_INK },
+    { label: 'Reuniones', value: String(stats.total), sub: 'documentadas en 10 meses', color: R_INK },
     { label: 'Con transcript', value: `${Math.round((stats.withLink / Math.max(1, stats.total)) * 100)}%`, sub: `${stats.withLink} con link`, color: R_PINK },
     { label: 'Orgs externas', value: `+${stats.orgs}`, sub: 'benchmarks e intercambios', color: '#0E7C72' },
     { label: 'Ritmo', value: (stats.total / 30).toFixed(1), sub: 'reuniones por semana (prom.)', color: R_NAVY },
@@ -150,19 +152,19 @@ function ReunionesView() {
 
   return (
     <div data-app-scroll style={{ overflowY: 'auto', flex: 1, minHeight: 0 }}>
-      <div style={{ padding: '28px 32px 40px', maxWidth: 1240, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ padding: mobile ? '18px 14px 40px' : '28px 32px 40px', maxWidth: 1240, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: mobile ? 16 : 24, fontFamily: 'Inter, system-ui, sans-serif' }}>
 
         {/* Encabezado */}
         <FadeIn>
           <div>
-            <h2 style={{ margin: 0, fontSize: 34, fontWeight: 700, letterSpacing: '-0.02em', color: R_INK }}>Reuniones del programa</h2>
+            <h2 style={{ margin: 0, fontSize: mobile ? 24 : 34, fontWeight: 700, letterSpacing: '-0.02em', color: R_INK }}>Reuniones del programa</h2>
             <div style={{ fontSize: 16, color: R_SLATE, marginTop: 4 }}>Historial consolidado dic-2025 → sep-2026</div>
           </div>
         </FadeIn>
 
         {/* KPIs */}
         <FadeIn delay={80}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: mobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)', gap: mobile ? 10 : 20 }}>
             {kpis.map((s) => (
               <div key={s.label} style={{ ...R_CARD, display: 'flex', flexDirection: 'column', gap: 6 }}>
                 <REyebrow>{s.label}</REyebrow>
@@ -175,7 +177,7 @@ function ReunionesView() {
 
         {/* Gráficos */}
         <FadeIn delay={160}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1fr 1fr 1fr', gap: mobile ? 12 : 20 }}>
             <div style={R_CARD}>
               <div style={{ fontSize: 15, fontWeight: 600, color: R_INK, marginBottom: 20 }}>Reuniones por mes</div>
               <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 8, height: 150 }}>
@@ -229,12 +231,12 @@ function ReunionesView() {
         {/* Maestro–detalle */}
         <FadeIn delay={240}>
           <div style={{
-            display: 'grid', gridTemplateColumns: '440px 1fr', background: '#fff',
+            display: 'grid', gridTemplateColumns: mobile ? '1fr' : '440px 1fr', background: '#fff',
             border: `1px solid ${R_LINE}`, borderRadius: 16,
-            boxShadow: '0 12px 32px rgba(27,42,74,0.10)', overflow: 'hidden', height: 720,
+            boxShadow: '0 12px 32px rgba(27,42,74,0.10)', overflow: 'hidden', height: mobile ? '78vh' : 720,
           }}>
             {/* Lista */}
-            <div style={{ borderRight: `1px solid ${R_LINE}`, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+            <div style={{ borderRight: mobile ? 'none' : `1px solid ${R_LINE}`, display: (mobile && showDetail) ? 'none' : 'flex', flexDirection: 'column', minHeight: 0 }}>
               <div style={{ padding: '20px 22px 14px', borderBottom: `1px solid ${R_LINE}` }}>
                 <div style={{ fontSize: 20, fontWeight: 700, color: R_INK }}>Reuniones</div>
                 <div style={{ fontSize: 13, color: R_MUTE, marginTop: 2 }}>{filtered.length} documentadas · dic 25 → sep 26</div>
@@ -248,7 +250,7 @@ function ReunionesView() {
                 {filtered.map((m) => {
                   const isSel = selected && m.id === selected.id;
                   return (
-                    <div key={m.id} onClick={() => setSelectedId(m.id)}
+                    <div key={m.id} onClick={() => { setSelectedId(m.id); setShowDetail(true); }}
                       onMouseEnter={(e) => { if (!isSel) e.currentTarget.style.background = R_SURFACE; }}
                       onMouseLeave={(e) => { if (!isSel) e.currentTarget.style.background = 'transparent'; }}
                       style={{
@@ -280,13 +282,16 @@ function ReunionesView() {
 
             {/* Detalle */}
             {selected ? (
-              <div style={{ overflow: 'auto', minHeight: 0, padding: '32px 36px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <div style={{ overflow: 'auto', minHeight: 0, padding: mobile ? '18px 16px 32px' : '32px 36px', display: (mobile && !showDetail) ? 'none' : 'block' }}>
+                {mobile && (
+                  <button onClick={() => setShowDetail(false)} style={{ background: R_SURFACE, border: `1px solid ${R_LINE}`, borderRadius: 8, padding: '6px 12px', fontSize: 13, fontWeight: 600, color: R_INK, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>← Lista</button>
+                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
                   <RPill big bg={selected.frente.bg} fg={selected.frente.fg}>{selected.frente.label}</RPill>
                   <RPill big bg={selected.status.bg} fg={selected.status.fg} dot={selected.status.dot}>{selected.status.label}</RPill>
                   {selected.org && <RPill big bg={R_SURFACE} fg={R_SLATE}>{selected.org}</RPill>}
                 </div>
-                <h2 style={{ margin: 0, fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', color: R_INK, lineHeight: 1.2 }}>{selected.title}</h2>
+                <h2 style={{ margin: 0, fontSize: mobile ? 21 : 28, fontWeight: 700, letterSpacing: '-0.02em', color: R_INK, lineHeight: 1.2 }}>{selected.title}</h2>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14, color: R_SLATE, marginTop: 8 }}>
                   {rDateLong(selected.f)}
                   {selected.link && (
@@ -351,7 +356,7 @@ function ReunionesView() {
                 </div>
               </div>
             ) : (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: R_MUTE, fontSize: 14 }}>Seleccioná una reunión.</div>
+              <div style={{ display: (mobile && !showDetail) ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center', color: R_MUTE, fontSize: 14 }}>Seleccioná una reunión.</div>
             )}
           </div>
         </FadeIn>

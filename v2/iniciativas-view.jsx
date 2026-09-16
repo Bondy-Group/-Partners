@@ -75,9 +75,10 @@ function StateSelect({ value, onChange }) {
 
 // ─── Métricas editables ────────────────────────────────────────
 function MetricsRow({ metrics, setMetric, admin }) {
+  const mobile = useIsMobile();
   return (
     <div style={{
-      display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12,
+      display: 'grid', gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(6, 1fr)', gap: 12,
     }}>
       {metrics.map((m) => (
         <div key={m.id} style={{
@@ -293,6 +294,7 @@ function HoursByFront() {
 // ─── Vista principal ───────────────────────────────────────────
 function IniciativasView() {
   const admin = !!IS_ADMIN;
+  const mobile = useIsMobile();
   const seedOverrides = React.useMemo(loadBacklogOverrides, []);
   const [states, setStates] = React.useState(seedOverrides.states || {});
   const [metrics, setMetrics] = React.useState(() =>
@@ -340,9 +342,9 @@ function IniciativasView() {
     <>
       {/* Topbar */}
       <div style={{
-        padding: '12px 28px', borderBottom: `1px solid ${I_LINE}`,
+        padding: mobile ? '10px 14px' : '12px 28px', borderBottom: `1px solid ${I_LINE}`,
         background: '#fff',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 12, color: I_MUTE, fontWeight: 500 }}>+Partners</span>
@@ -362,11 +364,11 @@ function IniciativasView() {
       </div>
 
       {/* Contenido */}
-      <div style={{ overflow: 'auto', flex: 1, padding: '24px 28px 36px' }}>
+      <div style={{ overflow: 'auto', flex: 1, padding: mobile ? '16px 14px 36px' : '24px 28px 36px' }}>
         <FadeIn delay={0}>
           <div style={{ marginBottom: 6 }}>
             <h1 style={{
-              margin: 0, fontSize: 28, fontWeight: 700, color: I_INK,
+              margin: 0, fontSize: mobile ? 22 : 28, fontWeight: 700, color: I_INK,
               letterSpacing: -0.6,
             }}>Iniciativas · Backlog Credicorp</h1>
             <p style={{ margin: '8px 0 0', fontSize: 14, color: I_SLATE, maxWidth: 720 }}>
@@ -405,7 +407,7 @@ function IniciativasView() {
 
         <Stagger step={80} start={220} style={{
           marginTop: 20,
-          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16,
+          display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1fr 1fr', gap: 16,
         }}>
           {INITIATIVE_BLOCKS.map((b) => (
             <BlockTree key={b.id} block={b} states={states}
@@ -416,7 +418,7 @@ function IniciativasView() {
         <FadeIn delay={520} style={{ marginTop: 20 }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: admin ? '1.6fr 1fr' : '1fr', gap: 16,
+            gridTemplateColumns: (admin && !mobile) ? '1.6fr 1fr' : '1fr', gap: 16,
           }}>
             <ResearchRow />
             {admin && <HoursByFront />}

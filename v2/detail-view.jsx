@@ -58,6 +58,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
   const allDecisions = [...localDecs, ...data.decisions];
 
   const heroColor = STATUS_HERO_COLOR[p.status] || accent;
+  const mobile = useIsMobile();
 
   // When embedded inside a DashboardShell, we render fragment style
   // (topbar + scrollable body). Standalone use wraps in the outer
@@ -66,9 +67,9 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
     <>
       {/* ─── Topbar ─── */}
       <div style={{
-        padding: '12px 32px', borderBottom: `1px solid ${D_LINE}`,
+        padding: mobile ? '10px 14px' : '12px 32px', borderBottom: `1px solid ${D_LINE}`,
         background: '#fff',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           {onBack ? (
@@ -87,7 +88,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
           ) : (
             <img src="assets/logos/partners-wordmark.svg" alt="+Partners" style={{ height: 20 }} />
           )}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: D_MUTE }}>
+          <div style={{ display: mobile ? 'none' : 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: D_MUTE }}>
             <span>+Partners</span><span>/</span><span>Credicorp</span><span>/</span>
             <span>Frentes</span><span>/</span>
             <span style={{ color: D_INK, fontWeight: 600 }}>{p.title}</span>
@@ -106,7 +107,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
             padding: '6px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600,
             cursor: 'pointer', fontFamily: 'inherit',
           }}>+ Nueva decisión</button>
-          <Avatar initials="MS" size={28} bg={D_NAVY} />
+          {!mobile && <Avatar initials="MS" size={28} bg={D_NAVY} />}
         </div>
       </div>
 
@@ -115,17 +116,17 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
         <FadeIn delay={0}>
           <section style={{
             background: `linear-gradient(135deg, ${D_NAVY} 0%, ${D_NAVY_ALT} 100%)`,
-            color: '#fff', padding: '36px 32px 32px',
+            color: '#fff', padding: mobile ? '24px 16px 22px' : '36px 32px 32px',
             position: 'relative', overflow: 'hidden',
           }}>
             <div aria-hidden style={{
-              position: 'absolute', right: -30, bottom: -80, fontSize: 320,
+              position: 'absolute', right: -30, bottom: -80, fontSize: mobile ? 140 : 320,
               fontWeight: 800, color: 'rgba(255,255,255,0.045)',
               letterSpacing: -14, lineHeight: 0.8, pointerEvents: 'none',
               fontFamily: '"Inter", system-ui, sans-serif',
             }}>{String(data.countdown.value)}{typeof data.countdown.value === 'number' ? 'd' : ''}</div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 56, position: 'relative' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1.5fr 1fr', gap: mobile ? 22 : 56, position: 'relative' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
                   <span style={{
@@ -201,7 +202,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
           </section>
         </FadeIn>
 
-        <div style={{ padding: '32px 32px 56px' }}>
+        <div style={{ padding: mobile ? '20px 14px 48px' : '32px 32px 56px' }}>
           {/* Timeline — daily / weekly / phases */}
           <FadeIn delay={120}>
             <DSection
@@ -224,7 +225,7 @@ function DetailView({ projectId = 'hub-brasil', onBack, embedded = false }) {
           </FadeIn>
 
           {/* Decisions + Risks two col */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 20, marginTop: 28 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1.4fr 1fr', gap: 20, marginTop: 28 }}>
             <FadeIn delay={300}>
               <DSection label="Decisions log" title="Lo que ya decidimos" tight>
                 <DDecisions decisions={allDecisions} accent={accent} />
@@ -291,9 +292,10 @@ function DSection({ label, title, children, tight }) {
 
 // ─── Daily timeline (HUB Brasil) ────────────────────────────────
 function DDailyTimeline({ timeline, accent }) {
+  const mobile = useIsMobile();
   return (
-    <div style={{ background: '#fff', border: `1px solid ${D_LINE}`, borderRadius: 12, overflow: 'hidden' }}>
-      <div style={{ display: 'flex' }}>
+    <div style={{ background: '#fff', border: `1px solid ${D_LINE}`, borderRadius: 12, overflow: mobile ? 'auto' : 'hidden', WebkitOverflowScrolling: 'touch' }}>
+      <div style={{ display: 'flex', minWidth: mobile ? timeline.length * 150 : 0 }}>
         {timeline.map((d, i) => {
           const isCrit = d.items.some((x) => x.critical);
           return (
@@ -341,15 +343,16 @@ function DDailyTimeline({ timeline, accent }) {
 
 // ─── Weekly / phases timeline ───────────────────────────────────
 function DPeriodTimeline({ timeline, accent, kind }) {
+  const mobile = useIsMobile();
   return (
     <div style={{ background: '#fff', border: `1px solid ${D_LINE}`, borderRadius: 12, padding: '8px 0' }}>
       {timeline.map((row, i) => {
         const isBlocked = row.period.toLowerCase().includes('bloqu');
         return (
           <div key={row.period} style={{
-            display: 'grid', gridTemplateColumns: '180px 1fr',
-            gap: 24, alignItems: 'flex-start',
-            padding: '16px 24px',
+            display: 'grid', gridTemplateColumns: mobile ? '1fr' : '180px 1fr',
+            gap: mobile ? 8 : 24, alignItems: 'flex-start',
+            padding: mobile ? '14px 16px' : '16px 24px',
             borderBottom: i < timeline.length - 1 ? `1px solid ${D_LINE}` : 'none',
           }}>
             <div>
@@ -391,10 +394,11 @@ function DPeriodTimeline({ timeline, accent, kind }) {
 
 // ─── Workstreams ────────────────────────────────────────────────
 function DWorkstreams({ workstreams, accent }) {
+  const mobile = useIsMobile();
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: workstreams.length === 1 ? '1fr' : workstreams.length === 2 ? '1fr 1fr' : 'repeat(3, 1fr)',
+      gridTemplateColumns: mobile ? '1fr' : workstreams.length === 1 ? '1fr' : workstreams.length === 2 ? '1fr 1fr' : 'repeat(3, 1fr)',
       gap: 14,
     }}>
       {workstreams.map((w) => {
@@ -511,8 +515,9 @@ function DRisks({ risks }) {
 
 // ─── People ─────────────────────────────────────────────────────
 function DPeople({ people }) {
+  const mobile = useIsMobile();
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1fr 1fr', gap: 14 }}>
       <DRoster title="+Partners" subtitle={`${people.partners.length} ${people.partners.length === 1 ? 'persona' : 'personas'} asignadas`} people={people.partners} side="p" />
       <DRoster title="Credicorp" subtitle={`${people.credicorp.length} contraparte${people.credicorp.length === 1 ? '' : 's'}`} people={people.credicorp} side="c" />
     </div>

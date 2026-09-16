@@ -70,6 +70,31 @@ function ProjectPage({ projectId }) {
 
 // ─── Shell: sidebar (always) + body ────────────────────────────
 function DashboardShell({ page, setPage, children }) {
+  const mobile = useIsMobile();
+  const [nav, setNav] = React.useState(false);
+  React.useEffect(() => { setNav(false); }, [page]);
+  const go = React.useCallback((p) => { setNav(false); setPage && setPage(p); }, [setPage]);
+  if (mobile) {
+    return (
+      <div style={{
+        width: '100%', height: '100%', background: V2_SURFACE, color: V2_INK,
+        fontFamily: '"Inter", system-ui, sans-serif',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative',
+      }}>
+        <V2MobileHeader page={page} onMenu={() => setNav(true)} />
+        <div style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+          {children}
+        </div>
+        {nav && (
+          <div onClick={() => setNav(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(15,20,25,.45)', zIndex: 40 }}>
+            <div onClick={(e) => e.stopPropagation()} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: 'min(280px, 84vw)', overflow: 'auto', boxShadow: '8px 0 32px rgba(0,0,0,.3)' }}>
+              <V2Sidebar page={page} setPage={go} onClose={() => setNav(false)} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
   return (
     <div style={{
       width: '100%', height: '100%', background: V2_SURFACE, color: V2_INK,
@@ -85,6 +110,25 @@ function DashboardShell({ page, setPage, children }) {
   );
 }
 
+// ─── Mobile header (logo + hamburger) ───────────────────────────
+function V2MobileHeader({ page, onMenu }) {
+  const p = PROJECTS.find((x) => x.id === page);
+  const title = page === 'dashboard' ? 'Resumen' : page === 'iniciativas' ? 'Iniciativas' : page === 'reuniones' ? 'Reuniones' : p ? p.title.split('—')[0].split('/')[0].trim() : '';
+  return (
+    <div style={{
+      background: V2_NAVY, color: '#fff', padding: '10px 14px',
+      display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
+    }}>
+      <button onClick={onMenu} aria-label="Menú" style={{
+        background: 'rgba(255,255,255,.10)', border: 'none', color: '#fff', borderRadius: 8,
+        width: 36, height: 36, fontSize: 18, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+      }}>☰</button>
+      <img src="assets/logos/partners-wordmark.svg" alt="+Partners" style={{ height: 18, filter: 'brightness(0) invert(1)' }} />
+      <span style={{ marginLeft: 'auto', fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</span>
+    </div>
+  );
+}
+
 // ─── Dashboard body (extracted) ────────────────────────────────
 function DashboardBody({ setPage }) {
   const { t } = useTweaks();
@@ -93,6 +137,7 @@ function DashboardBody({ setPage }) {
   const [search, setSearch] = React.useState('');
   const [sort, setSort] = React.useState('risk');
   const dense = t.density !== 'comfy';
+  const mobile = useIsMobile();
 
   const enCurso = PROJECTS.filter((p) => p.status === 'active').length;
   const riskProjects = PROJECTS.filter((p) => p.status === 'risk');
@@ -103,8 +148,9 @@ function DashboardBody({ setPage }) {
   const backlogPct = (() => {
     try {
       const ov = loadBacklogOverrides();
-      return (ov.metrics && ov.metrics.pct) || '35%';
-    } catch (e) { return '35%'; }
+      const d = (BACKLOG_METRICS_DEFAULT.find((m) => m.id === 'pct') || {}).value || '—';
+      return (ov.metrics && ov.metrics.pct) || d;
+    } catch (e) { return '40%'; }
   })();
 
   const filtered = PROJECTS
@@ -117,13 +163,13 @@ function DashboardBody({ setPage }) {
         <V2Topbar search={search} setSearch={setSearch} accent={accent} />
 
         {/* Scrollable content */}
-        <div style={{ overflow: 'auto', flex: 1, padding: '20px 28px 32px' }}>
+        <div style={{ overflow: 'auto', flex: 1, padding: mobile ? '14px 14px 32px' : '20px 28px 32px' }}>
           <FadeIn delay={0}>
             <V2InfoStrip accent={accent} />
           </FadeIn>
 
           {/* Stat row — 4 small, no alarmist big one */}
-          <Stagger step={70} start={80} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginTop: 16 }}>
+          <Stagger step={70} start={80} style={{ display: 'grid', gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: 12, marginTop: 16 }}>
             <V2Stat label="Proyectos" value={String(PROJECTS.length)} trend="—" sub="Frentes activos" />
             <V2Stat label="En curso" value={String(enCurso)} trend="+1" sub="vs marzo" tone="teal" />
             <V2Stat label="En riesgo" value={String(enRiesgo)} trend="=" sub={riskSub} tone="warn" accent={accent} />
@@ -162,15 +208,18 @@ function DashboardBody({ setPage }) {
 }
 
 // ─── Sidebar ───────────────────────────────────────────────────
-function V2Sidebar({ page, setPage }) {
+function V2Sidebar({ page, setPage, onClose }) {
   return (
     <aside style={{
       background: V2_NAVY, color: '#fff', padding: '20px 16px',
-      display: 'flex', flexDirection: 'column', gap: 24,
+      display: 'flex', flexDirection: 'column', gap: 24, minHeight: '100%', boxSizing: 'border-box',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 6px' }}>
         <img src="assets/logos/partners-wordmark.svg" alt="+Partners"
           style={{ height: 22, filter: 'brightness(0) invert(1)' }} />
+        {onClose && (
+          <button onClick={onClose} aria-label="Cerrar" style={{ marginLeft: 'auto', background: 'transparent', border: 'none', color: 'rgba(255,255,255,.7)', fontSize: 20, cursor: 'pointer', lineHeight: 1 }}>×</button>
+        )}
       </div>
 
       <div>
@@ -268,14 +317,15 @@ function V2SideItem({ l, n, sel, onClick, disabled }) {
 // ─── Topbar con buscador global ─────────────────────────────────
 function V2Topbar({ search, setSearch, accent }) {
   const [focus, setFocus] = React.useState(false);
+  const mobile = useIsMobile();
   return (
     <div style={{
-      padding: '12px 28px', borderBottom: `1px solid ${V2_LINE}`,
+      padding: mobile ? '10px 14px' : '12px 28px', borderBottom: `1px solid ${V2_LINE}`,
       background: 'rgba(255,255,255,.96)', backdropFilter: 'blur(12px)',
-      display: 'grid', gridTemplateColumns: '1fr minmax(320px, 480px) 1fr', alignItems: 'center', gap: 16,
+      display: 'grid', gridTemplateColumns: mobile ? '1fr' : '1fr minmax(320px, 480px) 1fr', alignItems: 'center', gap: mobile ? 8 : 16,
     }}>
       {/* breadcrumb */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ display: mobile ? 'none' : 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{ fontSize: 12, color: V2_MUTE, fontWeight: 500 }}>+Partners</span>
         <span style={{ fontSize: 12, color: V2_MUTE }}>/</span>
         <span style={{ fontSize: 12, color: V2_MUTE, fontWeight: 500 }}>Credicorp</span>
@@ -308,15 +358,15 @@ function V2Topbar({ search, setSearch, accent }) {
           }}
         />
         <span style={{
-          position: 'absolute', top: 8, right: 10,
+          position: 'absolute', top: 8, right: 10, display: mobile ? 'none' : 'inline-block',
           fontSize: 10, padding: '2px 6px', background: V2_SURFACE,
           color: V2_SLATE, fontFamily: 'JetBrains Mono, monospace',
           border: `1px solid ${V2_LINE}`, borderRadius: 4,
-        }}>⌘ K</span>
+        }}>{mobile ? '' : '⌘ K'}</span>
       </div>
 
       {/* right side actions */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'flex-end' }}>
+      <div style={{ display: mobile ? 'none' : 'flex', alignItems: 'center', gap: 10, justifyContent: 'flex-end' }}>
         <div style={{
           display: 'flex', alignItems: 'center', gap: 6,
           padding: '6px 10px', background: V2_SURFACE, borderRadius: 6,
@@ -351,6 +401,7 @@ function currentWeekLabel() {
 
 function V2InfoStrip({ accent }) {
   const [cal, setCal] = React.useState(null);
+  const mobile = useIsMobile();
   React.useEffect(() => {
     let live = true;
     fetchCalendarCount().then((r) => { if (live) setCal(r); });
@@ -360,15 +411,15 @@ function V2InfoStrip({ accent }) {
   const riskP = PROJECTS.find((p) => p.status === 'risk');
   const activeN = PROJECTS.filter((p) => p.status === 'active').length;
   const headline = riskP
-    ? `${riskP.title.split('—')[0].split('/')[0].trim()} en ventana crítica · ${activeN} frentes en curso`
-    : `${activeN} frentes en curso`;
+    ? `${riskP.title.split('—')[0].split('/')[0].trim()} en ventana crítica · ${activeN} ${activeN === 1 ? 'frente' : 'frentes'} en curso`
+    : `${activeN} ${activeN === 1 ? 'frente' : 'frentes'} en curso`;
   const reun = cal ? cal.count : '·';
 
   return (
     <div style={{
-      display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 28, alignItems: 'center',
+      display: 'grid', gridTemplateColumns: mobile ? '1fr' : 'auto 1fr auto', gap: mobile ? 14 : 28, alignItems: 'center',
       background: '#fff', border: `1px solid ${V2_LINE}`,
-      borderRadius: 12, padding: '16px 22px',
+      borderRadius: 12, padding: mobile ? '14px 16px' : '16px 22px',
     }}>
       <div>
         <div style={{ fontSize: 10, color: V2_MUTE, fontWeight: 700, letterSpacing: 0.6, textTransform: 'uppercase' }}>
@@ -378,7 +429,7 @@ function V2InfoStrip({ accent }) {
           {headline}
         </div>
       </div>
-      <div style={{ display: 'flex', gap: 24, paddingLeft: 28, borderLeft: `1px solid ${V2_LINE}` }}>
+      <div style={{ display: 'flex', gap: 24, paddingLeft: mobile ? 0 : 28, borderLeft: mobile ? 'none' : `1px solid ${V2_LINE}`, flexWrap: 'wrap' }}>
         <V2InfoCell n={String(reun)} l="reuniones" sub={cal && cal.source === 'calendar' ? 'esta semana · Calendar' : 'esta semana'} />
         <V2InfoCell n={String(PROJECTS.filter((p) => p.status === 'delivery').length || PROJECTS.length)} l="entregables" sub="en curso" />
         <V2InfoCell n={String(PROJECTS.filter((p) => p.status === 'risk').length)} l="hito crítico" sub="frente en riesgo" accent={accent} warn />
@@ -439,12 +490,13 @@ function V2Stat({ label, value, trend, sub, tone, accent }) {
 function V2Gantt({ accent }) {
   const { weeks } = computeGanttWeeks(10);
   const totalWeeks = weeks.length;
-  const colTemplate = `160px repeat(${totalWeeks}, 1fr)`;
+  const mobile = useIsMobile();
+  const colTemplate = mobile ? `120px repeat(${totalWeeks}, 64px)` : `160px repeat(${totalWeeks}, 1fr)`;
   return (
-    <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '18px 0 6px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0 20px 14px' }}>
+    <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '18px 0 6px', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0 20px 14px', flexWrap: 'wrap', gap: 8 }}>
         <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: V2_INK }}>Timeline · 10 semanas</h3>
-        <div style={{ display: 'flex', gap: 8, fontSize: 11 }}>
+        <div style={{ display: 'flex', gap: 8, fontSize: 11, flexWrap: 'wrap' }}>
           {[
             ['Riesgo', accent], ['En curso', '#2BD6C8'], ['Entregable', V2_NAVY], ['Stand-by', V2_MUTE],
           ].map(([l, c]) => (
@@ -541,16 +593,17 @@ function V2FilterBar({ filter, setFilter, sort, setSort, count, total, projects,
     const today = new Date().toISOString().slice(0, 10);
     downloadCSV(`frentes-credicorp-${today}.csv`, rows);
   }, [projects]);
+  const mobile = useIsMobile();
   return (
     <div style={{
       position: 'sticky', top: 0, zIndex: 5,
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12,
-      padding: '14px 16px', background: '#fff',
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+      padding: mobile ? '12px 14px' : '14px 16px', background: '#fff',
       border: `1px solid ${V2_LINE}`, borderRadius: 12,
       boxShadow: '0 4px 12px rgba(15,20,25,0.04)',
       marginBottom: 12,
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
         <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: V2_INK, letterSpacing: -0.2 }}>
           Frentes <span style={{ color: V2_MUTE, fontWeight: 500, fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>{count}/{total}</span>
         </h3>
@@ -571,6 +624,7 @@ function V2FilterBar({ filter, setFilter, sort, setSort, count, total, projects,
           </select>
         </div>
         <button onClick={exportCSV} style={{
+          display: mobile ? 'none' : 'inline-block',
           background: 'transparent', border: `1px solid ${V2_LINE}`,
           padding: '6px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600,
           color: V2_SLATE, cursor: 'pointer', fontFamily: 'inherit',
@@ -584,6 +638,39 @@ function V2FilterBar({ filter, setFilter, sort, setSort, count, total, projects,
 
 // ─── Table ──────────────────────────────────────────────────────
 function V2Table({ projects, onOpen, accent, dense }) {
+  const mobile = useIsMobile();
+  if (mobile) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {projects.length === 0 && (
+          <div style={{ padding: 28, textAlign: 'center', color: V2_MUTE, fontSize: 13, background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12 }}>Sin frentes con esos filtros.</div>
+        )}
+        {projects.map((p) => (
+          <div key={p.id} onClick={() => onOpen(p)} style={{
+            background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '14px 14px 12px', cursor: 'pointer',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <StatusDot status={p.status} size={9} />
+              <div style={{ fontSize: 14, fontWeight: 600, color: V2_INK, flex: 1, minWidth: 0 }}>{p.title}</div>
+              <span style={{ fontSize: 16, color: V2_MUTE }}>→</span>
+            </div>
+            <div style={{ fontSize: 12, color: V2_MUTE, marginTop: 4, lineHeight: 1.4 }}>{p.subtitle}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+              <StatusPill status={p.status} label={p.statusLabel} size="sm" />
+              <span style={{ fontSize: 11, color: V2_SLATE, fontFamily: 'JetBrains Mono, monospace' }}>{p.lastMeeting || p.lastActivity}</span>
+              <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <AvatarStack people={p.leads.map((l) => ({ initials: l }))} size={20} max={3} />
+              </span>
+            </div>
+            <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ flex: 1 }}><ProgressBar value={p.progress} color={p.status === 'standby' ? V2_MUTE : accent} /></div>
+              <span style={{ fontSize: 11, color: V2_MUTE, fontFamily: 'JetBrains Mono, monospace' }}>{p.progress}%</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
   return (
     <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, overflow: 'hidden' }}>
       <div style={{
@@ -668,13 +755,14 @@ function V2Table({ projects, onOpen, accent, dense }) {
 
 // ─── Team + Admin row ───────────────────────────────────────────
 function V2TeamAdmin({ isAdmin, accent }) {
+  const mobile = useIsMobile();
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: isAdmin ? '1.4fr 1fr' : '1fr', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: mobile ? '1fr' : isAdmin ? '1.4fr 1fr' : '1fr', gap: 16 }}>
       <div style={{ background: '#fff', border: `1px solid ${V2_LINE}`, borderRadius: 12, padding: '18px 20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}>
           <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: V2_INK }}>Equipo · 5 +Partners · 7 contactos Credicorp</h3>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: mobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: 10 }}>
           {[...TEAM_PARTNERS.map((p) => ({ ...p, side: 'p' })), ...TEAM_CREDICORP.map((p) => ({ ...p, side: 'c' }))].map((p) => {
             const showFlag = p.flag && isAdmin;
             return (

@@ -1,4 +1,19 @@
 /* global React */
+// Responsive hook — mobile = viewport <= 820px.
+function useIsMobile(bp = 820) {
+  const q = `(max-width: ${bp}px)`;
+  const [m, setM] = React.useState(() => (typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(q).matches : false));
+  React.useEffect(() => {
+    if (!window.matchMedia) return;
+    const mq = window.matchMedia(q);
+    const h = (e) => setM(e.matches);
+    mq.addEventListener ? mq.addEventListener('change', h) : mq.addListener(h);
+    return () => { mq.removeEventListener ? mq.removeEventListener('change', h) : mq.removeListener(h); };
+  }, [q]);
+  return m;
+}
+window.useIsMobile = useIsMobile;
+
 // Shared atomic components: avatar, status pill, project detail modal.
 // Each takes an `accent` prop so the Tweaks panel can swap pink/teal/navy
 // without re-rendering call sites.
