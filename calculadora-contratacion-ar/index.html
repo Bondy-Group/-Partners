@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Costo y riesgo por forma de contratación · Argentina</title>
+<style>
+:root{--navy:#1B2A4A;--teal:#2BD6C8;--mag:#C832A0;--ice:#D8DEEB;--cream:#F8F7F4;--txt:#4A4A4A;--r:#C0392B;--a:#D99A00;--v:#0F6E56}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--txt);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:28px 20px 24px}
+.wrap{max-width:860px;margin:0 auto}
+.brand{color:var(--teal);letter-spacing:.35em;font-size:12px;font-weight:600}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:26px;line-height:1.2;margin:10px 0 6px;text-wrap:balance}
+h1:after{content:"";display:block;width:64px;height:3px;background:var(--mag);margin-top:12px}
+header p{margin:10px 0 0;color:var(--ice);font-style:italic;font-size:15px}
+main{padding:20px}
+h2{font-family:Georgia,serif;color:var(--navy);font-size:19px;margin:28px 0 10px}
+.card{background:#fff;border:1px solid var(--ice);border-radius:10px;padding:16px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+label{display:block;font-size:13px;color:var(--navy);font-weight:600}
+input[type=number],select{width:100%;margin-top:4px;padding:9px 10px;border:1px solid #c5cbd9;border-radius:6px;font:inherit;background:#fff}
+.hint{font-weight:400;color:#777;font-size:12px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--txt);margin:6px 0}
+.chk input{margin-top:4px}
+.warn{background:#FFF6E0;border-left:4px solid var(--a);padding:12px 14px;border-radius:6px;font-size:14px}
+.info{background:#E9FBF9;border-left:4px solid var(--teal);padding:12px 14px;border-radius:6px;font-size:14px;margin-top:12px}
+details{background:#fff;border:1px solid var(--ice);border-radius:10px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:14px 16px;list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+.dot{width:14px;height:14px;border-radius:50%}
+.r{background:var(--r)}.a{background:var(--a)}.v{background:var(--v)}
+.st{font-weight:700;color:var(--navy)}
+.ss{font-size:13px;color:#777}
+.amt{text-align:right;font-variant-numeric:tabular-nums}
+.amt b{color:var(--navy);font-size:17px;display:block}
+.amt span{font-size:12px;color:#777}
+.body{padding:0 16px 16px;border-top:1px solid var(--ice)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:12px}
+td{padding:5px 0;border-bottom:1px dashed #e3e6ee}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:700;color:var(--navy);border-bottom:0;border-top:2px solid var(--navy)}
+h3{font-size:14px;color:var(--navy);margin:16px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+ul{margin:0;padding:0;list-style:none}
+li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;margin:8px 0}
+li .dot{margin-top:4px;width:12px;height:12px}
+.ref{display:block;font-size:12px;color:#777}
+.pro li:before{content:"+";color:var(--v);font-weight:700}
+.note{font-size:13px;background:var(--cream);padding:10px 12px;border-radius:6px;margin-top:10px}
+.leg{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin:6px 0 12px}
+.leg span{display:flex;gap:6px;align-items:center}
+footer{font-size:13px;color:#666;padding:8px 20px 40px}
+footer a{color:var(--navy)}
+footer li{display:list-item;margin:4px 0 4px 18px;list-style:disc}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">+ P A R T N E R S</div>
+<h1>Costo y riesgo por forma de contratación en Argentina</h1>
+<p>Una persona, cinco formas de contratarla: cuánto cuesta por mes y qué riesgo trae cada una.</p>
+</div></header>
+<main class="wrap">
+
+<div class="warn"><b>Herramienta orientativa.</b> No es un dictamen legal ni una liquidación. Los porcentajes son los generales y el semáforo es un criterio de trabajo. Antes de decidir, validar con abogado laboralista y asesor tributario.</div>
+
+<h2>Datos de la persona</h2>
+<div class="card"><div class="grid">
+<label>Monto mensual <span class="hint">(bruto u honorario)</span><input type="number" id="bruto" value="3000" min="0" step="100"></label>
+<label>Moneda<select id="mon"><option>USD</option><option>ARS</option></select></label>
+<label>Antigüedad <span class="hint">(años)</span><input type="number" id="anios" value="3" min="0" step="1"></label>
+<label>Tipo de empleador<select id="tam"><option value="0.204">Grande / servicios (20,4%)</option><option value="0.18">PyME con certificado (18%)</option></select></label>
+<label>ART <span class="hint">(% estimado)</span><input type="number" id="art" value="2.5" min="0" step="0.5"></label>
+<label>Beneficios extra por mes <span class="hint">(prepaga, etc.)</span><input type="number" id="benef" value="0" min="0" step="50"></label>
+<label>Fee mensual del tercero <span class="hint">(supuesto)</span><input type="number" id="fee" value="500" min="0" step="50"></label>
+<label>Cowork por persona <span class="hint">(supuesto)</span><input type="number" id="cowork" value="200" min="0" step="50"></label>
+</div>
+<label class="chk" style="margin-top:14px"><input type="checkbox" id="fal"> Sumar aporte al Fondo de Asistencia Laboral (1% grande, 2,5% PyME). A validar: vigencia y si se compensa con una baja de contribuciones.</label>
+</div>
+
+<h2>¿Cómo trabaja en la práctica?</h2>
+<div class="card">
+<div class="hint" style="margin-bottom:6px">Solo cambia el semáforo de las opciones freelance. Cuantas más marques, más se parece a una relación de dependencia aunque haya factura.</div>
+<label class="chk"><input type="checkbox" class="dep" checked> Reporta a un jefe de la empresa y recibe instrucciones</label>
+<label class="chk"><input type="checkbox" class="dep" checked> Tiene horario o disponibilidad fija</label>
+<label class="chk"><input type="checkbox" class="dep" checked> La empresa es su único cliente</label>
+<label class="chk"><input type="checkbox" class="dep"> Usa mail, equipos o herramientas de la empresa</label>
+<label class="chk"><input type="checkbox" class="dep"> Está integrada a un equipo con empleados en nómina</label>
+</div>
+
+<h2>Comparación</h2>
+<div class="leg"><span><i class="dot v"></i>Riesgo bajo</span><span><i class="dot a"></i>Atención</span><span><i class="dot r"></i>Riesgo alto</span></div>
+<div id="out"></div>
+
+<div class="info"><b>Si ya hay personas trabajando sin registrar:</b> la Ley 27.802 creó un régimen de regularización (Promoción del Empleo Registrado, Decreto 409/2026) que condona buena parte de la deuda previsional y reconoce hasta 60 meses de servicio. Verificar con el abogado el plazo de adhesión y si el caso califica.</div>
+
+</main>
+<footer class="wrap">
+<p><b>Cómo leer los números.</b> Costo mensual = monto + contribuciones patronales + obra social + ART + aguinaldo prorrateado (con sus cargas). No incluye seguro de vida obligatorio (monto fijo menor), vacaciones (son días pagos, no un costo adicional de caja), Ganancias ni tipo de cambio. La "exposición" es un orden de magnitud sin intereses ni costas.</p>
+<p><b>Marco legal considerado (a noviembre de 2026).</b> Ley de Contrato de Trabajo 20.744 con las reformas de la Ley 27.742 (2024) y la Ley 27.802 de Modernización Laboral (Boletín Oficial, 6/3/2026). En marzo de 2026 una medida cautelar suspendió parte de los artículos; verificar la vigencia de cada uno al momento de decidir. La jurisprudencia sobre la reforma todavía es escasa y hay fallos en sentidos opuestos.</p>
+<p><b>Fuentes consultadas</b></p>
+<ul>
+<li><a href="https://www.boletinoficial.gob.ar/detalleAviso/primera/339128/20260306">Ley 27.802, texto en el Boletín Oficial</a></li>
+<li><a href="https://www.marval.com/publicacion/especial-ley-de-modernizacion-laboral-17500">Marval: resumen de la Ley 27.802</a></li>
+<li><a href="https://novedades.eldial.com/2026/10/indemnizacion-por-despido-nueva-base-de.html">elDial: nueva base de cálculo del art. 245</a></li>
+<li><a href="https://ninolegal.com/novedad/reforma-laboral-ley-27802-art23-lct-monotributistas-relacion-dependencia">Art. 23 LCT y monotributistas tras la reforma</a></li>
+<li><a href="https://www.iprofesional.com/impuestos/455441-reforma-laboral-justicia-rechaza-demanda-millonaria-de-profesional-monotributista">Fallo que aplica la reforma y rechaza el reclamo (mayo 2026)</a></li>
+<li><a href="https://ninolegal.com/novedad/arquitecto-monotributista-relacion-dependencia-constructora-camara-trabajo">Fallo que reconoce dependencia pese a la factura (abril 2026)</a></li>
+<li><a href="https://www.diariojudicial.com/news-98463-las-multas-laborales-dividen-aguas">Diario Judicial: criterios divididos sobre multas derogadas</a></li>
+<li><a href="https://raskovskyasociados.com.ar/blanqueo-laboral-2026-decreto-409-per/">Régimen de regularización, Decreto 409/2026</a></li>
+</ul>
+<p>Uso interno · +Partners</p>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>Math.max(0,parseFloat($(id).value)||0);
+const pct=x=>(x*100).toLocaleString('es-AR',{maximumFractionDigits:1})+'%';
+const W={v:0,a:1,r:2};
+
+function calc(){
+  const B=num('bruto'),A=num('anios'),c=parseFloat($('tam').value),art=num('art')/100;
+  const fal=$('fal').checked?(c>0.19?0.01:0.025):0;
+  const fee=num('fee'),cw=num('cowork'),ben=num('benef'),cur=$('mon').value;
+  const f=x=>cur+' '+Math.round(x).toLocaleString('es-AR');
+  const dep=document.querySelectorAll('.dep:checked').length;
+  const lv=n=>n>=3?'r':n>=1?'a':'v';
+
+  const cargas=c+0.06+art+fal;
+  const sac=B/12;
+  const filas=[['Monto bruto mensual',B],['Contribuciones patronales ('+pct(c)+')',B*c],['Obra social (6%)',B*0.06],['ART ('+pct(art)+')',B*art]];
+  if(fal)filas.push(['Fondo de Asistencia Laboral ('+pct(fal)+')',B*fal]);
+  filas.push(['Aguinaldo prorrateado (1/12)',sac],['Cargas sobre el aguinaldo',sac*cargas]);
+  if(ben)filas.push(['Beneficios extra',ben]);
+  const nomina=filas.reduce((s,x)=>s+x[1],0);
+
+  const n=Math.max(1,Math.round(A));
+  const prea=(A>5?2:1)*B;
+  const lo=0.67*B*n+prea,hi=B*n+prea;
+  const deuda=(c+0.06+0.17)*B*12*Math.min(A,10);
+  const salida='Si se desvincula sin causa hoy: entre '+f(lo)+' y '+f(hi)+' (un mes por año de antigüedad más preaviso; el rango depende del tope de convenio, que no puede bajar la base de 67%).';
+  const expo='Si un juez reconoce relación de dependencia: indemnización y preaviso entre '+f(lo)+' y '+f(hi)+', más aportes y contribuciones no ingresados por unos '+f(deuda)+'. Orden de magnitud, sin intereses ni costas.';
+
+  const realidad=k=>({l:lv(k),t:k>=3?'Por cómo trabaja, se parece a una relación de dependencia. La factura no alcanza: los jueces miran lo que pasa en los hechos.':k>=1?'Hay indicios de dependencia. Con contrato y factura ya no se presume relación laboral, pero la persona puede probarla.':'Trabaja con autonomía real. Con contrato y factura, la ley ya no presume relación laboral.',ref:'Art. 23 LCT (texto Ley 27.802) y principio de primacía de la realidad. Fallos de 2026 en ambos sentidos.'});
+  const sinArt={l:'a',t:'No tiene cobertura de ART. Un accidente trabajando puede terminar en un reclamo directo contra la empresa.',ref:'Ley 24.557 de Riesgos del Trabajo: cubre solo a personal registrado.'};
+  const multas={l:'a',t:'Las multas por no registrar se derogaron en 2024, pero los tribunales no aplican eso de manera uniforme y algunos reconocen daños por otra vía.',ref:'Ley 27.742, arts. 99 y 100. Criterios judiciales divididos.'};
+
+  const sc=[
+  {t:'Nómina en entidad propia',s:'Relación de dependencia registrada',m:nomina,rows:filas,
+   notes:['Lo que recibe la persona: cerca de '+f(B*0.83)+' por mes antes de Ganancias (se le descuenta 17% de aportes, con un tope de base).',salida],
+   risks:[
+    {l:'v',t:'Vínculo registrado: no hay discusión sobre si es empleada o no.',ref:'LCT arts. 21 a 23; registro ante ARCA (Ley 27.802).'},
+    {l:'a',t:'Tiene costo de salida: un mes de sueldo por año trabajado. La base excluye aguinaldo y bonos no mensuales, con tope de tres veces el promedio del convenio y piso de 67% del sueldo real.',ref:'Art. 245 LCT (texto Ley 27.802, art. 51).'},
+    {l:'a',t:'Requiere tener o crear una sociedad local y montar nómina, ART y obra social. Lleva tiempo.',ref:'Operativo, no legal.'},
+    {l:'a',t:'Si se reconoce la antigüedad anterior, la empresa asume el pasivo de ese período.',ref:'Ver régimen de regularización, Ley 27.802 y Decreto 409/2026.'}],
+   pros:['Es la opción con más seguridad jurídica.','Permite dar beneficios, carrera y pertenencia.','Puede haber reducción de contribuciones para altas nuevas (régimen de incentivo 2026, a validar si aplica).']},
+  {t:'Nómina a través de un tercero',s:'Empleador de registro o tercerización',m:nomina+fee,rows:filas.concat([['Fee del tercero (supuesto)',fee]]),
+   notes:['El costo de salida es el mismo que en nómina propia; el tercero lo traslada.','El fee es un supuesto: pedir cotización real.'],
+   risks:[
+    {l:'v',t:'La persona queda registrada y con cobertura, sin necesidad de crear una sociedad.',ref:'Operativo.'},
+    {l:'a',t:'Si el tercero no paga sueldos o cargas, la empresa que usa el servicio puede responder junto con él. Y si el tercero es solo una pantalla, puede considerarse empleadora a la empresa.',ref:'Arts. 29 y 30 LCT (el 29 fue reemplazado por la Ley 27.802; validar alcance actual).'},
+    {l:'a',t:'Menos control sobre beneficios, comunicación y experiencia de la persona.',ref:'Operativo.'}],
+   pros:['Es la vía más rápida para registrar.','No requiere estructura local propia.','Sirve como paso intermedio mientras se decide si crear entidad.']},
+  {t:'Freelance que factura, remoto',s:'Contrato de servicios con factura',m:B,rows:[['Honorario mensual',B],['Cargas sociales',0]],
+   notes:['La persona paga su propio monotributo o autónomos y su cobertura de salud.',expo],
+   risks:[realidad(dep),sinArt,multas],
+   pros:['Costo mensual más bajo y sin costo de salida, si la autonomía es real.','Flexible para proyectos acotados o perfiles con varios clientes.','Desde 2026 la ley protege mejor este esquema cuando está bien instrumentado.']},
+  {t:'Freelance trabajando en un cowork de la empresa',s:'Contrato de servicios, lugar provisto',m:B+cw,rows:[['Honorario mensual',B],['Cowork (supuesto)',cw],['Cargas sociales',0]],
+   notes:[expo],
+   risks:[realidad(dep+1),
+    {l:dep>=2?'r':'a',t:'La empresa le da y le paga el lugar de trabajo, y comparte espacio con el equipo. Eso suma un indicio de integración a la organización.',ref:'Indicios que valoran los jueces: lugar, horario, dirección, integración.'},
+    sinArt,multas],
+   pros:['Mejora la colaboración y el sentido de pertenencia.','Mismo costo bajo que el freelance remoto, más el espacio.']},
+  {t:'Contrato directo con empresa del exterior',s:'Pago por transferencia internacional, sin entidad local',m:B,rows:[['Honorario mensual',B],['Cargas sociales',0]],
+   notes:[expo],
+   risks:[
+    {l:'r',t:'No hay empleador local que pueda registrar a la persona. Si reclama, el trabajo hecho en Argentina se rige por la ley argentina aunque el contrato sea con una empresa de afuera.',ref:'Art. 3 LCT.'},
+    realidad(dep+1),
+    {l:'a',t:'Si la persona no emite factura local, es discutible que aplique la protección del nuevo art. 23.',ref:'A validar con el contrato firmado y la forma de cobro.'},
+    {l:'a',t:'Riesgo impositivo: que se considere que la empresa del exterior opera de hecho en Argentina.',ref:'Establecimiento permanente. A validar con asesor tributario.'},
+    sinArt],
+   pros:['Simple y barato en el corto plazo.','Solo se sostiene como situación transitoria.']}
+  ];
+
+  $('out').innerHTML=sc.map((x,i)=>{
+    const worst=x.risks.reduce((w,k)=>W[k.l]>W[w]?k.l:w,'v');
+    const extra=B?Math.round((x.m/B-1)*100):0;
+    return '<details'+(i===0?' open':'')+'><summary><i class="dot '+worst+'"></i><div><div class="st">'+x.t+'</div><div class="ss">'+x.s+'</div></div><div class="amt"><b>'+f(x.m)+'</b><span>por mes · '+(extra>0?'+'+extra+'% sobre el monto':'sin cargas')+'</span></div></summary><div class="body">'
+    +'<table>'+x.rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+f(r[1])+'</td></tr>').join('')+'<tr class="tot"><td>Costo mensual</td><td>'+f(x.m)+'</td></tr><tr><td>Costo anual</td><td>'+f(x.m*12)+'</td></tr></table>'
+    +x.notes.map(t=>'<div class="note">'+t+'</div>').join('')
+    +'<h3>Riesgos</h3><ul>'+x.risks.map(k=>'<li><i class="dot '+k.l+'"></i><div>'+k.t+'<span class="ref">'+k.ref+'</span></div></li>').join('')+'</ul>'
+    +'<h3>A favor</h3><ul class="pro">'+x.pros.map(p=>'<li><div>'+p+'</div></li>').join('')+'</ul></div></details>';
+  }).join('');
+}
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',calc));
+calc();
+</script>
+</body>
+</html>
